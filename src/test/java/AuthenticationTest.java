@@ -1,9 +1,7 @@
+import org.junit.Test;
 
-
-import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Unit tests for the Authentication class.
@@ -60,11 +58,11 @@ public class AuthenticationTest {
 
         // Test an existing username
         boolean result1 = Authentication.toTestCheckUserNameExists("username2", userDatabase);
-        assertTrue(result1, "The username 'username2' should exist in the database.");
+        assertTrue("The username 'username2' should exist in the database.", result1);
 
         // Test a non-existing username
         boolean result2 = Authentication.toTestCheckUserNameExists("username4", userDatabase);
-        assertFalse(result2, "The username 'username4' should not exist in the database.");
+        assertFalse("The username 'username4' should not exist in the database.", result2);
     }
 
 }

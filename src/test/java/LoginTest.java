@@ -1,6 +1,6 @@
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.Assert.*;
 
 /**
  * Unit tests for the Login class.
@@ -21,17 +21,17 @@ public class LoginTest {
 
         // Test for correct username and password
         boolean result1 = Login.toTestLogInUser("username2", "password2", userDatabase);
-        assertTrue(result1, "Login should succeed for a valid username and password.");
+        assertTrue("Login should succeed for a valid username and password.", result1);
         assertEquals("Welcome Jane Smith, it is great to see you.", Login.getStatus());
 
         // Test for incorrect username
         boolean result2 = Login.toTestLogInUser("username4", "password1", userDatabase);
-        assertFalse(result2, "Login should fail for an incorrect username.");
+        assertFalse("Login should fail for an incorrect username.", result2);
         assertEquals("Username or password incorrect, please try again or sign up if you do not have an account already.", Login.getStatus());
 
         // Test for incorrect password
         boolean result3 = Login.toTestLogInUser("username3", "password4", userDatabase);
-        assertFalse(result3, "Login should fail for an incorrect password.");
+        assertFalse("Login should fail for an incorrect password.", result3);
         assertEquals("Username or password incorrect, please try again or sign up if you do not have an account already.", Login.getStatus());
     }
 
