@@ -3,7 +3,7 @@
     <option name="MAIN_CLASS_NAME" value="Main" />
     <module name="MyKanbanBoard" />
     <method v="2">
-      <option name="Make" enabled="true" />
+      <option name="MakeProject" enabled="true" />
     </method>
   </configuration>
 </component>
