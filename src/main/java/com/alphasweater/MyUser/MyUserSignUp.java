@@ -1,3 +1,7 @@
+package com.alphasweater.MyUser;
+
+import com.alphasweater.Authentication;
+
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -5,7 +9,7 @@ import java.io.IOException;
 /**
  * The SignUp class handles user registration.
  */
-public class SignUp {
+public class MyUserSignUp {
     private static boolean isRegistered;
     // These are error messages that will be returned if input is invalid
     private static final String INVALID_USERNAME_MESSAGE = "Invalid Username. The username must contain an underscore (_) and be no more than 5 characters long.";
@@ -39,7 +43,7 @@ public class SignUp {
             return error;
         } else {
             // Write username and password to file if input is valid
-            try (BufferedWriter writer = new BufferedWriter(new FileWriter(Database.getFileName(), true))) {
+            try (BufferedWriter writer = new BufferedWriter(new FileWriter(MyUserDAO.getFileName(), true))) {
                 writer.write("\n" + newUserName + "||" + newPassWord + "||" + newFirstName + "||" + newLastName);
                 // Return welcome message if registration is successful
                 isRegistered = true;

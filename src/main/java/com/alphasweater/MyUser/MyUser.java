@@ -1,8 +1,9 @@
+package com.alphasweater.MyUser;
 
 /**
  * Represents a user in the system.
  */
-public class User {
+public class MyUser {
     private int userID;
     private String userFirstName;
     private String userLastName;
@@ -12,7 +13,7 @@ public class User {
     /**
      * Represents the currently logged-in user.
      */
-    public static User currentUser;
+    public static MyUser currentUser;
 
     /**
      * Constructs a User object with the provided information.
@@ -23,7 +24,7 @@ public class User {
      * @param userUsername  The username of the user.
      * @param userPassword  The password of the user.
      */
-    public User(int userID, String userFirstName, String userLastName, String userUsername, String userPassword) {
+    public MyUser(int userID, String userFirstName, String userLastName, String userUsername, String userPassword) {
         // Initialize the user object with provided values
         this.userID = userID;
         this.userFirstName = userFirstName;

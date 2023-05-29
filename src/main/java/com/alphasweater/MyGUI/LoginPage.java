@@ -1,3 +1,6 @@
+package com.alphasweater.MyGUI;
+
+import com.alphasweater.MyUser.MyUserLogin;
 import com.intellij.uiDesigner.core.GridConstraints;
 import com.intellij.uiDesigner.core.GridLayoutManager;
 import com.intellij.uiDesigner.core.Spacer;
@@ -44,7 +47,7 @@ public class LoginPage {
             String inPassword = String.valueOf(edtPassword.getPassword());
 
             // Attempt to log in the user using the entered credentials
-            if (Login.logInUser(inUsername, inPassword)) {
+            if (MyUserLogin.logInUser(inUsername, inPassword)) {
                 // If login is successful, close the login page and open the home page
                 login.dispose();
                 HomePage.createHomePage();
@@ -55,7 +58,7 @@ public class LoginPage {
             edtPassword.setText("");
 
             // Display the login status message
-            lblStatus.setText(Login.getStatus());
+            lblStatus.setText(MyUserLogin.getStatus());
             lblStatus.setVisible(true);
         });
 

@@ -1,10 +1,13 @@
-/**
+package com.alphasweater;
+/*
  * Author: Chad Fairlie
  * Student Number: ST10269509
  */
 
+import com.alphasweater.MyGUI.LoginPage;
+
 /**
- * The Main class is the entry point of the application.
+ * The com.alphasweater.Main class is the entry point of the application.
  */
 public class Main {
 

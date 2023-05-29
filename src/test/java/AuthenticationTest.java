@@ -1,3 +1,4 @@
+import com.alphasweater.Authentication;
 import org.junit.Test;
 
 import static org.junit.Assert.assertFalse;

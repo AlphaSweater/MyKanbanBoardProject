@@ -1,7 +1,9 @@
+package com.alphasweater.MyUser;
+
 /**
  * The Login class provides methods for user login functionality.
  */
-public class Login {
+public class MyUserLogin {
     private static String status;
 
     // Constants for error messages
@@ -25,7 +27,7 @@ public class Login {
      */
     public static boolean logInUser(String tryUserName, String tryPassWord) {
         // Get the user database from the Database class
-        String[][] userDatabase = Database.getUserDatabase();
+        String[][] userDatabase = MyUserDAO.getUserDatabase();
 
         // Iterate through each user in the database
         for (int i = 1; i < userDatabase.length; i++) {
@@ -34,8 +36,8 @@ public class Login {
 
             // If the username and password match, set the current user and welcome message
             if (testUserName.equals(tryUserName) && testPassWord.equals(tryPassWord)) {
-                User.currentUser = new User(i, userDatabase[i][2], userDatabase[i][3], userDatabase[i][0], userDatabase[i][1]);
-                status = "Welcome " + User.currentUser.getUserFirstName() + " " + User.currentUser.getUserLastName() + ", it is great to see you.";
+                MyUser.currentUser = new MyUser(i, userDatabase[i][2], userDatabase[i][3], userDatabase[i][0], userDatabase[i][1]);
+                status = "Welcome " + MyUser.currentUser.getUserFirstName() + " " + MyUser.currentUser.getUserLastName() + ", it is great to see you.";
 
                 return true;
             }
@@ -65,8 +67,8 @@ public class Login {
             // If the username and password match, set the current user and welcome message
             if (testUserName.equals(tryUserName) && testPassWord.equals(tryPassWord)) {
                 // User object called currentUser is created here and can now be called from anywhere in the program.
-                User.currentUser = new User(j, userDatabase[j][2], userDatabase[j][3], userDatabase[j][0], userDatabase[j][1]);
-                status = "Welcome " + User.currentUser.getUserFirstName() + " " + User.currentUser.getUserLastName() + ", it is great to see you.";
+                MyUser.currentUser = new MyUser(j, userDatabase[j][2], userDatabase[j][3], userDatabase[j][0], userDatabase[j][1]);
+                status = "Welcome " + MyUser.currentUser.getUserFirstName() + " " + MyUser.currentUser.getUserLastName() + ", it is great to see you.";
                 return true;
             }
         }

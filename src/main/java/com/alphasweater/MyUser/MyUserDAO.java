@@ -1,3 +1,5 @@
+package com.alphasweater.MyUser;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -5,7 +7,7 @@ import java.io.IOException;
 /**
  * The Database class provides methods for reading and accessing the user database file.
  */
-public class Database {
+public class MyUserDAO {
     // The name of the file containing the user database
     private static final String FILE_NAME = "src/main/resources/usersDatabase.txt";
     // A 2D array to store the contents of the user database

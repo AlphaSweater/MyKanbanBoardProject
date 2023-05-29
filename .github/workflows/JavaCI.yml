@@ -1,0 +1,41 @@
+name: Java CI
+
+on:
+  push:
+  workflow_dispatch:
+  pull_request:
+
+jobs:
+  build-test:
+    name: Build & Test
+
+    permissions:
+      id-token: write
+      contents: read
+      checks: write
+
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'adopt'
+
+      - name: Build
+        run: mvn --batch-mode -DskipTests package
+
+      - name: Test
+        run: mvn --batch-mode -Dmaven.test.failure.ignore=true test
+
+      - name: Report
+        uses: dorny/test-reporter@v1
+        if: always()
+        with:
+          name: Test Report
+          path: target/surefire-reports/*.xml
+          reporter: java-junit
+          fail-on-error: true
