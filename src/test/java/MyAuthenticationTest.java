@@ -1,4 +1,4 @@
-import com.alphasweater.Authentication;
+import com.alphasweater.MyUtil.MyAuthentication;
 import org.junit.Test;
 
 import static org.junit.Assert.assertFalse;
@@ -7,7 +7,7 @@ import static org.junit.Assert.assertTrue;
 /**
  * Unit tests for the Authentication class.
  */
-public class AuthenticationTest {
+public class MyAuthenticationTest {
 
     /**
      * Tests the checkUserName method.
@@ -15,13 +15,13 @@ public class AuthenticationTest {
     @Test
     public void testCheckUserName() {
         // Test a valid username containing an underscore and no more than 5 characters
-        assertTrue(Authentication.checkUserName("kyl_1"));
+        assertTrue(MyAuthentication.checkUserName("kyl_1"));
 
         // Test an invalid username containing no underscore
-        assertFalse(Authentication.checkUserName("Kyl12"));
+        assertFalse(MyAuthentication.checkUserName("Kyl12"));
 
         // Test an invalid username longer than the maximum allowed length
-        assertFalse(Authentication.checkUserName("test_user_longer_than_max"));
+        assertFalse(MyAuthentication.checkUserName("test_user_longer_than_max"));
     }
 
     /**
@@ -30,19 +30,19 @@ public class AuthenticationTest {
     @Test
     public void testCheckPasswordComplexity() {
         // Test a valid password containing a capital letter, a number, a special character, and at least 8 characters
-        assertTrue(Authentication.checkPasswordComplexity("Abc123#_"));
+        assertTrue(MyAuthentication.checkPasswordComplexity("Abc123#_"));
 
         // Test an invalid password without a capital letter
-        assertFalse(Authentication.checkPasswordComplexity("abc123#_"));
+        assertFalse(MyAuthentication.checkPasswordComplexity("abc123#_"));
 
         // Test an invalid password without a number
-        assertFalse(Authentication.checkPasswordComplexity("ABCdef#_"));
+        assertFalse(MyAuthentication.checkPasswordComplexity("ABCdef#_"));
 
         // Test an invalid password without a special character
-        assertFalse(Authentication.checkPasswordComplexity("Abc12345"));
+        assertFalse(MyAuthentication.checkPasswordComplexity("Abc12345"));
 
         // Test an invalid password that is too short
-        assertFalse(Authentication.checkPasswordComplexity("Abcdef#"));
+        assertFalse(MyAuthentication.checkPasswordComplexity("Abcdef#"));
     }
 
     /**
@@ -58,11 +58,11 @@ public class AuthenticationTest {
         };
 
         // Test an existing username
-        boolean result1 = Authentication.toTestCheckUserNameExists("username2", userDatabase);
+        boolean result1 = MyAuthentication.toTestCheckUserNameExists("username2", userDatabase);
         assertTrue("The username 'username2' should exist in the database.", result1);
 
         // Test a non-existing username
-        boolean result2 = Authentication.toTestCheckUserNameExists("username4", userDatabase);
+        boolean result2 = MyAuthentication.toTestCheckUserNameExists("username4", userDatabase);
         assertFalse("The username 'username4' should not exist in the database.", result2);
     }
 

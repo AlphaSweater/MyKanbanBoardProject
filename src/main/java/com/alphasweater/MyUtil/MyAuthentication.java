@@ -1,11 +1,11 @@
-package com.alphasweater;
+package com.alphasweater.MyUtil;
 
 import com.alphasweater.MyUser.MyUserDAO;
 
 /**
  * The Authentication class provides methods for username and password validation.
  */
-public class Authentication {
+public class MyAuthentication {
 
     // Define special characters that are required in a strong password
     private static final String SPECIAL_CHARS = "~!@#$%^&*+-/.,\\{}[]();:?<>=\"'`_";

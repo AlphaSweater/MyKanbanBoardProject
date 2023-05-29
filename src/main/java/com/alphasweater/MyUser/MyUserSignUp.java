@@ -1,6 +1,6 @@
 package com.alphasweater.MyUser;
 
-import com.alphasweater.Authentication;
+import com.alphasweater.MyUtil.MyAuthentication;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
@@ -65,17 +65,17 @@ public class MyUserSignUp {
      */
     private static String checkInputValidity(String userName, String passWord) {
         // Check username validity
-        if (!Authentication.checkUserName(userName)) {
+        if (!MyAuthentication.checkUserName(userName)) {
             return INVALID_USERNAME_MESSAGE;
         }
 
         // Check password validity
-        if (!Authentication.checkPasswordComplexity(passWord)) {
+        if (!MyAuthentication.checkPasswordComplexity(passWord)) {
             return INVALID_PASSWORD_MESSAGE;
         }
 
         // Check is username already exists
-        if (Authentication.checkUserNameExists(userName)) {
+        if (MyAuthentication.checkUserNameExists(userName)) {
             return USERNAME_EXISTS_MESSAGE;
         }
 
@@ -111,18 +111,18 @@ public class MyUserSignUp {
 
     private static String toTestCheckInputValidity(String userName, String passWord, String[][] userDatabase) {
         // Check username validity
-        if (!Authentication.checkUserName(userName)) {
+        if (!MyAuthentication.checkUserName(userName)) {
             // Return error message for invalid username
             return INVALID_USERNAME_MESSAGE;
         }
 
         // Check password validity
-        if (!Authentication.checkPasswordComplexity(passWord)) {
+        if (!MyAuthentication.checkPasswordComplexity(passWord)) {
             // Return error message for invalid password
             return INVALID_PASSWORD_MESSAGE;
         }
 
-        if (Authentication.toTestCheckUserNameExists(userName, userDatabase)) {
+        if (MyAuthentication.toTestCheckUserNameExists(userName, userDatabase)) {
             // Return error message if username already exists in the user database
             return USERNAME_EXISTS_MESSAGE;
         }
