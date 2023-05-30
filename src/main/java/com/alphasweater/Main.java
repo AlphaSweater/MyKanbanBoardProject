@@ -1,8 +1,8 @@
 package com.alphasweater;
-/*
- * Author: Chad Fairlie
- * Student Number: ST10269509
- */
+/* Author: Chad Fairlie
+*  Pseudonym: AlphaSweater
+*  Student Number: ST********
+---------------------------------------------------------------------------------------------------------------------*/
 
 import com.alphasweater.MyGUI.LoginPage;
 

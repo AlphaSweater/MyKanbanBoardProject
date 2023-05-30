@@ -1,4 +1,8 @@
 package com.alphasweater.MyGUI;
+/* Author: Chad Fairlie
+*  Pseudonym: AlphaSweater
+*  Student Number: ST********
+---------------------------------------------------------------------------------------------------------------------*/
 
 import com.alphasweater.MyUser.MyUserLogin;
 import com.intellij.uiDesigner.core.GridConstraints;

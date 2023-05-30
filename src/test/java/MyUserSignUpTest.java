@@ -1,3 +1,8 @@
+/* Author: Chad Fairlie
+*  Pseudonym: AlphaSweater
+*  Student Number: ST********
+---------------------------------------------------------------------------------------------------------------------*/
+
 import com.alphasweater.MyUser.MyUserSignUp;
 import org.junit.Test;
 

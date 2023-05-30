@@ -1,4 +1,8 @@
 package com.alphasweater.MyUser;
+/* Author: Chad Fairlie
+*  Pseudonym: AlphaSweater
+*  Student Number: ST********
+---------------------------------------------------------------------------------------------------------------------*/
 
 import java.io.BufferedReader;
 import java.io.FileReader;

@@ -1,4 +1,8 @@
 package com.alphasweater.MyUser;
+/* Author: Chad Fairlie
+*  Pseudonym: AlphaSweater
+*  Student Number: ST********
+---------------------------------------------------------------------------------------------------------------------*/
 
 /**
  * The Login class provides methods for user login functionality.

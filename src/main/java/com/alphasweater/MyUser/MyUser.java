@@ -1,4 +1,8 @@
 package com.alphasweater.MyUser;
+/* Author: Chad Fairlie
+*  Pseudonym: AlphaSweater
+*  Student Number: ST********
+---------------------------------------------------------------------------------------------------------------------*/
 
 /**
  * Represents a user in the system.
