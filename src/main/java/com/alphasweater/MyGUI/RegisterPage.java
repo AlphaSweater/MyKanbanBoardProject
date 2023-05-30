@@ -4,6 +4,7 @@ package com.alphasweater.MyGUI;
 *  Student Number: ST********
 ---------------------------------------------------------------------------------------------------------------------*/
 
+import com.alphasweater.MyUser.MyUserDAO;
 import com.alphasweater.MyUser.MyUserSignUp;
 import com.intellij.uiDesigner.core.GridConstraints;
 import com.intellij.uiDesigner.core.GridLayoutManager;
@@ -54,7 +55,7 @@ public class RegisterPage {
             String inPassword = String.valueOf(edtPassword.getPassword());
 
             // Call the registerUser method and display the returned message in a dialog
-            JOptionPane.showMessageDialog(null, MyUserSignUp.registerUser(inUsername, inPassword, inFirstname, inLastname));
+            JOptionPane.showMessageDialog(null, MyUserSignUp.registerUser(false, inUsername, inPassword, inFirstname, inLastname, MyUserDAO.getUserDatabase()));
 
             // Clear the input fields
             edtUsername.setText("");

@@ -32,9 +32,7 @@ public class MyAuthentication {
      * @param inUsername the username to check
      * @return true if the username exists, false otherwise
      */
-    public static boolean checkUserNameExists(String inUsername) {
-
-        String[][] userDatabase = MyUserDAO.getUserDatabase();
+    public static boolean checkUserNameExists(String inUsername, String[][] userDatabase) {
 
         // Iterate through each user in the database
         for (int i = 1; i < userDatabase.length; i++) {

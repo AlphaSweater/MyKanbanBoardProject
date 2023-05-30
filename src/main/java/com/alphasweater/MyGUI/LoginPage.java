@@ -4,6 +4,7 @@ package com.alphasweater.MyGUI;
 *  Student Number: ST********
 ---------------------------------------------------------------------------------------------------------------------*/
 
+import com.alphasweater.MyUser.MyUserDAO;
 import com.alphasweater.MyUser.MyUserLogin;
 import com.intellij.uiDesigner.core.GridConstraints;
 import com.intellij.uiDesigner.core.GridLayoutManager;
@@ -50,8 +51,11 @@ public class LoginPage {
             String inUsername = edtUsername.getText();
             String inPassword = String.valueOf(edtPassword.getPassword());
 
+            // Get the user database from the Database class
+            String[][] userDatabase = MyUserDAO.getUserDatabase();
+
             // Attempt to log in the user using the entered credentials
-            if (MyUserLogin.logInUser(inUsername, inPassword)) {
+            if (MyUserLogin.logInUser(inUsername, inPassword, userDatabase)) {
                 // If login is successful, close the login page and open the home page
                 login.dispose();
                 HomePage.createHomePage();

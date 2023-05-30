@@ -38,24 +38,30 @@ public class MyUserSignUp {
      * @param newLastName  The new user's last name.
      * @return A welcome message if registration is successful, an error message otherwise.
      */
-    public static String registerUser(String newUserName, String newPassWord, String newFirstName, String newLastName) {
+    public static String registerUser(Boolean isTest, String newUserName, String newPassWord, String newFirstName, String newLastName, String[][] userDatabase ) {
         // Check if input is valid
-        String error = checkInputValidity(newUserName, newPassWord);
+        String error = checkInputValidity(newUserName, newPassWord, userDatabase);
         if (error != null) {
             // Return error message if input is invalid
             isRegistered = false;
             return error;
         } else {
-            // Write username and password to file if input is valid
-            try (BufferedWriter writer = new BufferedWriter(new FileWriter(MyUserDAO.getFileName(), true))) {
-                writer.write("\n" + newUserName + "||" + newPassWord + "||" + newFirstName + "||" + newLastName);
+            if (!isTest){
+                // Write username and password to file if input is valid
+                try (BufferedWriter writer = new BufferedWriter(new FileWriter(MyUserDAO.getFileName(), true))) {
+                    writer.write("\n" + newUserName + "||" + newPassWord + "||" + newFirstName + "||" + newLastName);
+                    // Return welcome message if registration is successful
+                    isRegistered = true;
+                    return "Welcome " + newFirstName + " " + newLastName + ", it is great to have you join us.";
+                } catch (IOException ex) {
+                    // Provide a user-friendly error message if an error occurs while writing to the file
+                    isRegistered = false;
+                    return "An error occurred while registering. Please try again later.";
+                }
+            }else {
                 // Return welcome message if registration is successful
                 isRegistered = true;
                 return "Welcome " + newFirstName + " " + newLastName + ", it is great to have you join us.";
-            } catch (IOException ex) {
-                // Provide user-friendly error message if an error occurs while writing to the file
-                isRegistered = false;
-                return "An error occurred while registering. Please try again later.";
             }
         }
     }
@@ -67,7 +73,7 @@ public class MyUserSignUp {
      * @param passWord The password to check.
      * @return An error message if input is invalid, null otherwise.
      */
-    private static String checkInputValidity(String userName, String passWord) {
+    private static String checkInputValidity(String userName, String passWord, String[][] userDatabase) {
         // Check username validity
         if (!MyAuthentication.checkUserName(userName)) {
             return INVALID_USERNAME_MESSAGE;
@@ -79,55 +85,7 @@ public class MyUserSignUp {
         }
 
         // Check is username already exists
-        if (MyAuthentication.checkUserNameExists(userName)) {
-            return USERNAME_EXISTS_MESSAGE;
-        }
-
-        // Input is valid
-        return null;
-    }
-
-    /**
-     * This method is a copy of the registerUser method, but with the code that writes to the file commented out.
-     * It is used for testing so that the file is not written to each time the method is tested.
-     *
-     * @param newUserName   The new user's username.
-     * @param newPassWord   The new user's password.
-     * @param newFirstName  The new user's first name.
-     * @param newLastName   The new user's last name.
-     * @param userDatabase  The database containing existing users' information.
-     * @return A welcome message if registration is successful (without writing to file), an error message otherwise.
-     */
-    public static String toTestRegisterUser(String newUserName, String newPassWord, String newFirstName, String newLastName,String[][] userDatabase) {
-        // Check if input is valid
-        String error = toTestCheckInputValidity(newUserName, newPassWord,userDatabase);
-        if (error != null) {
-            // Return error message if input is invalid
-            isRegistered = false;
-            return error;
-        } else {
-            // Return a welcome message if registration is successful (without writing to file)
-            isRegistered = true;
-            return "Welcome " + newFirstName + " " + newLastName + ", it is great to have you join us.";
-        }
-
-    }
-
-    private static String toTestCheckInputValidity(String userName, String passWord, String[][] userDatabase) {
-        // Check username validity
-        if (!MyAuthentication.checkUserName(userName)) {
-            // Return error message for invalid username
-            return INVALID_USERNAME_MESSAGE;
-        }
-
-        // Check password validity
-        if (!MyAuthentication.checkPasswordComplexity(passWord)) {
-            // Return error message for invalid password
-            return INVALID_PASSWORD_MESSAGE;
-        }
-
-        if (MyAuthentication.toTestCheckUserNameExists(userName, userDatabase)) {
-            // Return error message if username already exists in the user database
+        if (MyAuthentication.checkUserNameExists(userName,userDatabase)) {
             return USERNAME_EXISTS_MESSAGE;
         }
 

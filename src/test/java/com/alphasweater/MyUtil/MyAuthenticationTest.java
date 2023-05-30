@@ -1,9 +1,8 @@
-/* Author: Chad Fairlie
+package com.alphasweater.MyUtil;/* Author: Chad Fairlie
 *  Pseudonym: AlphaSweater
 *  Student Number: ST********
 ---------------------------------------------------------------------------------------------------------------------*/
 
-import com.alphasweater.MyUtil.MyAuthentication;
 import org.junit.Test;
 
 import static org.junit.Assert.assertFalse;
@@ -70,7 +69,6 @@ public class MyAuthenticationTest {
         boolean result2 = MyAuthentication.toTestCheckUserNameExists("username4", userDatabase);
         assertFalse("The username 'username4' should not exist in the database.", result2);
     }
-
 }
 //--------------------------------------------------------------------------------------------------------------------//
 //--------------------------------------------------------EOF---------------------------------------------------------//
