@@ -9,7 +9,7 @@ import com.alphasweater.MyGUI.LoginPage;
 /**
  * The com.alphasweater.Main class is the entry point of the application.
  */
-public class Main {
+public class MainClass {
 
     /**
      * The main method that starts the application by creating the login page.

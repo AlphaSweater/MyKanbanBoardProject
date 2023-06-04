@@ -11,7 +11,7 @@ import java.io.IOException;
 /**
  * The Database class provides methods for reading and accessing the user database file.
  */
-public class MyUserDAO {
+public class MyUserDAOClass {
     // The name of the file containing the user database
     private static final String FILE_NAME = "src/main/resources/usersDatabase.txt";
     // A 2D array to store the contents of the user database

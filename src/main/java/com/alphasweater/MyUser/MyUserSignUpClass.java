@@ -4,7 +4,7 @@ package com.alphasweater.MyUser;
 *  Student Number: ST********
 ---------------------------------------------------------------------------------------------------------------------*/
 
-import com.alphasweater.MyUtil.MyAuthentication;
+import com.alphasweater.MyUtil.MyAuthenticationClass;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
@@ -13,7 +13,7 @@ import java.io.IOException;
 /**
  * The SignUp class handles user registration.
  */
-public class MyUserSignUp {
+public class MyUserSignUpClass {
     private static boolean isRegistered;
     // These are error messages that will be returned if input is invalid
     private static final String INVALID_USERNAME_MESSAGE = "Invalid Username. The username must contain an underscore (_) and be no more than 5 characters long.";
@@ -48,7 +48,7 @@ public class MyUserSignUp {
         } else {
             if (!isTest){
                 // Write username and password to file if input is valid
-                try (BufferedWriter writer = new BufferedWriter(new FileWriter(MyUserDAO.getFileName(), true))) {
+                try (BufferedWriter writer = new BufferedWriter(new FileWriter(MyUserDAOClass.getFileName(), true))) {
                     writer.write("\n" + newUserName + "||" + newPassWord + "||" + newFirstName + "||" + newLastName);
                     // Return welcome message if registration is successful
                     isRegistered = true;
@@ -75,17 +75,17 @@ public class MyUserSignUp {
      */
     private static String checkInputValidity(String userName, String passWord, String[][] userDatabase) {
         // Check username validity
-        if (!MyAuthentication.checkUserName(userName)) {
+        if (!MyAuthenticationClass.checkUserName(userName)) {
             return INVALID_USERNAME_MESSAGE;
         }
 
         // Check password validity
-        if (!MyAuthentication.checkPasswordComplexity(passWord)) {
+        if (!MyAuthenticationClass.checkPasswordComplexity(passWord)) {
             return INVALID_PASSWORD_MESSAGE;
         }
 
         // Check is username already exists
-        if (MyAuthentication.checkUserNameExists(userName,userDatabase)) {
+        if (MyAuthenticationClass.checkUserNameExists(userName,userDatabase)) {
             return USERNAME_EXISTS_MESSAGE;
         }
 

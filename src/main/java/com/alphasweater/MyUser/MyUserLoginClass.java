@@ -7,7 +7,7 @@ package com.alphasweater.MyUser;
 /**
  * The Login class provides methods for user login functionality.
  */
-public class MyUserLogin {
+public class MyUserLoginClass {
     private static String status;
 
     // Constants for error messages
@@ -38,8 +38,8 @@ public class MyUserLogin {
 
             // If the username and password match, set the current user and welcome message
             if (testUserName.equals(tryUserName) && testPassWord.equals(tryPassWord)) {
-                MyUser.currentUser = new MyUser(i, userDatabase[i][2], userDatabase[i][3], userDatabase[i][0], userDatabase[i][1]);
-                status = "Welcome " + MyUser.currentUser.getUserFirstName() + " " + MyUser.currentUser.getUserLastName() + ", it is great to see you.";
+                MyUserClass.currentUser = new MyUserClass(i, userDatabase[i][2], userDatabase[i][3], userDatabase[i][0], userDatabase[i][1]);
+                status = "Welcome " + MyUserClass.currentUser.getUserFirstName() + " " + MyUserClass.currentUser.getUserLastName() + ", it is great to see you.";
 
                 return true;
             }

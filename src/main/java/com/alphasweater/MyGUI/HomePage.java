@@ -4,7 +4,7 @@ package com.alphasweater.MyGUI;
 *  Student Number: ST********
 ---------------------------------------------------------------------------------------------------------------------*/
 
-import com.alphasweater.MyUser.MyUser;
+import com.alphasweater.MyUser.MyUserClass;
 import com.intellij.uiDesigner.core.GridConstraints;
 import com.intellij.uiDesigner.core.GridLayoutManager;
 import com.intellij.uiDesigner.core.Spacer;
@@ -36,7 +36,7 @@ public class HomePage {
 
     public HomePage() {
         // Set the welcome label text to display the user's first and last name
-        lblWelcome.setText("Welcome " + MyUser.currentUser.getUserFirstName() + " " + MyUser.currentUser.getUserLastName() + ", it is great to see you.");
+        lblWelcome.setText("Welcome " + MyUserClass.currentUser.getUserFirstName() + " " + MyUserClass.currentUser.getUserLastName() + ", it is great to see you.");
 
         // Add an ActionListener to the log-out button
         btnLogOut.addActionListener(actionEvent -> {
