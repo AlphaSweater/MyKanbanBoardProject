@@ -54,10 +54,12 @@
         <properties>
           <background color="-13618375"/>
           <caretColor color="-1250067"/>
+          <focusCycleRoot value="false"/>
           <font name="Arial Rounded MT Bold" size="16" style="0"/>
           <foreground color="-1250067"/>
           <margin top="2" left="6" bottom="2" right="6"/>
           <nextFocusableComponent value="c3658"/>
+          <requestFocusEnabled value="true"/>
         </properties>
       </component>
       <vspacer id="15b2f">
@@ -139,7 +141,7 @@
         <properties>
           <background color="-9270822"/>
           <focusPainted value="true"/>
-          <focusable value="false"/>
+          <focusable value="true"/>
           <font name="Arial Rounded MT Bold" size="24" style="0"/>
           <foreground color="-1250067"/>
           <hideActionText value="false"/>

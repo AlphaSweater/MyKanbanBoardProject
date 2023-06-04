@@ -58,7 +58,8 @@ public class LoginPage {
             if (MyUserLoginClass.logInUser(inUsername, inPassword, userDatabase)) {
                 // If login is successful, close the login page and open the home page
                 login.dispose();
-                HomePage.createHomePage();
+                HomePage home = new HomePage();
+                home.createHomePage();
             }
 
             // Clear the input fields
@@ -116,10 +117,12 @@ public class LoginPage {
         edtUsername = new JTextField();
         edtUsername.setBackground(new Color(-13618375));
         edtUsername.setCaretColor(new Color(-1250067));
+        edtUsername.setFocusCycleRoot(false);
         Font edtUsernameFont = this.$$$getFont$$$("Arial Rounded MT Bold", Font.PLAIN, 16, edtUsername.getFont());
         if (edtUsernameFont != null) edtUsername.setFont(edtUsernameFont);
         edtUsername.setForeground(new Color(-1250067));
         edtUsername.setMargin(new Insets(2, 6, 2, 6));
+        edtUsername.setRequestFocusEnabled(true);
         panel.add(edtUsername, new GridConstraints(2, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, 40), null, 0, false));
         final Spacer spacer1 = new Spacer();
         panel.add(spacer1, new GridConstraints(3, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_VERTICAL, 1, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, null, new Dimension(-1, 40), null, 0, false));
@@ -154,7 +157,7 @@ public class LoginPage {
         btnLogin = new JButton();
         btnLogin.setBackground(new Color(-9270822));
         btnLogin.setFocusPainted(true);
-        btnLogin.setFocusable(false);
+        btnLogin.setFocusable(true);
         Font btnLoginFont = this.$$$getFont$$$("Arial Rounded MT Bold", Font.PLAIN, 24, btnLogin.getFont());
         if (btnLoginFont != null) btnLogin.setFont(btnLoginFont);
         btnLogin.setForeground(new Color(-1250067));
