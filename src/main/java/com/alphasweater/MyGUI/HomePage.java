@@ -4,8 +4,6 @@ package com.alphasweater.MyGUI;
 *  Student Number: ST********
 ---------------------------------------------------------------------------------------------------------------------*/
 
-import com.alphasweater.MyTasks.MyTasksClass;
-import com.alphasweater.MyUser.MyUserClass;
 import com.alphasweater.MyUtil.WordWrapRenderer;
 
 import com.intellij.uiDesigner.core.GridConstraints;
@@ -43,12 +41,12 @@ public class HomePage {
 
     public HomePage() {
         $$$setupUI$$$();
-        MyGUIWorkers homeWorker = new MyGUIWorkers();
+        MyHomeWorkerClass homeWorker = new MyHomeWorkerClass();
         lblTitle.setText(homeWorker.getTitleHeading());
         // Set the welcome label text to display the user's first and last name
         lblWelcome.setText(homeWorker.getWelcomeMessage());
 
-        homeWorker.beginHomeHere();
+        homeWorker.beginHere();
 
         // Add an ActionListener to the log-out button
         btnLogOut.addActionListener(actionEvent -> {

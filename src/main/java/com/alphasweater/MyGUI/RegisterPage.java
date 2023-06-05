@@ -5,7 +5,7 @@ package com.alphasweater.MyGUI;
 ---------------------------------------------------------------------------------------------------------------------*/
 
 import com.alphasweater.MyUser.MyUserDAOClass;
-import com.alphasweater.MyUser.MyUserSignUpClass;
+import com.alphasweater.MyUser.MyUserRegisterClass;
 import com.intellij.uiDesigner.core.GridConstraints;
 import com.intellij.uiDesigner.core.GridLayoutManager;
 import com.intellij.uiDesigner.core.Spacer;
@@ -48,21 +48,19 @@ public class RegisterPage {
 
     public RegisterPage() {
         btnRegister.addActionListener(e -> {
-            // Get the input values from the fields
-            String inFirstname = edtFirstname.getText();
-            String inLastname = edtLastname.getText();
-            String inUsername = edtUsername.getText();
-            String inPassword = String.valueOf(edtPassword.getPassword());
+            // Get the input values from the fields and pass them through the worker constructor
+            MyRegisterWorker registerWorker = new MyRegisterWorker(edtFirstname.getText(),edtLastname.getText(),edtUsername.getText(),String.valueOf(edtPassword.getPassword()));
+
 
             // Call the registerUser method and display the returned message in a dialog
-            JOptionPane.showMessageDialog(null, MyUserSignUpClass.registerUser(false, inUsername, inPassword, inFirstname, inLastname, MyUserDAOClass.getUserDatabase()));
+            JOptionPane.showMessageDialog(null, MyUserRegisterClass.registerUser(false, registerWorker.getInUsername(), registerWorker.getInPassword(), registerWorker.getInFirstname(), registerWorker.getInLastname(), MyUserDAOClass.getUserDatabase()));
 
             // Clear the input fields
             edtUsername.setText("");
             edtPassword.setText("");
 
             // If registration is successful, close the register page and display the login page
-            if (MyUserSignUpClass.getIsRegistered()) {
+            if (MyUserRegisterClass.getIsRegistered()) {
                 register.dispose();
                 LoginPage.createLoginPage();
             }

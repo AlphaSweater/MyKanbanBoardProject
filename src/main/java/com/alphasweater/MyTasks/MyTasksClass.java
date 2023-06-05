@@ -76,10 +76,10 @@ public class MyTasksClass {
     }
 
     private String createTaskID(){
-        String taskNameLastTwoLetters = this.getTaskName().substring(this.getTaskName().length() - 2);
+        String taskNameFirstTwoLetters = this.getTaskName().substring(0,2);
         String taskNum = String.valueOf(this.getTaskNumber());
         String taskDevLastThreeLetters = this.getTaskDevInfo().substring(this.getTaskDevInfo().length() - 3);
-        return (taskNameLastTwoLetters + ":" + taskNum + ":" + taskDevLastThreeLetters).toUpperCase();
+        return (taskNameFirstTwoLetters + ":" + taskNum + ":" + taskDevLastThreeLetters).toUpperCase();
     }
 
     public String printTaskDetails(){

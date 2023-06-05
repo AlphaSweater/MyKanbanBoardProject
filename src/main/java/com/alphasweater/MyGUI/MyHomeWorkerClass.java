@@ -7,19 +7,17 @@ import com.alphasweater.MyUser.MyUserClass;
 *  Pseudonym: AlphaSweater
 *  Student Number: ST********
 ---------------------------------------------------------------------------------------------------------------------*/
-public class MyGUIWorkers {
+public class MyHomeWorkerClass {
     public String getTitleHeading() {
         return "Welcome to EasyKanban.";
     }
-
     public String getWelcomeMessage() {
         return "Hi " + MyUserClass.currentUser.getUserFirstName() + " "
                 + MyUserClass.currentUser.getUserLastName() + ", it is great to see you.";
     }
-
-    public MyGUIWorkers() {
+    public MyHomeWorkerClass() {
     }
-    public void beginHomeHere() {
+    public void beginHere() {
 
         MyTasksClass.setNumOfTasks(10);
     }

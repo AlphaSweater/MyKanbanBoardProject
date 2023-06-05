@@ -13,7 +13,7 @@ import java.io.IOException;
 /**
  * The SignUp class handles user registration.
  */
-public class MyUserSignUpClass {
+public class MyUserRegisterClass {
     private static boolean isRegistered;
     // These are error messages that will be returned if input is invalid
     private static final String INVALID_USERNAME_MESSAGE = "Invalid Username. The username must contain an underscore (_) and be no more than 5 characters long.";
