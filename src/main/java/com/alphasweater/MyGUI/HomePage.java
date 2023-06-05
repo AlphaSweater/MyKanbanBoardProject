@@ -41,6 +41,24 @@ public class HomePage {
 
     private static final JFrame homeFrame = new JFrame("Home Page");
 
+    public HomePage() {
+        $$$setupUI$$$();
+        MyGUIWorkers homeWorker = new MyGUIWorkers();
+        lblTitle.setText(homeWorker.getTitleHeading());
+        // Set the welcome label text to display the user's first and last name
+        lblWelcome.setText(homeWorker.getWelcomeMessage());
+
+        homeWorker.beginHomeHere();
+
+        // Add an ActionListener to the log-out button
+        btnLogOut.addActionListener(actionEvent -> {
+            // Dispose the home JFrame
+            homeFrame.dispose();
+            // Create and display the login page
+            LoginPage.createLoginPage();
+        });
+    }
+
     /**
      * Summons the home page GUI.
      */
@@ -51,22 +69,6 @@ public class HomePage {
         homeFrame.pack();
         homeFrame.setLocationRelativeTo(null);
         homeFrame.setVisible(true);
-    }
-
-    public HomePage() {
-        $$$setupUI$$$();
-        lblTitle.setText("Welcome to EasyKanban.");
-        // Set the welcome label text to display the user's first and last name
-        lblWelcome.setText("Hi " + MyUserClass.currentUser.getUserFirstName() + " " + MyUserClass.currentUser.getUserLastName() + ", it is great to see you.");
-        MyTasksClass.setNumOfTasks(10);
-
-        // Add an ActionListener to the log-out button
-        btnLogOut.addActionListener(actionEvent -> {
-            // Dispose the home JFrame
-            homeFrame.dispose();
-            // Create and display the login page
-            LoginPage.createLoginPage();
-        });
     }
 
     private void createUIComponents() {
