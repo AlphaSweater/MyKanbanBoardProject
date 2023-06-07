@@ -4,8 +4,6 @@ package com.alphasweater.MyGUI;
 *  Student Number: ST********
 ---------------------------------------------------------------------------------------------------------------------*/
 
-import com.alphasweater.MyUser.MyUserDAOClass;
-import com.alphasweater.MyUser.MyUserLoginClass;
 import com.intellij.uiDesigner.core.GridConstraints;
 import com.intellij.uiDesigner.core.GridLayoutManager;
 import com.intellij.uiDesigner.core.Spacer;
@@ -19,18 +17,20 @@ import java.util.Locale;
 
 public class LoginPage {
     // User interface components
-    private JLabel lblTitle;
-    private JPanel north;
-    private JLabel lblSubTitle;
-    private JTextField edtUsername;
-    private JPasswordField edtPassword;
-    private JLabel lblUsername;
-    private JLabel lblPassword;
-    private JButton btnLogin;
-    private JButton btnGoToRegister;
-    public JPanel panel;
-    private JTextArea lblStatus;
-    private static final JFrame login = new JFrame("Login");
+    protected JLabel lblTitle;
+    protected JPanel north;
+    protected JLabel lblSubTitle;
+    protected JTextField edtUsername;
+    protected JPasswordField edtPassword;
+    protected JLabel lblUsername;
+    protected JLabel lblPassword;
+    protected JButton btnLogin;
+    protected JButton btnGoToRegister;
+    protected JPanel panel;
+    protected JTextArea lblStatus;
+    protected static final JFrame login = new JFrame("Login");
+
+    private final MyLoginWorker loginWorker;
 
     /**
      * Summons the login page GUI.
@@ -45,37 +45,17 @@ public class LoginPage {
     }
 
     public LoginPage() {
+        // create loginWorker object to control code.
+            loginWorker = new MyLoginWorker(this);
+
         // Event listener for the login button
-        btnLogin.addActionListener(e -> {
-            // Retrieve the entered username and password
-            String inUsername = edtUsername.getText();
-            String inPassword = String.valueOf(edtPassword.getPassword());
-
-            // Get the user database from the Database class
-            String[][] userDatabase = MyUserDAOClass.getUserDatabase();
-
-            // Attempt to log in the user using the entered credentials
-            if (MyUserLoginClass.logInUser(inUsername, inPassword, userDatabase)) {
-                // If login is successful, close the login page and open the home page
-                login.dispose();
-                HomePage home = new HomePage();
-                home.createHomePage();
-            }
-
-            // Clear the input fields
-            edtUsername.setText("");
-            edtPassword.setText("");
-
-            // Display the login status message
-            lblStatus.setText(MyUserLoginClass.getStatus());
-            lblStatus.setVisible(true);
+        btnLogin.addActionListener(click -> {
+            loginWorker.beginLoginHere();
         });
 
         // Event listener for the "Go to Register" button
-        btnGoToRegister.addActionListener(e -> {
-            // Close the login page and open the registration page
-            login.dispose();
-            RegisterPage.createRegisterPage();
+        btnGoToRegister.addActionListener(click -> {
+            loginWorker.swapPageRegister();
         });
     }
 

@@ -10,6 +10,7 @@ import javax.swing.*;
 *  Student Number: ST********
 ---------------------------------------------------------------------------------------------------------------------*/
 public class MyRegisterWorker {
+    private RegisterPage registerPage;
     private String inFirstname;
     public String getInFirstname() {
         return inFirstname;
@@ -26,21 +27,32 @@ public class MyRegisterWorker {
     public String getInUsername() {
         return inUsername;
     }
+
+
     // Default constructor
     public MyRegisterWorker() {
     }
-
-    public MyRegisterWorker(String inFirstname, String inLastname, String inUsername, String inPassword) {
-        this.inFirstname = inFirstname;
-        this.inLastname = inLastname;
-        this.inUsername = inUsername;
-        this.inPassword = inPassword;
+    public MyRegisterWorker(RegisterPage registerPage) {
+        this.registerPage = registerPage;
     }
 
-    public void beginHere(){
+    protected void beginRegistrationHere(){
         // Call the registerUser method and display the returned message in a dialog
         JOptionPane.showMessageDialog(null, MyUserRegisterClass.registerUser(false, this.getInUsername(), this.getInPassword(), this.getInFirstname(), this.getInLastname(), MyUserDAOClass.getUserDatabase()));
 
+        // Clear the input fields
+        registerPage.edtUsername.setText("");
+        registerPage.edtPassword.setText("");
+
+        // If registration is successful, close the register page and display the login page
+        if (MyUserRegisterClass.getIsRegistered()) {
+            swapPageLogin();
+        }
+    }
+    protected void swapPageLogin(){
+        // Close the register page and display the login page
+        RegisterPage.register.dispose();
+        LoginPage.createLoginPage();
     }
 }
 //--------------------------------------------------------------------------------------------------------------------//

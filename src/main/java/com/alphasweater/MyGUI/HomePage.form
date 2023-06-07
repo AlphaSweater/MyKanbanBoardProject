@@ -97,18 +97,22 @@
               </hspacer>
               <scrollpane id="cdfdb" binding="tblScrollPane" custom-create="true">
                 <constraints>
-                  <grid row="1" column="1" row-span="1" col-span="3" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+                  <grid row="1" column="1" row-span="1" col-span="3" vsize-policy="7" hsize-policy="0" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
-                  <horizontalScrollBarPolicy value="32"/>
-                  <verticalScrollBarPolicy value="22"/>
+                  <background color="-13223617"/>
+                  <foreground color="-1250067"/>
+                  <horizontalScrollBarPolicy value="31"/>
+                  <verticalScrollBarPolicy value="20"/>
                 </properties>
-                <border type="none"/>
+                <border type="empty"/>
                 <children>
                   <component id="6096e" class="javax.swing.JTable" binding="tblTasksList" custom-create="true">
                     <constraints/>
                     <properties>
+                      <background color="-13223617"/>
                       <fillsViewportHeight value="true"/>
+                      <foreground color="-1250067"/>
                       <rowHeight value="60"/>
                     </properties>
                   </component>

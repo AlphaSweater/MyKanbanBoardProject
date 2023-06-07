@@ -4,8 +4,6 @@ package com.alphasweater.MyGUI;
 *  Student Number: ST********
 ---------------------------------------------------------------------------------------------------------------------*/
 
-import com.alphasweater.MyUser.MyUserDAOClass;
-import com.alphasweater.MyUser.MyUserRegisterClass;
 import com.intellij.uiDesigner.core.GridConstraints;
 import com.intellij.uiDesigner.core.GridLayoutManager;
 import com.intellij.uiDesigner.core.Spacer;
@@ -18,22 +16,24 @@ import java.awt.*;
 import java.util.Locale;
 
 public class RegisterPage {
-    private JLabel lblTitle;
-    private JPanel north;
-    private JLabel lblSubTitle;
-    private JTextField edtUsername;
-    private JPasswordField edtPassword;
-    private JLabel lblFirstname;
-    private JLabel lblPassword;
-    private JButton btnRegister;
-    private JButton btnGoToLogin;
-    public JPanel panel;
-    private JTextArea lblStatus;
-    private JLabel lblLastname;
-    private JLabel lblUsername;
-    private JTextField edtLastname;
-    private JTextField edtFirstname;
-    private static final JFrame register = new JFrame("Register");
+    protected JLabel lblTitle;
+    protected JPanel north;
+    protected JLabel lblSubTitle;
+    protected JTextField edtUsername;
+    protected JPasswordField edtPassword;
+    protected JLabel lblFirstname;
+    protected JLabel lblPassword;
+    protected JButton btnRegister;
+    protected JButton btnGoToLogin;
+    protected JPanel panel;
+    protected JTextArea lblStatus;
+    protected JLabel lblLastname;
+    protected JLabel lblUsername;
+    protected JTextField edtLastname;
+    protected JTextField edtFirstname;
+    protected static final JFrame register = new JFrame("Register");
+
+    private final MyRegisterWorker registerWorker;
 
     /**
      * Summons the registration page GUI.
@@ -47,29 +47,19 @@ public class RegisterPage {
     }
 
     public RegisterPage() {
-        btnRegister.addActionListener(e -> {
-            // Get the input values from the fields and pass them through the worker constructor
-            MyRegisterWorker registerWorker = new MyRegisterWorker(edtFirstname.getText(), edtLastname.getText(), edtUsername.getText(), String.valueOf(edtPassword.getPassword()));
+        // create registerWorker object to control code.
+        registerWorker = new MyRegisterWorker(this);
 
-
-            // Call the registerUser method and display the returned message in a dialog
-            JOptionPane.showMessageDialog(null, MyUserRegisterClass.registerUser(false, registerWorker.getInUsername(), registerWorker.getInPassword(), registerWorker.getInFirstname(), registerWorker.getInLastname(), MyUserDAOClass.getUserDatabase()));
-
-            // Clear the input fields
-            edtUsername.setText("");
-            edtPassword.setText("");
-
-            // If registration is successful, close the register page and display the login page
-            if (MyUserRegisterClass.getIsRegistered()) {
-                register.dispose();
-                LoginPage.createLoginPage();
-            }
+        // Event listener for the register button
+        btnRegister.addActionListener(click -> {
+            // Calls the worker method to begin the registration
+            registerWorker.beginRegistrationHere();
         });
 
-        btnGoToLogin.addActionListener(e -> {
-            // Close the register page and display the login page
-            register.dispose();
-            LoginPage.createLoginPage();
+        // Event listener for the "Go to Login" button
+        btnGoToLogin.addActionListener(click -> {
+            // Calls the worker method to swap the page
+            registerWorker.swapPageLogin();
         });
     }
 
