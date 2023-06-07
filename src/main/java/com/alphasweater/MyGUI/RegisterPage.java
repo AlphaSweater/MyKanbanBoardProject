@@ -49,7 +49,7 @@ public class RegisterPage {
     public RegisterPage() {
         btnRegister.addActionListener(e -> {
             // Get the input values from the fields and pass them through the worker constructor
-            MyRegisterWorker registerWorker = new MyRegisterWorker(edtFirstname.getText(),edtLastname.getText(),edtUsername.getText(),String.valueOf(edtPassword.getPassword()));
+            MyRegisterWorker registerWorker = new MyRegisterWorker(edtFirstname.getText(), edtLastname.getText(), edtUsername.getText(), String.valueOf(edtPassword.getPassword()));
 
 
             // Call the registerUser method and display the returned message in a dialog

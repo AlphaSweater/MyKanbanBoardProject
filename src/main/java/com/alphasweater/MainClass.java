@@ -4,11 +4,10 @@ package com.alphasweater;
 *  Student Number: ST********
 ---------------------------------------------------------------------------------------------------------------------*/
 
-import com.alphasweater.MyGUI.HomePage;
 import com.alphasweater.MyGUI.LoginPage;
 
 /**
- * The com.alphasweater.Main class is the entry point of the application.
+ * The com.alphasweater.MainClass class is the entry point of the application.
  */
 public class MainClass {
 
