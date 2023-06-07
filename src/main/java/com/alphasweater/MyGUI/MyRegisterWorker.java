@@ -7,10 +7,9 @@ import javax.swing.*;
 
 /* Author: Chad Fairlie
 *  Pseudonym: AlphaSweater
-*  Student Number: ST********
+*  Student Number: ST10269509
 ---------------------------------------------------------------------------------------------------------------------*/
 public class MyRegisterWorker {
-    private RegisterPage registerPage;
     private String inFirstname;
     public String getInFirstname() {
         return inFirstname;
@@ -28,6 +27,8 @@ public class MyRegisterWorker {
         return inUsername;
     }
 
+    // RegisterPage object to allow the editing of GUI components
+    private RegisterPage registerPage;
 
     // Default constructor
     public MyRegisterWorker() {
@@ -51,7 +52,7 @@ public class MyRegisterWorker {
     }
     protected void swapPageLogin(){
         // Close the register page and display the login page
-        RegisterPage.register.dispose();
+        RegisterPage.registerFrame.dispose();
         LoginPage.createLoginPage();
     }
 }

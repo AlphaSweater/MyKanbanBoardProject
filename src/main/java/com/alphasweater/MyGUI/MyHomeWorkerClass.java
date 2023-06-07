@@ -27,6 +27,8 @@ public class MyHomeWorkerClass {
             {"Doing", "John Doe", 8, "Task 2", "This is task 2", "JD:34:ABC", 4},
             // Add more rows if needed
     };
+
+    // HomePage object to allow the editing of GUI components
     private HomePage homePage;
 
     // Default Constructor
@@ -46,16 +48,17 @@ public class MyHomeWorkerClass {
         return "Welcome to EasyKanban.";
     }
     public String getWelcomeMessage() {
-        return "Hi " + MyUserClass.currentUser.getUserFirstName() + " "
-                + MyUserClass.currentUser.getUserLastName() + ", it is great to see you.";
+        return "Hi " + MyUserClass.getCurrentUser().getUserFirstName() + " "
+                + MyUserClass.getCurrentUser().getUserLastName() + ", it is great to see you.";
     }
 
     protected void logOut(){
-        // Close the home page and open the login page
+        // Dispose the home JFrame
         HomePage.homeFrame.dispose();
+        // Create and display the login page
         LoginPage.createLoginPage();
 
-
+        MyUserClass.setCurrentUser(null);
     }
 
     // Modifying Custom UI components

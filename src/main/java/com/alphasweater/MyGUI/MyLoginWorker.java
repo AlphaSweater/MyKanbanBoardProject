@@ -8,7 +8,9 @@ import com.alphasweater.MyUser.MyUserLoginClass;
 *  Student Number: ST********
 ---------------------------------------------------------------------------------------------------------------------*/
 public class MyLoginWorker {
+    // LoginPage object to allow the editing of GUI components
     private LoginPage loginPage;
+
     public MyLoginWorker() {
     }
     public MyLoginWorker(LoginPage loginPage){
@@ -26,10 +28,7 @@ public class MyLoginWorker {
         // Attempt to log in the user using the entered credentials
         if (MyUserLoginClass.logInUser(inUsername, inPassword, userDatabase)) {
             // If login is successful, close the login page and open the home page
-            LoginPage.login.dispose();
-            // TODO: Check this out again afterwards
-            HomePage home = new HomePage();
-            home.createHomePage();
+            swapPageHome();
         }
 
         // Clear the input fields
@@ -40,9 +39,13 @@ public class MyLoginWorker {
         loginPage.lblStatus.setText(MyUserLoginClass.getStatus());
         loginPage.lblStatus.setVisible(true);
     }
+    protected void swapPageHome(){
+        LoginPage.loginFrame.dispose();
+        HomePage.createHomePage();
+    }
     protected void swapPageRegister(){
         // Close the login page and open the registration page
-        LoginPage.login.dispose();
+        LoginPage.loginFrame.dispose();
         RegisterPage.createRegisterPage();
     }
 }

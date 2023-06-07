@@ -17,7 +17,14 @@ public class MyUserClass {
     /**
      * Represents the currently logged-in user.
      */
-    public static MyUserClass currentUser = null;
+    private static MyUserClass currentUser = null;
+
+    public static MyUserClass getCurrentUser() {
+        return currentUser;
+    }
+    public static void setCurrentUser(MyUserClass currentUser) {
+        MyUserClass.currentUser = currentUser;
+    }
 
     /**
      * Constructs a User object with the provided information.

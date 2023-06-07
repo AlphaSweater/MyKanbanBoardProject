@@ -38,8 +38,9 @@ public class MyUserLoginClass {
 
             // If the username and password match, set the current user and welcome message
             if (testUserName.equals(tryUserName) && testPassWord.equals(tryPassWord)) {
-                MyUserClass.currentUser = new MyUserClass(i, userDatabase[i][2], userDatabase[i][3], userDatabase[i][0], userDatabase[i][1]);
-                status = "Welcome " + MyUserClass.currentUser.getUserFirstName() + " " + MyUserClass.currentUser.getUserLastName() + ", it is great to see you.";
+                MyUserClass loggedInUser = new MyUserClass(i, userDatabase[i][2], userDatabase[i][3], userDatabase[i][0], userDatabase[i][1]);
+                MyUserClass.setCurrentUser(loggedInUser);
+                status = "Welcome " + MyUserClass.getCurrentUser().getUserFirstName() + " " + MyUserClass.getCurrentUser().getUserLastName() + ", it is great to see you.";
 
                 return true;
             }

@@ -16,6 +16,7 @@ import java.awt.*;
 import java.util.Locale;
 
 public class RegisterPage {
+
     protected JLabel lblTitle;
     protected JPanel north;
     protected JLabel lblSubTitle;
@@ -31,7 +32,7 @@ public class RegisterPage {
     protected JLabel lblUsername;
     protected JTextField edtLastname;
     protected JTextField edtFirstname;
-    protected static final JFrame register = new JFrame("Register");
+    protected static final JFrame registerFrame = new JFrame("Register");
 
     private final MyRegisterWorker registerWorker;
 
@@ -39,11 +40,11 @@ public class RegisterPage {
      * Summons the registration page GUI.
      */
     public static void createRegisterPage() {
-        register.setContentPane(new RegisterPage().panel);
-        register.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        register.pack();
-        register.setLocationRelativeTo(null);
-        register.setVisible(true);
+        registerFrame.setContentPane(new RegisterPage().panel);
+        registerFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        registerFrame.pack();
+        registerFrame.setLocationRelativeTo(null);
+        registerFrame.setVisible(true);
     }
 
     public RegisterPage() {

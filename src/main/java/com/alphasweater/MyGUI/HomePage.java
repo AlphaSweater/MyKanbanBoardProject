@@ -53,17 +53,14 @@ public class HomePage {
 
     public HomePage() {
         homeWorker = new MyHomeWorkerClass(this);
+        $$$setupUI$$$();
+
         homeWorker.beginHere();
 
         // Add an ActionListener to the log-out button
         btnLogOut.addActionListener(click -> {
-            // Dispose the home JFrame
-            homeFrame.dispose();
-            // Create and display the login page
-            LoginPage.createLoginPage();
+            homeWorker.logOut();
         });
-
-        $$$setupUI$$$();
     }
 
     private void createUIComponents() {

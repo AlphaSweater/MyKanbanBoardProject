@@ -28,7 +28,7 @@ public class LoginPage {
     protected JButton btnGoToRegister;
     protected JPanel panel;
     protected JTextArea lblStatus;
-    protected static final JFrame login = new JFrame("Login");
+    protected static final JFrame loginFrame = new JFrame("Login");
 
     private final MyLoginWorker loginWorker;
 
@@ -37,11 +37,11 @@ public class LoginPage {
      */
     public static void createLoginPage() {
         // Create and display the login page window
-        login.setContentPane(new LoginPage().panel);
-        login.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        login.pack();
-        login.setLocationRelativeTo(null);
-        login.setVisible(true);
+        loginFrame.setContentPane(new LoginPage().panel);
+        loginFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        loginFrame.pack();
+        loginFrame.setLocationRelativeTo(null);
+        loginFrame.setVisible(true);
     }
 
     public LoginPage() {
