@@ -5,51 +5,67 @@ package com.alphasweater.MyTasks;
 *  Student Number: ST********
 ---------------------------------------------------------------------------------------------------------------------*/
 public class MyTasksClass {
-    private String taskName;
 
+    private String taskName;
     public String getTaskName() {
         return taskName;
     }
 
     private int taskNumber;
-
     public int getTaskNumber() {
         return taskNumber;
     }
 
     private String taskDescription;
-    private String taskDevInfo;
+    public String getTaskDescription() {
+        return taskDescription;
+    }
 
+    private String taskDevInfo;
     public String getTaskDevInfo() {
         return taskDevInfo;
     }
 
     private int taskDuration;
+    public int getTaskDuration() {
+        return taskDuration;
+    }
+
     private String taskID;
+    public String getTaskID() {
+        return taskID;
+    }
+
     private String taskStatus;
+    public String getTaskStatus() {
+        return taskStatus;
+    }
+
+    private static int totalHours = 0;
+    public static int getTotalHours() {
+        return totalHours;
+    }
 
     private static int numOfTasks = 0;
-
     public static int getNumOfTasks() {
         return numOfTasks;
     }
-
     public static void setNumOfTasks(int numOfTasks) {
         MyTasksClass.numOfTasks = numOfTasks;
     }
 
     private static MyTasksClass currentTask;
-
     public static MyTasksClass getCurrentTask() {
         return currentTask;
     }
-
     public static void setCurrentTask(MyTasksClass currentTask) {
         MyTasksClass.currentTask = currentTask;
     }
 
     private static MyTasksClass[] listOfTasks = new MyTasksClass[numOfTasks];
-
+    public static MyTasksClass[] getListOfTasks() {
+        return listOfTasks;
+    }
     public static void addTaskToList(MyTasksClass addTask){
         listOfTasks[addTask.taskNumber] = addTask;
     }
@@ -66,6 +82,7 @@ public class MyTasksClass {
         this.taskDuration = taskDuration;
         this.taskStatus = taskStatus;
         this.taskID = this.createTaskID();
+        totalHours += taskDuration;
     }
 
     public boolean checkTaskDescription(String taskDescription) {

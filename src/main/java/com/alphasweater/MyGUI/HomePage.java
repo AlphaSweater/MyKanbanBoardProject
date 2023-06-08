@@ -10,17 +10,16 @@ import com.intellij.uiDesigner.core.GridConstraints;
 import com.intellij.uiDesigner.core.GridLayoutManager;
 import com.intellij.uiDesigner.core.Spacer;
 
+import javax.swing.*;
+import javax.swing.border.TitledBorder;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumnModel;
-import javax.swing.JButton;
-import javax.swing.JComponent;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
 import javax.swing.plaf.FontUIResource;
 import javax.swing.text.StyleContext;
 
+
+import java.awt.Component;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -28,34 +27,17 @@ import java.awt.Insets;
 import java.util.Locale;
 
 public class HomePage {
-    private JPanel panel;
-    private JButton btnLogOut;
-    private JLabel lblWelcome;
-    private JLabel lblTitle;
-    private JPanel JPanelCentre;
-    private JButton button1;
-    private JTable tblTasksList;
-    private JScrollPane tblScrollPane;
+    protected JPanel panel;
+    protected JButton btnLogOut;
+    protected JLabel lblWelcome;
+    protected JLabel lblTitle;
+    protected JPanel JPanelCentre;
+    protected JButton button1;
+    protected JTable tblTasksList;
+    protected JScrollPane tblScrollPane;
 
-    private static final JFrame homeFrame = new JFrame("Home Page");
-
-    public HomePage() {
-        $$$setupUI$$$();
-        MyHomeWorkerClass homeWorker = new MyHomeWorkerClass();
-        lblTitle.setText(homeWorker.getTitleHeading());
-        // Set the welcome label text to display the user's first and last name
-        lblWelcome.setText(homeWorker.getWelcomeMessage());
-
-        homeWorker.beginHere();
-
-        // Add an ActionListener to the log-out button
-        btnLogOut.addActionListener(actionEvent -> {
-            // Dispose the home JFrame
-            homeFrame.dispose();
-            // Create and display the login page
-            LoginPage.createLoginPage();
-        });
-    }
+    protected static final JFrame homeFrame = new JFrame("Home Page");
+    private final MyHomeWorkerClass homeWorker;
 
     /**
      * Summons the home page GUI.
@@ -69,35 +51,20 @@ public class HomePage {
         homeFrame.setVisible(true);
     }
 
+    public HomePage() {
+        homeWorker = new MyHomeWorkerClass(this);
+        $$$setupUI$$$();
+
+        homeWorker.beginHere();
+
+        // Add an ActionListener to the log-out button
+        btnLogOut.addActionListener(click -> {
+            homeWorker.logOut();
+        });
+    }
+
     private void createUIComponents() {
-        String[] columnNames = {"Task Status", "Developer Details", "Task Number", "Task Name", "Task Description", "Task ID", "Duration"};
-        Object[][] data = {
-                // Replace this sample data with your actual data
-                {"To Do", "Chad Fairlie", 5, "Test Task", "This is a test task and it is going on very long here", "CH:12:ddc", 6},
-                {"In Progress", "John Doe", 8, "Task 2", "This is task 2", "JD:34:abc", 4},
-                // Add more rows if needed
-        };
-        tblTasksList = new JTable(data, columnNames) {
-            @Override
-            public boolean getScrollableTracksViewportWidth() {
-                return getPreferredSize().width < getParent().getWidth();
-            }
-        };
-        tblTasksList.setAutoResizeMode(JTable.AUTO_RESIZE_OFF); // Set auto resize mode to OFF
-
-        tblTasksList = new JTable(data, columnNames);
-        tblScrollPane = new JScrollPane(tblTasksList);
-        tblScrollPane.setViewportView(tblTasksList);
-
-        TableColumnModel columnModel = tblTasksList.getColumnModel();
-        columnModel.getColumn(0).setPreferredWidth(107); // Set width for the first column
-        columnModel.getColumn(1).setPreferredWidth(200); // Set width for the second column
-        columnModel.getColumn(2).setPreferredWidth(80); // Set width for the third column
-        columnModel.getColumn(3).setPreferredWidth(300); // Set width for the fourth column
-        columnModel.getColumn(4).setCellRenderer(new WordWrapRenderer()); // Set width for the fifth column
-        columnModel.getColumn(4).setPreferredWidth(400); // Set width for the fourth column
-        columnModel.getColumn(5).setPreferredWidth(120); // Set width for the sixth column
-        columnModel.getColumn(6).setPreferredWidth(100); // Set width for the seventh column
+        homeWorker.editComponents();
     }
 
 
@@ -150,10 +117,15 @@ public class HomePage {
         JPanelCentre.add(spacer1, new GridConstraints(0, 4, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, 1, null, new Dimension(30, -1), null, 0, false));
         final Spacer spacer2 = new Spacer();
         JPanelCentre.add(spacer2, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, 1, null, new Dimension(30, -1), null, 0, false));
-        tblScrollPane.setHorizontalScrollBarPolicy(32);
-        tblScrollPane.setVerticalScrollBarPolicy(22);
-        JPanelCentre.add(tblScrollPane, new GridConstraints(1, 1, 1, 3, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW, null, null, null, 0, false));
+        tblScrollPane.setBackground(new Color(-13223617));
+        tblScrollPane.setForeground(new Color(-1250067));
+        tblScrollPane.setHorizontalScrollBarPolicy(31);
+        tblScrollPane.setVerticalScrollBarPolicy(20);
+        JPanelCentre.add(tblScrollPane, new GridConstraints(1, 1, 1, 3, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW, null, null, null, 0, false));
+        tblScrollPane.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEmptyBorder(), null, TitledBorder.DEFAULT_JUSTIFICATION, TitledBorder.DEFAULT_POSITION, null, null));
+        tblTasksList.setBackground(new Color(-13223617));
         tblTasksList.setFillsViewportHeight(true);
+        tblTasksList.setForeground(new Color(-1250067));
         tblTasksList.setRowHeight(60);
         tblScrollPane.setViewportView(tblTasksList);
     }
