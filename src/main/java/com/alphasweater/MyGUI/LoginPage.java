@@ -30,7 +30,7 @@ public class LoginPage {
     protected JTextArea lblStatus;
     protected static final JFrame loginFrame = new JFrame("Login");
 
-    private final MyLoginWorker loginWorker;
+    private final MyLoginWorkerClass loginWorker;
 
     /**
      * Summons the login page GUI.
@@ -46,7 +46,7 @@ public class LoginPage {
 
     public LoginPage() {
         // create loginWorker object to control code.
-            loginWorker = new MyLoginWorker(this);
+            loginWorker = new MyLoginWorkerClass(this);
 
         // Event listener for the login button
         btnLogin.addActionListener(click -> {

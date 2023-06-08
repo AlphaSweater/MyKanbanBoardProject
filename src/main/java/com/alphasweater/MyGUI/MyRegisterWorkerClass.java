@@ -9,7 +9,7 @@ import javax.swing.*;
 *  Pseudonym: AlphaSweater
 *  Student Number: ST10269509
 ---------------------------------------------------------------------------------------------------------------------*/
-public class MyRegisterWorker {
+public class MyRegisterWorkerClass {
     private String inFirstname;
     public String getInFirstname() {
         return inFirstname;
@@ -31,9 +31,9 @@ public class MyRegisterWorker {
     private RegisterPage registerPage;
 
     // Default constructor
-    public MyRegisterWorker() {
+    public MyRegisterWorkerClass() {
     }
-    public MyRegisterWorker(RegisterPage registerPage) {
+    public MyRegisterWorkerClass(RegisterPage registerPage) {
         this.registerPage = registerPage;
     }
 
