@@ -11,6 +11,7 @@ import com.intellij.uiDesigner.core.Spacer;
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
 import javax.swing.plaf.FontUIResource;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.text.StyleContext;
 
 
@@ -23,6 +24,8 @@ import java.awt.event.ActionListener;
 import java.util.Locale;
 
 public class HomePage {
+
+    DefaultTableModel model = new DefaultTableModel();
     protected JPanel panel;
     protected JButton btnLogOut;
     protected JLabel lblWelcome;
@@ -128,6 +131,7 @@ public class HomePage {
         tblScrollPane.setBackground(new Color(-13223617));
         tblScrollPane.setForeground(new Color(-1250067));
         tblScrollPane.setHorizontalScrollBarPolicy(31);
+        tblScrollPane.setOpaque(true);
         tblScrollPane.setVerticalScrollBarPolicy(20);
         JPanelCentre.add(tblScrollPane, new GridConstraints(1, 1, 1, 3, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW, null, null, null, 0, false));
         tblScrollPane.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEmptyBorder(), null, TitledBorder.DEFAULT_JUSTIFICATION, TitledBorder.DEFAULT_POSITION, null, null));
@@ -137,6 +141,7 @@ public class HomePage {
         tblTasksList.setMinimumSize(new Dimension(30, 120));
         tblTasksList.setPreferredSize(new Dimension(150, 120));
         tblTasksList.setRowHeight(60);
+        tblTasksList.setVisible(true);
         tblScrollPane.setViewportView(tblTasksList);
     }
 

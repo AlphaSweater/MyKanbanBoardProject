@@ -16,6 +16,7 @@ import java.awt.Component;
 *  Student Number: ST********
 ---------------------------------------------------------------------------------------------------------------------*/
 public class MyHomeWorkerClass {
+    private boolean tblPopulated = false;
     private final String[] columnNames = {"Task Status", "Developer Details", "Task Number", "Task Name",
             "Task Description", "Task ID", "Duration"};
     private Object[][] data = {
@@ -120,6 +121,8 @@ public class MyHomeWorkerClass {
         }
 
         // Call the method to update the table UI components
+        homePage.model = new DefaultTableModel(data, columnNames);
+        tblPopulated = true;
         editComponents();
     }
 
@@ -136,35 +139,37 @@ public class MyHomeWorkerClass {
 
     // Modifying Custom UI components
     protected void editComponents() {
-        DefaultTableModel model = new DefaultTableModel(data, columnNames);
-        homePage.tblTasksList.setModel(model);
 
-        homePage.tblTasksList.setAutoResizeMode(JTable.AUTO_RESIZE_SUBSEQUENT_COLUMNS); // Set auto resize mode to OFF
+        if (tblPopulated) {
+            homePage.tblTasksList.setModel(homePage.model);
 
-        // Set the cell renderer for each column to center the text
-        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
-        centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
-        centerRenderer.setVerticalAlignment(SwingConstants.TOP);
+            homePage.tblTasksList.setAutoResizeMode(JTable.AUTO_RESIZE_SUBSEQUENT_COLUMNS); // Set auto resize mode to OFF
 
-        TableColumnModel columnModel = homePage.tblTasksList.getColumnModel();
-        for (int i = 0; i < columnModel.getColumnCount(); i++) {
-            columnModel.getColumn(i).setCellRenderer(centerRenderer);
+            // Set the cell renderer for each column to center the text
+            DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+            centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
+            centerRenderer.setVerticalAlignment(SwingConstants.TOP);
+
+            TableColumnModel columnModel = homePage.tblTasksList.getColumnModel();
+            for (int i = 0; i < columnModel.getColumnCount(); i++) {
+                columnModel.getColumn(i).setCellRenderer(centerRenderer);
+            }
+
+            columnModel.getColumn(0).setPreferredWidth(80); // Set width for the first column (Task Status)
+            columnModel.getColumn(1).setPreferredWidth(110); // Set width for the second column (Developer Details)
+            columnModel.getColumn(1).setCellRenderer(new WordWrapRenderer()); // Apply word wrap renderer to the fifth column (Developer Details)
+            columnModel.getColumn(2).setPreferredWidth(70); // Set width for the third column (Task Number)
+            columnModel.getColumn(3).setPreferredWidth(120); // Set width for the fourth column (Task Name)
+            columnModel.getColumn(3).setCellRenderer(new WordWrapRenderer()); // Apply word wrap renderer to the fourth column (Task Name)
+            columnModel.getColumn(4).setPreferredWidth(250); // Set width for the fifth column (Task Description)
+            columnModel.getColumn(4).setCellRenderer(new WordWrapRenderer()); // Apply word wrap renderer to the fifth column (Task Description)
+            columnModel.getColumn(5).setPreferredWidth(70); // Set width for the sixth column (Task ID)
+            columnModel.getColumn(6).setPreferredWidth(60); // Set width for the seventh column (Task Duration)
+
+            homePage.tblScrollPane.setViewportView(homePage.tblTasksList);
+
         }
-
-        columnModel.getColumn(0).setPreferredWidth(80); // Set width for the first column (Task Status)
-        columnModel.getColumn(1).setPreferredWidth(110); // Set width for the second column (Developer Details)
-        columnModel.getColumn(1).setCellRenderer(new WordWrapRenderer()); // Apply word wrap renderer to the fifth column (Developer Details)
-        columnModel.getColumn(2).setPreferredWidth(70); // Set width for the third column (Task Number)
-        columnModel.getColumn(3).setPreferredWidth(120); // Set width for the fourth column (Task Name)
-        columnModel.getColumn(3).setCellRenderer(new WordWrapRenderer()); // Apply word wrap renderer to the fourth column (Task Name)
-        columnModel.getColumn(4).setPreferredWidth(250); // Set width for the fifth column (Task Description)
-        columnModel.getColumn(4).setCellRenderer(new WordWrapRenderer()); // Apply word wrap renderer to the fifth column (Task Description)
-        columnModel.getColumn(5).setPreferredWidth(70); // Set width for the sixth column (Task ID)
-        columnModel.getColumn(6).setPreferredWidth(60); // Set width for the seventh column (Task Duration)
-
-        homePage.tblScrollPane.setViewportView(homePage.tblTasksList);
     }
-
 }
 //--------------------------------------------------------------------------------------------------------------------//
 //--------------------------------------------------------EOF---------------------------------------------------------//
