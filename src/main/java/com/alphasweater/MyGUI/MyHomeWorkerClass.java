@@ -13,7 +13,7 @@ import java.awt.Component;
 
 /* Author: Chad Fairlie
 *  Pseudonym: AlphaSweater
-*  Student Number: ST********
+*  Student Number: ST10269509
 ---------------------------------------------------------------------------------------------------------------------*/
 public class MyHomeWorkerClass {
     private boolean tblPopulated = false;

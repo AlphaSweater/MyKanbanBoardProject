@@ -5,7 +5,7 @@ import com.alphasweater.MyUser.MyUserLoginClass;
 
 /* Author: Chad Fairlie
 *  Pseudonym: AlphaSweater
-*  Student Number: ST********
+*  Student Number: ST10269509
 ---------------------------------------------------------------------------------------------------------------------*/
 public class MyLoginWorkerClass {
     // LoginPage object to allow the editing of GUI components
