@@ -4,12 +4,9 @@ import com.alphasweater.MyTasks.MyTasksClass;
 import com.alphasweater.MyUser.MyUserClass;
 import com.alphasweater.MyUtil.WordWrapRenderer;
 
-import javax.swing.BorderFactory;
-import javax.swing.JComponent;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
-import javax.swing.SwingConstants;
+import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumnModel;
 import java.awt.Component;
@@ -32,27 +29,103 @@ public class MyHomeWorkerClass {
     private HomePage homePage;
 
     // Default Constructor
-    public MyHomeWorkerClass() {
+    protected MyHomeWorkerClass() {
     }
-    public MyHomeWorkerClass(HomePage homePage) {
+
+    protected MyHomeWorkerClass(HomePage homePage) {
         this.homePage = homePage;
     }
-    public void beginHere() {
+
+    protected void beginHere() {
         homePage.lblTitle.setText(getTitleHeading());
         // Set the welcome label text to display the user's first and last name
         homePage.lblWelcome.setText(getWelcomeMessage());
-
-        MyTasksClass.setNumOfTasks(10);
     }
-    public String getTitleHeading() {
+
+    protected String getTitleHeading() {
         return "Welcome to EasyKanban.";
     }
-    public String getWelcomeMessage() {
+
+    protected String getWelcomeMessage() {
         return "Hi " + MyUserClass.getCurrentUser().getUserFirstName() + " "
                 + MyUserClass.getCurrentUser().getUserLastName() + ", it is great to see you.";
     }
 
-    protected void logOut(){
+    protected void beginAddTasks() {
+        int numOfTasks = Integer.parseInt(JOptionPane.showInputDialog("Please enter how many tasks you would like to add"));
+        MyTasksClass.setNumOfTasks(numOfTasks);
+        MyTasksClass checkTask = new MyTasksClass();
+        String[] taskStatusOptions = {"To Do", "Doing", "Done"};
+
+        // Initialize the listOfTasks array with the desired length
+        MyTasksClass[] listOfTasks = new MyTasksClass[numOfTasks];
+
+        for (int i = 0; i < MyTasksClass.getNumOfTasks(); i++) {
+            JOptionPane.showMessageDialog(null, "You are now busy with task " + (i + 1) + ".");
+
+            String taskStatus;
+            int option = JOptionPane.showOptionDialog(null, "Select Task Status:", "Task Status",
+                    0, 3, null, taskStatusOptions, taskStatusOptions[0]);
+            switch (option) {
+                case 0:
+                    taskStatus = taskStatusOptions[0];
+                    break;
+                case 1:
+                    taskStatus = taskStatusOptions[1];
+                    break;
+                case 2:
+                    taskStatus = taskStatusOptions[2];
+                    break;
+                default:
+                    taskStatus = taskStatusOptions[0];
+                    break;
+            }
+            String taskName = JOptionPane.showInputDialog("Please name your task's name.");
+            String taskDescription = JOptionPane.showInputDialog("Please enter a description for your task (50 characters max).");
+            while (!checkTask.checkTaskDescription(taskDescription)) {
+                JOptionPane.showMessageDialog(null, "Task Description exceeded 50 characters, please try again");
+                taskDescription = JOptionPane.showInputDialog("Please enter a description for your task (50 Characters MAX).");
+            }
+            String taskDevInfo = JOptionPane.showInputDialog("Please enter the task developers full name");
+            int taskDuration = Integer.parseInt(JOptionPane.showInputDialog("Please enter the estimated task duration"));
+
+            MyTasksClass newTask = new MyTasksClass(i, taskName, taskDescription, taskDuration, taskStatus, taskDevInfo);
+            listOfTasks[i] = newTask;
+            JOptionPane.showMessageDialog(null, "Your Task has been successfully captured.");
+
+        }
+        // Update the listOfTasks in MyTasksClass
+        MyTasksClass.setListOfTasks(listOfTasks);
+        populateTableData();
+    }
+
+
+    protected void populateTableData() {
+        MyTasksClass[] listOfTasks = MyTasksClass.getListOfTasks();
+
+        int rows = MyTasksClass.getNumOfTasks();    // number of rows in the 2D array
+        int columns = 7; // number of columns in the 2D array
+
+        data = new Object[rows][columns];
+
+        for (int i = 0; i < rows; i++) {
+            MyTasksClass task = listOfTasks[i];
+            data[i][0] = task.getTaskStatus();
+            data[i][1] = task.getTaskDevInfo();
+            data[i][2] = task.getTaskNumber();
+            data[i][3] = task.getTaskName();
+            data[i][4] = task.getTaskDescription();
+            data[i][5] = task.getTaskID();
+            data[i][6] = task.getTaskDuration();
+        }
+
+        // Call the method to update the table UI components
+        editComponents();
+    }
+
+
+
+    protected void logOut() {
         // Dispose the home JFrame
         HomePage.homeFrame.dispose();
         // Create and display the login page
@@ -62,24 +135,11 @@ public class MyHomeWorkerClass {
     }
 
     // Modifying Custom UI components
-    public void editComponents(){
-        homePage.tblTasksList = new JTable(data, columnNames) {
-            @Override
-            public boolean getScrollableTracksViewportWidth() {
-                return getPreferredSize().width < getParent().getWidth();
-            }
-            @Override
-            public Component prepareRenderer(TableCellRenderer renderer, int row, int column) {
-                Component component = super.prepareRenderer(renderer, row, column);
+    protected void editComponents() {
+        DefaultTableModel model = new DefaultTableModel(data, columnNames);
+        homePage.tblTasksList.setModel(model);
 
-                if (component instanceof JComponent) {
-                    ((JComponent) component).setBorder(BorderFactory.createEmptyBorder(0, 5, 0, 5));
-                }
-                return component;
-            }
-        };
-
-        homePage.tblTasksList.setAutoResizeMode(JTable.AUTO_RESIZE_OFF); // Set auto resize mode to OFF
+        homePage.tblTasksList.setAutoResizeMode(JTable.AUTO_RESIZE_SUBSEQUENT_COLUMNS); // Set auto resize mode to OFF
 
         // Set the cell renderer for each column to center the text
         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
@@ -100,12 +160,11 @@ public class MyHomeWorkerClass {
         columnModel.getColumn(4).setPreferredWidth(250); // Set width for the fifth column (Task Description)
         columnModel.getColumn(4).setCellRenderer(new WordWrapRenderer()); // Apply word wrap renderer to the fifth column (Task Description)
         columnModel.getColumn(5).setPreferredWidth(70); // Set width for the sixth column (Task ID)
-        columnModel.getColumn(6).setPreferredWidth(40); // Set width for the seventh column (Task Duration)
+        columnModel.getColumn(6).setPreferredWidth(60); // Set width for the seventh column (Task Duration)
 
-
-        homePage.tblScrollPane = new JScrollPane(homePage.tblTasksList);
         homePage.tblScrollPane.setViewportView(homePage.tblTasksList);
     }
+
 }
 //--------------------------------------------------------------------------------------------------------------------//
 //--------------------------------------------------------EOF---------------------------------------------------------//

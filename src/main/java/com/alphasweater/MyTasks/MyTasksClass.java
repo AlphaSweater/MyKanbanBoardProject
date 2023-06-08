@@ -66,6 +66,10 @@ public class MyTasksClass {
     public static MyTasksClass[] getListOfTasks() {
         return listOfTasks;
     }
+    public static void setListOfTasks(MyTasksClass[] listOfTasks) {
+        MyTasksClass.listOfTasks = listOfTasks;
+    }
+
     public static void addTaskToList(MyTasksClass addTask){
         listOfTasks[addTask.taskNumber] = addTask;
     }

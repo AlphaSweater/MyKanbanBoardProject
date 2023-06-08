@@ -4,26 +4,22 @@ package com.alphasweater.MyGUI;
 *  Student Number: ST********
 ---------------------------------------------------------------------------------------------------------------------*/
 
-import com.alphasweater.MyUtil.WordWrapRenderer;
-
 import com.intellij.uiDesigner.core.GridConstraints;
 import com.intellij.uiDesigner.core.GridLayoutManager;
 import com.intellij.uiDesigner.core.Spacer;
 
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
-import javax.swing.table.DefaultTableCellRenderer;
-import javax.swing.table.TableCellRenderer;
-import javax.swing.table.TableColumnModel;
 import javax.swing.plaf.FontUIResource;
 import javax.swing.text.StyleContext;
 
 
-import java.awt.Component;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.Locale;
 
 public class HomePage {
@@ -32,9 +28,10 @@ public class HomePage {
     protected JLabel lblWelcome;
     protected JLabel lblTitle;
     protected JPanel JPanelCentre;
-    protected JButton button1;
+    protected JButton btnAddTasks;
     protected JTable tblTasksList;
     protected JScrollPane tblScrollPane;
+    private JButton btnShowReport;
 
     protected static final JFrame homeFrame = new JFrame("Home Page");
     private final MyHomeWorkerClass homeWorker;
@@ -61,10 +58,21 @@ public class HomePage {
         btnLogOut.addActionListener(click -> {
             homeWorker.logOut();
         });
+        btnAddTasks.addActionListener(click -> {
+            //TODO: Add Tasks
+            homeWorker.beginAddTasks();
+        });
+        btnShowReport.addActionListener(click -> {
+            //TODO: Show Report
+        });
     }
 
     private void createUIComponents() {
+        tblTasksList = new JTable();
+        tblScrollPane = new JScrollPane();
         homeWorker.editComponents();
+        tblScrollPane.setViewportView(tblTasksList);
+        tblScrollPane.getViewport().setPreferredSize(tblTasksList.getPreferredSize());
     }
 
 
@@ -107,12 +115,12 @@ public class HomePage {
         JPanelCentre.setLayout(new GridLayoutManager(2, 5, new Insets(0, 0, 0, 0), -1, -1));
         JPanelCentre.setBackground(new Color(-13223617));
         panel1.add(JPanelCentre, new GridConstraints(2, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, null, null, null, 0, false));
-        button1 = new JButton();
-        button1.setText("Button");
-        JPanelCentre.add(button1, new GridConstraints(0, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(300, -1), null, 0, false));
-        final JButton button2 = new JButton();
-        button2.setText("Button");
-        JPanelCentre.add(button2, new GridConstraints(0, 3, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(300, -1), null, 0, false));
+        btnAddTasks = new JButton();
+        btnAddTasks.setText("Add Tasks");
+        JPanelCentre.add(btnAddTasks, new GridConstraints(0, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(300, -1), null, 0, false));
+        btnShowReport = new JButton();
+        btnShowReport.setText("Show Report");
+        JPanelCentre.add(btnShowReport, new GridConstraints(0, 3, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(300, -1), null, 0, false));
         final Spacer spacer1 = new Spacer();
         JPanelCentre.add(spacer1, new GridConstraints(0, 4, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, 1, null, new Dimension(30, -1), null, 0, false));
         final Spacer spacer2 = new Spacer();
@@ -126,6 +134,8 @@ public class HomePage {
         tblTasksList.setBackground(new Color(-13223617));
         tblTasksList.setFillsViewportHeight(true);
         tblTasksList.setForeground(new Color(-1250067));
+        tblTasksList.setMinimumSize(new Dimension(30, 120));
+        tblTasksList.setPreferredSize(new Dimension(150, 120));
         tblTasksList.setRowHeight(60);
         tblScrollPane.setViewportView(tblTasksList);
     }
