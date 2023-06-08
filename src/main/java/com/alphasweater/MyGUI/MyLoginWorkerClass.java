@@ -7,13 +7,13 @@ import com.alphasweater.MyUser.MyUserLoginClass;
 *  Pseudonym: AlphaSweater
 *  Student Number: ST********
 ---------------------------------------------------------------------------------------------------------------------*/
-public class MyLoginWorker {
+public class MyLoginWorkerClass {
     // LoginPage object to allow the editing of GUI components
     private LoginPage loginPage;
 
-    public MyLoginWorker() {
+    public MyLoginWorkerClass() {
     }
-    public MyLoginWorker(LoginPage loginPage){
+    public MyLoginWorkerClass(LoginPage loginPage){
         this.loginPage = loginPage;
     }
     protected void beginLoginHere(){

@@ -34,7 +34,7 @@ public class RegisterPage {
     protected JTextField edtFirstname;
     protected static final JFrame registerFrame = new JFrame("Register");
 
-    private final MyRegisterWorker registerWorker;
+    private final MyRegisterWorkerClass registerWorker;
 
     /**
      * Summons the registration page GUI.
@@ -49,7 +49,7 @@ public class RegisterPage {
 
     public RegisterPage() {
         // create registerWorker object to control code.
-        registerWorker = new MyRegisterWorker(this);
+        registerWorker = new MyRegisterWorkerClass(this);
 
         // Event listener for the register button
         btnRegister.addActionListener(click -> {

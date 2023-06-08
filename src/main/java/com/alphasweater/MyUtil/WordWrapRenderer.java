@@ -6,7 +6,7 @@ import javax.swing.table.*;
 
 /*
  * This is a custom class that allows me to wrap the text of my tables' content
- * I found this class on stack overflow at this link below:
+ * I found most of this class on stack overflow at this link below:
  * https://stackoverflow.com/questions/37768335/how-to-word-wrap-inside-a-jtable-row
  */
 
