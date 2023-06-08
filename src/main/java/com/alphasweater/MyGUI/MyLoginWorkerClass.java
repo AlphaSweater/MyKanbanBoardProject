@@ -12,14 +12,17 @@ import javax.swing.*;
 public class MyLoginWorkerClass {
     // LoginPage object to allow the editing of GUI components
     private LoginPage loginPage;
+
     //----------------------------------------------------------------------------------------------------------------//
     // Default Constructor
     public MyLoginWorkerClass() {
     }
-    public MyLoginWorkerClass(LoginPage loginPage){
+
+    public MyLoginWorkerClass(LoginPage loginPage) {
         this.loginPage = loginPage;
     }
     //----------------------------------------------------------------------------------------------------------------//
+
     /**
      * Summons the login page GUI.
      */
@@ -31,8 +34,9 @@ public class MyLoginWorkerClass {
         LoginPage.loginFrame.setLocationRelativeTo(null);
         LoginPage.loginFrame.setVisible(true);
     }
+
     //----------------------------------------------------------------------------------------------------------------//
-    protected void beginLoginHere(){
+    protected void beginLoginHere() {
 
         // Retrieve the entered username and password
         String inUsername = loginPage.edtUsername.getText();
@@ -55,13 +59,15 @@ public class MyLoginWorkerClass {
         loginPage.lblStatus.setText(MyUserLoginClass.getStatus());
         loginPage.lblStatus.setVisible(true);
     }
+
     //----------------------------------------------------------------------------------------------------------------//
-    protected void swapPageHome(){
+    protected void swapPageHome() {
         LoginPage.loginFrame.dispose();
         MyHomeWorkerClass.createHomePage();
     }
+
     //----------------------------------------------------------------------------------------------------------------//
-    protected void swapPageRegister(){
+    protected void swapPageRegister() {
         // Close the login page and open the registration page
         LoginPage.loginFrame.dispose();
         MyRegisterWorkerClass.createRegisterPage();

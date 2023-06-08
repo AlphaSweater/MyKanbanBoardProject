@@ -13,6 +13,7 @@ public class MyUserLoginClass {
     // Constants for error messages
     private static final String ERROR_LOGIN_FAILED = "Username or password incorrect, please try again or sign up if you do not have an account already.";
     //----------------------------------------------------------------------------------------------------------------//
+
     /**
      * Retrieves the login status message.
      *
@@ -22,6 +23,7 @@ public class MyUserLoginClass {
         return status;
     }
     //----------------------------------------------------------------------------------------------------------------//
+
     /**
      * Attempts to log in a user.
      *
@@ -29,7 +31,7 @@ public class MyUserLoginClass {
      * @param tryPassWord The password to log in.
      * @return True if the login is successful, false otherwise.
      */
-    public static boolean logInUser(String tryUserName, String tryPassWord,String[][] userDatabase) {
+    public static boolean logInUser(String tryUserName, String tryPassWord, String[][] userDatabase) {
         // Iterate through each user in the database
         for (int i = 1; i < userDatabase.length; i++) {
             String testUserName = userDatabase[i][0];

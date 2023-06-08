@@ -13,6 +13,7 @@ import static org.junit.Assert.assertTrue;
  */
 public class MyAuthenticationClassTest {
     //----------------------------------------------------------------------------------------------------------------//
+
     /**
      * Tests the checkUserName method.
      */
@@ -28,6 +29,7 @@ public class MyAuthenticationClassTest {
         assertFalse(MyAuthenticationClass.checkUserName("test_user_longer_than_max"));
     }
     //----------------------------------------------------------------------------------------------------------------//
+
     /**
      * Tests the checkPasswordComplexity method.
      */
@@ -50,6 +52,7 @@ public class MyAuthenticationClassTest {
         assertFalse(MyAuthenticationClass.checkPasswordComplexity("Abcdef#"));
     }
     //----------------------------------------------------------------------------------------------------------------//
+
     /**
      * Tests the checkUserNameExists method.
      */

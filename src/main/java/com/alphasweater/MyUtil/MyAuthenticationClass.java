@@ -24,6 +24,7 @@ public class MyAuthenticationClass {
     // Define the maximum length allowed for a username
     private static final int MAX_USERNAME_LENGTH = 5;
     //----------------------------------------------------------------------------------------------------------------//
+
     /**
      * Checks if the username exists in the user database.
      *
@@ -42,6 +43,7 @@ public class MyAuthenticationClass {
         return false;
     }
     //----------------------------------------------------------------------------------------------------------------//
+
     /**
      * Checks if the input username is valid.
      *
@@ -72,6 +74,7 @@ public class MyAuthenticationClass {
         return hasUnderscore && isLengthValid;
     }
     //----------------------------------------------------------------------------------------------------------------//
+
     /**
      * Checks if the input password is strong enough.
      *

@@ -16,18 +16,21 @@ import java.awt.*;
 ---------------------------------------------------------------------------------------------------------------------*/
 public class MyHomeWorkerClass {
     private boolean tblPopulated = false;
-    private final String[] columnNames = {"Task Status", "Developer Details", "Task Number", "Task Name",
+    protected final String[] columnNames = {"Task Status", "Developer Details", "Task Number", "Task Name",
             "Task Description", "Task ID", "Duration"};
     // HomePage object to allow the editing of GUI components
     private HomePage homePage;
+
     //----------------------------------------------------------------------------------------------------------------//
     // Default Constructor
     protected MyHomeWorkerClass() {
     }
+
     protected MyHomeWorkerClass(HomePage homePage) {
         this.homePage = homePage;
     }
     //--------------------------------------------------------------------------------------------------------------------//
+
     /**
      * Summons the home page GUI.
      */
@@ -39,17 +42,20 @@ public class MyHomeWorkerClass {
         HomePage.homeFrame.setLocationRelativeTo(null);
         HomePage.homeFrame.setVisible(true);
     }
+
     //----------------------------------------------------------------------------------------------------------------//
     protected void beginHere() {
         homePage.lblTitle.setText("Welcome to EasyKanban.");
         // Set the welcome label text to display the user's first and last name
         homePage.lblWelcome.setText(getWelcomeMessage());
     }
+
     //----------------------------------------------------------------------------------------------------------------//
     protected String getWelcomeMessage() {
         return "Hi " + MyUserClass.getCurrentUser().getUserFirstName() + " "
                 + MyUserClass.getCurrentUser().getUserLastName() + ", it is great to see you.";
     }
+
     //----------------------------------------------------------------------------------------------------------------//
     protected void beginAddTasks() {
         int numOfTasks = Integer.parseInt(JOptionPane.showInputDialog("Please enter how many tasks you would like to add"));
@@ -96,6 +102,11 @@ public class MyHomeWorkerClass {
         MyTasksClass.setListOfTasks(listOfTasks);
         populateTableData();
     }
+
+    protected void beginShowReportHere() {
+        JOptionPane.showMessageDialog(null, "Coming Soon...");
+    }
+
     //----------------------------------------------------------------------------------------------------------------//
     protected void populateTableData() {
         MyTasksClass[] listOfTasks = MyTasksClass.getListOfTasks();
@@ -122,6 +133,7 @@ public class MyHomeWorkerClass {
         homePage.tblTasksList.setVisible(true);
         editComponents();
     }
+
     //----------------------------------------------------------------------------------------------------------------//
     protected void logOut() {
         // Dispose the home JFrame
@@ -131,10 +143,12 @@ public class MyHomeWorkerClass {
 
         MyUserClass.setCurrentUser(null);
     }
+
     //----------------------------------------------------------------------------------------------------------------//
     // Modifying Custom UI components
     protected void editComponents() {
         if (tblPopulated) {
+            homePage.lblTotalHours.setText("Total Number Of Hours Across All Tasks := " + MyTasksClass.getTotalHours() + " hrs");
             homePage.tblTasksList.setModel(homePage.model);
             homePage.tblTasksList.setAutoResizeMode(JTable.AUTO_RESIZE_SUBSEQUENT_COLUMNS);
 

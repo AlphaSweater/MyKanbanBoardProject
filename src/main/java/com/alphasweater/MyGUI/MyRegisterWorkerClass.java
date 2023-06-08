@@ -11,31 +11,42 @@ import javax.swing.*;
 ---------------------------------------------------------------------------------------------------------------------*/
 public class MyRegisterWorkerClass {
     private String inFirstname;
+
     public String getInFirstname() {
         return inFirstname;
     }
+
     private String inLastname;
+
     public String getInLastname() {
         return inLastname;
     }
+
     private String inUsername;
+
     public String getInPassword() {
         return inPassword;
     }
+
     private String inPassword;
+
     public String getInUsername() {
         return inUsername;
     }
+
     // RegisterPage object to allow the editing of GUI components
     private RegisterPage registerPage;
+
     //----------------------------------------------------------------------------------------------------------------//
     // Default constructor
     public MyRegisterWorkerClass() {
     }
+
     public MyRegisterWorkerClass(RegisterPage registerPage) {
         this.registerPage = registerPage;
     }
     //----------------------------------------------------------------------------------------------------------------//
+
     /**
      * Summons the registration page GUI.
      */
@@ -46,8 +57,9 @@ public class MyRegisterWorkerClass {
         RegisterPage.registerFrame.setLocationRelativeTo(null);
         RegisterPage.registerFrame.setVisible(true);
     }
+
     //----------------------------------------------------------------------------------------------------------------//
-    protected void beginRegistrationHere(){
+    protected void beginRegistrationHere() {
         // Call the registerUser method and display the returned message in a dialog
         JOptionPane.showMessageDialog(null, MyUserRegisterClass.registerUser(false, this.getInUsername(), this.getInPassword(), this.getInFirstname(), this.getInLastname(), MyUserDAOClass.getUserDatabase()));
 
@@ -60,8 +72,9 @@ public class MyRegisterWorkerClass {
             swapPageLogin();
         }
     }
+
     //----------------------------------------------------------------------------------------------------------------//
-    protected void swapPageLogin(){
+    protected void swapPageLogin() {
         // Close the register page and display the login page
         RegisterPage.registerFrame.dispose();
         MyLoginWorkerClass.createLoginPage();

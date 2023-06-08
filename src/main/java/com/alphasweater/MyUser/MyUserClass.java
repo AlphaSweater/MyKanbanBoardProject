@@ -23,6 +23,7 @@ public class MyUserClass {
     public static MyUserClass getCurrentUser() {
         return currentUser;
     }
+
     public static void setCurrentUser(MyUserClass currentUser) {
         MyUserClass.currentUser = currentUser;
     }

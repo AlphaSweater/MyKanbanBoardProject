@@ -13,6 +13,7 @@ import static org.junit.Assert.*;
  */
 public class MyUserLoginClassTest {
     //----------------------------------------------------------------------------------------------------------------//
+
     /**
      * Tests the logInUser method.
      */

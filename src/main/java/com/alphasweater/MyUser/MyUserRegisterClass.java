@@ -20,6 +20,7 @@ public class MyUserRegisterClass {
     private static final String INVALID_PASSWORD_MESSAGE = "Invalid Password. The password must contain a capital letter (A, B, C), a number (1, 2, 3), a special character (#, &, !), and be at least 8 characters long.";
     private static final String USERNAME_EXISTS_MESSAGE = "This Username already exists. Please try again with a different Username.";
     //----------------------------------------------------------------------------------------------------------------//
+
     /**
      * Retrieves the registration status.
      *
@@ -29,6 +30,7 @@ public class MyUserRegisterClass {
         return isRegistered;
     }
     //----------------------------------------------------------------------------------------------------------------//
+
     /**
      * Registers a new user by checking the input validity, writing to a file, and returning a welcome message.
      *
@@ -38,7 +40,7 @@ public class MyUserRegisterClass {
      * @param newLastName  The new user's last name.
      * @return A welcome message if registration is successful, an error message otherwise.
      */
-    public static String registerUser(Boolean isTest, String newUserName, String newPassWord, String newFirstName, String newLastName, String[][] userDatabase ) {
+    public static String registerUser(Boolean isTest, String newUserName, String newPassWord, String newFirstName, String newLastName, String[][] userDatabase) {
         // Check if input is valid
         String error = checkInputValidity(newUserName, newPassWord, userDatabase);
         if (error != null) {
@@ -46,7 +48,7 @@ public class MyUserRegisterClass {
             isRegistered = false;
             return error;
         } else {
-            if (!isTest){
+            if (!isTest) {
                 // Write username and password to file if input is valid
                 try (BufferedWriter writer = new BufferedWriter(new FileWriter(MyUserDAOClass.getFileName(), true))) {
                     writer.write("\n" + newUserName + "||" + newPassWord + "||" + newFirstName + "||" + newLastName);
@@ -58,7 +60,7 @@ public class MyUserRegisterClass {
                     isRegistered = false;
                     return "An error occurred while registering. Please try again later.";
                 }
-            }else {
+            } else {
                 // Return welcome message if registration is successful
                 isRegistered = true;
                 return "Welcome " + newFirstName + " " + newLastName + ", it is great to have you join us.";
@@ -66,6 +68,7 @@ public class MyUserRegisterClass {
         }
     }
     //----------------------------------------------------------------------------------------------------------------//
+
     /**
      * Checks the validity of the input for the registerUser method.
      *
@@ -85,7 +88,7 @@ public class MyUserRegisterClass {
         }
 
         // Check is username already exists
-        if (MyAuthenticationClass.checkUserNameExists(userName,userDatabase)) {
+        if (MyAuthenticationClass.checkUserNameExists(userName, userDatabase)) {
             return USERNAME_EXISTS_MESSAGE;
         }
 

@@ -17,6 +17,7 @@ public class MyUserDAOClass {
     // A 2D array to store the contents of the user database
     private static String[][] userDatabase;
     //----------------------------------------------------------------------------------------------------------------//
+
     /**
      * Returns the filename of the user database.
      *
@@ -26,6 +27,7 @@ public class MyUserDAOClass {
         return FILE_NAME;
     }
     //----------------------------------------------------------------------------------------------------------------//
+
     /**
      * Reads the contents of a file and returns them as a 2D array of strings.
      *
@@ -50,6 +52,7 @@ public class MyUserDAOClass {
         // Ensure that the file is closed, even if an exception occurs
     }
     //----------------------------------------------------------------------------------------------------------------//
+
     /**
      * Returns the contents of the user database.
      * This method reloads the database from the file to ensure it is up-to-date.
@@ -62,6 +65,7 @@ public class MyUserDAOClass {
         return userDatabase;
     }
     //----------------------------------------------------------------------------------------------------------------//
+
     /**
      * Reloads the user database from the file.
      * This method should be called whenever the database needs to be updated.

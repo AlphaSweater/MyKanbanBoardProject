@@ -23,6 +23,7 @@ public class WordWrapRenderer extends JTextArea implements TableCellRenderer {
         setWrapStyleWord(true);
         setOpaque(true);
     }
+
     //----------------------------------------------------------------------------------------------------------------//
     public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus,
                                                    int row, int column) {
@@ -31,12 +32,6 @@ public class WordWrapRenderer extends JTextArea implements TableCellRenderer {
         // Calculate the preferred size based on the content and available column width
         int maxWidth = table.getColumnModel().getColumn(column).getWidth();
         setSize(new Dimension(maxWidth, Integer.MAX_VALUE));
-        int preferredHeight = getPreferredSize().height;
-
-        // Adjust the table row height
-        if (table.getRowHeight(row) != preferredHeight) {
-            table.setRowHeight(row, preferredHeight);
-        }
 
         // Adjust the background and font color based on selection
         if (isSelected) {
@@ -47,8 +42,18 @@ public class WordWrapRenderer extends JTextArea implements TableCellRenderer {
             setForeground(table.getForeground());
         }
 
+        // Set the font explicitly to match the other columns
+        setFont(table.getFont());
+
+        int preferredHeight = getPreferredSize().height;
+        // Adjust the table row height
+        if (table.getRowHeight(row) != preferredHeight) {
+            table.setRowHeight(row, preferredHeight);
+        }
+
         return this;
     }
+
     //----------------------------------------------------------------------------------------------------------------//
     // Method to set the preferred column width for wrapping text
     public static void setColumnWidth(JTable table, int column, int margin) {
