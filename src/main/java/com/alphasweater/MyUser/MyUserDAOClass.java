@@ -9,14 +9,14 @@ import java.io.FileReader;
 import java.io.IOException;
 
 /**
- * The Database class provides methods for reading and accessing the user database file.
+ * The MyUserDAOClass (DAO = Database) class provides methods for reading and accessing the user database file.
  */
 public class MyUserDAOClass {
     // The name of the file containing the user database
     private static final String FILE_NAME = "src/main/resources/usersDatabase.txt";
     // A 2D array to store the contents of the user database
     private static String[][] userDatabase;
-
+    //----------------------------------------------------------------------------------------------------------------//
     /**
      * Returns the filename of the user database.
      *
@@ -25,7 +25,7 @@ public class MyUserDAOClass {
     public static String getFileName() {
         return FILE_NAME;
     }
-
+    //----------------------------------------------------------------------------------------------------------------//
     /**
      * Reads the contents of a file and returns them as a 2D array of strings.
      *
@@ -35,8 +35,7 @@ public class MyUserDAOClass {
      */
     public static String[][] readDataFromFile(String fileName) throws IOException {
         // Create a BufferedReader to read the file
-        BufferedReader reader = new BufferedReader(new FileReader(fileName));
-        try {
+        try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
             // Use the lines() method to read the file into an array of strings
             String[] lines = reader.lines().toArray(String[]::new);
 
@@ -47,12 +46,10 @@ public class MyUserDAOClass {
                 data[i] = lines[i].split("\\|\\|");
             }
             return data;
-        } finally {
-            // Ensure that the file is closed, even if an exception occurs
-            reader.close();
         }
+        // Ensure that the file is closed, even if an exception occurs
     }
-
+    //----------------------------------------------------------------------------------------------------------------//
     /**
      * Returns the contents of the user database.
      * This method reloads the database from the file to ensure it is up-to-date.
@@ -64,7 +61,7 @@ public class MyUserDAOClass {
         reLoadUserDatabase();
         return userDatabase;
     }
-
+    //----------------------------------------------------------------------------------------------------------------//
     /**
      * Reloads the user database from the file.
      * This method should be called whenever the database needs to be updated.

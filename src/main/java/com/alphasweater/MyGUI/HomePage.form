@@ -111,13 +111,14 @@
                   <component id="6096e" class="javax.swing.JTable" binding="tblTasksList" custom-create="true">
                     <constraints/>
                     <properties>
+                      <autoResizeMode value="0"/>
                       <background color="-13223617"/>
                       <fillsViewportHeight value="true"/>
                       <foreground color="-1250067"/>
-                      <minimumSize width="30" height="120"/>
-                      <preferredSize width="150" height="120"/>
+                      <minimumSize width="460" height="120"/>
+                      <preferredSize width="460" height="120"/>
                       <rowHeight value="60"/>
-                      <visible value="true"/>
+                      <visible value="false"/>
                     </properties>
                   </component>
                 </children>

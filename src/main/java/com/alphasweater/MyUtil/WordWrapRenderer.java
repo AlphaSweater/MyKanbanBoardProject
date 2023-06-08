@@ -1,8 +1,9 @@
 package com.alphasweater.MyUtil;
 
-import java.awt.*;
 import javax.swing.*;
-import javax.swing.table.*;
+import javax.swing.table.TableCellRenderer;
+import javax.swing.table.TableColumnModel;
+import java.awt.*;
 
 /*
  * This is a custom class that allows me to wrap the text of my tables' content
@@ -20,13 +21,22 @@ public class WordWrapRenderer extends JTextArea implements TableCellRenderer {
     public WordWrapRenderer() {
         setLineWrap(true);
         setWrapStyleWord(true);
-        setOpaque(true); // Make sure the component is opaque
+        setOpaque(true);
     }
-
+    //----------------------------------------------------------------------------------------------------------------//
     public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus,
                                                    int row, int column) {
         setText((value == null) ? "" : value.toString());
-        setSize(table.getColumnModel().getColumn(column).getWidth(), getPreferredSize().height);
+
+        // Calculate the preferred size based on the content and available column width
+        int maxWidth = table.getColumnModel().getColumn(column).getWidth();
+        setSize(new Dimension(maxWidth, Integer.MAX_VALUE));
+        int preferredHeight = getPreferredSize().height;
+
+        // Adjust the table row height
+        if (table.getRowHeight(row) != preferredHeight) {
+            table.setRowHeight(row, preferredHeight);
+        }
 
         // Adjust the background and font color based on selection
         if (isSelected) {
@@ -37,14 +47,27 @@ public class WordWrapRenderer extends JTextArea implements TableCellRenderer {
             setForeground(table.getForeground());
         }
 
-        // Recalculate the preferred height now that the text and renderer width have been set
-        int preferredHeight = getPreferredSize().height;
-        if (table.getRowHeight(row) != preferredHeight) {
-            table.setRowHeight(row, preferredHeight);
-        }
-
         return this;
     }
+    //----------------------------------------------------------------------------------------------------------------//
+    // Method to set the preferred column width for wrapping text
+    public static void setColumnWidth(JTable table, int column, int margin) {
+        TableColumnModel columnModel = table.getColumnModel();
+        int maxWidth = 0;
+
+        for (int row = 0; row < table.getRowCount(); row++) {
+            TableCellRenderer renderer = table.getCellRenderer(row, column);
+            Component comp = table.prepareRenderer(renderer, row, column);
+            maxWidth = Math.max(comp.getPreferredSize().width, maxWidth);
+        }
+
+        maxWidth += 2 * margin; // Add margin for better readability
+
+        if (maxWidth > 0) {
+            columnModel.getColumn(column).setPreferredWidth(maxWidth);
+        }
+    }
 }
+
 //--------------------------------------------------------------------------------------------------------------------//
 //--------------------------------------------------------EOF---------------------------------------------------------//

@@ -26,17 +26,27 @@ public class MyRegisterWorkerClass {
     public String getInUsername() {
         return inUsername;
     }
-
     // RegisterPage object to allow the editing of GUI components
     private RegisterPage registerPage;
-
+    //----------------------------------------------------------------------------------------------------------------//
     // Default constructor
     public MyRegisterWorkerClass() {
     }
     public MyRegisterWorkerClass(RegisterPage registerPage) {
         this.registerPage = registerPage;
     }
-
+    //----------------------------------------------------------------------------------------------------------------//
+    /**
+     * Summons the registration page GUI.
+     */
+    public static void createRegisterPage() {
+        RegisterPage.registerFrame.setContentPane(new RegisterPage().panel);
+        RegisterPage.registerFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        RegisterPage.registerFrame.pack();
+        RegisterPage.registerFrame.setLocationRelativeTo(null);
+        RegisterPage.registerFrame.setVisible(true);
+    }
+    //----------------------------------------------------------------------------------------------------------------//
     protected void beginRegistrationHere(){
         // Call the registerUser method and display the returned message in a dialog
         JOptionPane.showMessageDialog(null, MyUserRegisterClass.registerUser(false, this.getInUsername(), this.getInPassword(), this.getInFirstname(), this.getInLastname(), MyUserDAOClass.getUserDatabase()));
@@ -50,10 +60,11 @@ public class MyRegisterWorkerClass {
             swapPageLogin();
         }
     }
+    //----------------------------------------------------------------------------------------------------------------//
     protected void swapPageLogin(){
         // Close the register page and display the login page
         RegisterPage.registerFrame.dispose();
-        LoginPage.createLoginPage();
+        MyLoginWorkerClass.createLoginPage();
     }
 }
 //--------------------------------------------------------------------------------------------------------------------//

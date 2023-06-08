@@ -11,7 +11,7 @@ import static org.junit.Assert.*;
  * Unit tests for the SignUp class.
  */
 public class MyUserRegisterClassTest {
-
+    //----------------------------------------------------------------------------------------------------------------//
     /**
      * Tests the registerUser method.
      */

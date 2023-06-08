@@ -11,7 +11,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 /**
- * The SignUp class handles user registration.
+ * The MyUserRegisterClass class handles user registration.
  */
 public class MyUserRegisterClass {
     private static boolean isRegistered;
@@ -19,7 +19,7 @@ public class MyUserRegisterClass {
     private static final String INVALID_USERNAME_MESSAGE = "Invalid Username. The username must contain an underscore (_) and be no more than 5 characters long.";
     private static final String INVALID_PASSWORD_MESSAGE = "Invalid Password. The password must contain a capital letter (A, B, C), a number (1, 2, 3), a special character (#, &, !), and be at least 8 characters long.";
     private static final String USERNAME_EXISTS_MESSAGE = "This Username already exists. Please try again with a different Username.";
-
+    //----------------------------------------------------------------------------------------------------------------//
     /**
      * Retrieves the registration status.
      *
@@ -28,7 +28,7 @@ public class MyUserRegisterClass {
     public static boolean getIsRegistered() {
         return isRegistered;
     }
-
+    //----------------------------------------------------------------------------------------------------------------//
     /**
      * Registers a new user by checking the input validity, writing to a file, and returning a welcome message.
      *
@@ -65,7 +65,7 @@ public class MyUserRegisterClass {
             }
         }
     }
-
+    //----------------------------------------------------------------------------------------------------------------//
     /**
      * Checks the validity of the input for the registerUser method.
      *
