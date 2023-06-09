@@ -29,8 +29,14 @@ public class MyHomeWorkerClass {
     public HomePage getHomePage() {
         return homePage;
     }
+    public void setHomePage(HomePage homePage) {
+        this.homePage = homePage;
+    }
 
     private MyLoginWorkerClass loginWorker;
+    public void setLoginWorker(MyLoginWorkerClass loginWorker) {
+        this.loginWorker = loginWorker;
+    }
 
     MyTasksClass taskWorker = new MyTasksClass();
 
@@ -45,19 +51,19 @@ public class MyHomeWorkerClass {
      */
     public void createHomePage() {
         // Set the content pane of the home JFrame to the panel of the HomePage instance
-        this.homePage = new HomePage();
-        homePage.homeFrame.setContentPane(homePage.panel);
-        homePage.homeFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        homePage.homeFrame.pack();
-        homePage.homeFrame.setLocationRelativeTo(null);
-        homePage.homeFrame.setVisible(true);
+        this.homePage = new HomePage(this);
+        this.homePage.homeFrame.setContentPane(homePage.panel);
+        this.homePage.homeFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.homePage.homeFrame.pack();
+        this.homePage.homeFrame.setLocationRelativeTo(null);
+        this.homePage.homeFrame.setVisible(true);
     }
 
     //----------------------------------------------------------------------------------------------------------------//
     protected void beginHere() {
-        homePage.lblTitle.setText("Welcome to EasyKanban.");
+        this.homePage.lblTitle.setText("Welcome to EasyKanban.");
         // Set the welcome label text to display the user's first and last name
-        homePage.lblWelcome.setText(getWelcomeMessage());
+        this.homePage.lblWelcome.setText(getWelcomeMessage());
     }
 
     //----------------------------------------------------------------------------------------------------------------//
@@ -137,18 +143,18 @@ public class MyHomeWorkerClass {
         }
 
         // Call the method to update the table UI components
-        homePage.model = new DefaultTableModel(data, columnNames);
+        this.homePage.model = new DefaultTableModel(data, columnNames);
         tblPopulated = true;
-        homePage.tblTasksList.setVisible(true);
+        this.homePage.tblTasksList.setVisible(true);
         editComponents();
     }
 
     //----------------------------------------------------------------------------------------------------------------//
     protected void logOut() {
         // Dispose the home JFrame
-        homePage.homeFrame.dispose();
+        this.homePage.homeFrame.dispose();
         // Create and display the login page
-        loginWorker.createLoginPage();
+        this.loginWorker.createLoginPage();
 
         this.setCurrentUser(null);
     }
@@ -157,16 +163,16 @@ public class MyHomeWorkerClass {
     // Modifying Custom UI components
     protected void editComponents() {
         if (tblPopulated) {
-            homePage.lblTotalHours.setText("Total Number Of Hours Across All Tasks := " + taskWorker.returnTotalHours(taskWorker.getListOfTasks()) + " hrs");
-            homePage.tblTasksList.setModel(homePage.model);
-            homePage.tblTasksList.setAutoResizeMode(JTable.AUTO_RESIZE_SUBSEQUENT_COLUMNS);
+            this.homePage.lblTotalHours.setText("Total Number Of Hours Across All Tasks := " + taskWorker.returnTotalHours(taskWorker.getListOfTasks()) + " hrs");
+            this.homePage.tblTasksList.setModel(this.homePage.model);
+            this.homePage.tblTasksList.setAutoResizeMode(JTable.AUTO_RESIZE_SUBSEQUENT_COLUMNS);
 
             // Set the cell renderer for each column to center the text and wrap the content
             DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
             centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
             centerRenderer.setVerticalAlignment(SwingConstants.TOP);
 
-            TableColumnModel columnModel = homePage.tblTasksList.getColumnModel();
+            TableColumnModel columnModel = this.homePage.tblTasksList.getColumnModel();
             for (int i = 0; i < columnModel.getColumnCount(); i++) {
                 columnModel.getColumn(i).setCellRenderer(centerRenderer);
 
@@ -177,18 +183,18 @@ public class MyHomeWorkerClass {
             }
 
             // Set the preferred column width for wrapping text
-            WordWrapRenderer.setColumnWidth(homePage.tblTasksList, 1, 10); // Adjust margin value as needed
-            WordWrapRenderer.setColumnWidth(homePage.tblTasksList, 3, 10); // Adjust margin value as needed
-            WordWrapRenderer.setColumnWidth(homePage.tblTasksList, 4, 10); // Adjust margin value as needed
+            WordWrapRenderer.setColumnWidth(this.homePage.tblTasksList, 1, 10); // Adjust margin value as needed
+            WordWrapRenderer.setColumnWidth(this.homePage.tblTasksList, 3, 10); // Adjust margin value as needed
+            WordWrapRenderer.setColumnWidth(this.homePage.tblTasksList, 4, 10); // Adjust margin value as needed
 
             // Set the table width to match the sum of the preferred column widths
             int tableWidth = 0;
             for (int i = 0; i < columnModel.getColumnCount(); i++) {
                 tableWidth += columnModel.getColumn(i).getPreferredWidth();
             }
-            homePage.tblTasksList.setPreferredScrollableViewportSize(new Dimension(tableWidth, homePage.tblTasksList.getPreferredSize().height));
+            this.homePage.tblTasksList.setPreferredScrollableViewportSize(new Dimension(tableWidth, this.homePage.tblTasksList.getPreferredSize().height));
 
-            homePage.tblScrollPane.setViewportView(homePage.tblTasksList);
+            this.homePage.tblScrollPane.setViewportView(this.homePage.tblTasksList);
         }
     }
 }

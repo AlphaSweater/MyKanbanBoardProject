@@ -18,6 +18,7 @@ public class MyLoginWorkerClass {
     }
 
     private MyHomeWorkerClass homeWorker;
+    private MyRegisterWorkerClass registerWorker;
     private MyUserClass currentUser;
 
     public MyUserClass getCurrentUser() {
@@ -38,14 +39,20 @@ public class MyLoginWorkerClass {
      * Summons the login page GUI.
      */
     public void createLoginPage() {
-        // Create and display the login page window
         this.loginPage = new LoginPage();
         this.loginPage.setLoginWorker(this);
+        this.homeWorker = new MyHomeWorkerClass();
+        this.homeWorker.setLoginWorker(this);
+        this.registerWorker = new MyRegisterWorkerClass();
+        this.registerWorker.setLoginWorker(this);
+
+        // Create and display the login page window
         this.loginPage.loginFrame.setContentPane(loginPage.panel);
         this.loginPage.loginFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.loginPage.loginFrame.pack();
         this.loginPage.loginFrame.setLocationRelativeTo(null);
         this.loginPage.loginFrame.setVisible(true);
+
     }
 
     //----------------------------------------------------------------------------------------------------------------//
@@ -64,7 +71,7 @@ public class MyLoginWorkerClass {
         // Attempt to log in the user using the entered credentials
         if (loginUserWorker.logInUser(inUsername, inPassword, userDatabase)) {
             // If login is successful, close the login page and open the home page
-            homeWorker = new MyHomeWorkerClass();
+            homeWorker.setCurrentUser(this.getCurrentUser());
             swapPageHome();
         }
 
@@ -85,9 +92,6 @@ public class MyLoginWorkerClass {
 
     //----------------------------------------------------------------------------------------------------------------//
     protected void swapPageRegister() {
-        RegisterPage registerPage = new RegisterPage(this);
-        MyRegisterWorkerClass registerWorker = new MyRegisterWorkerClass(registerPage, this);
-
         // Close the login page and open the registration page
         loginPage.loginFrame.dispose();
         registerWorker.createRegisterPage();

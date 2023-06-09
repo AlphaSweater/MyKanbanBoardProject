@@ -12,14 +12,13 @@ import static org.junit.Assert.*;
  * Unit tests for the SignUp class.
  */
 public class MyUserRegisterClassTest {
-    MyUserRegisterClass testRegistrationWorker = new MyUserRegisterClass();
     //----------------------------------------------------------------------------------------------------------------//
-
     /**
      * Tests the registerUser method.
      */
     @Test
     public void testRegisterUser() {
+        MyUserRegisterClass testRegistrationWorker = new MyUserRegisterClass();
         // Set up a sample user database
         String[][] userDatabase = {
                 {"us_r1", "P@ssword1", "John", "Doe"},
