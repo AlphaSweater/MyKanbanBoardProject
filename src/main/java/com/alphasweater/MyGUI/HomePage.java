@@ -28,12 +28,17 @@ public class HomePage {
     protected JScrollPane tblScrollPane;
     protected JButton btnShowReport;
     protected JLabel lblTotalHours;
-    protected static final JFrame homeFrame = new JFrame("Home Page");
-    private final MyHomeWorkerClass homeWorker;
+    protected final JFrame homeFrame = new JFrame("Home Page");
+    private MyHomeWorkerClass homeWorker;
+    public void setHomeWorker(MyHomeWorkerClass homeWorker) {
+        this.homeWorker = homeWorker;
+    }
+    public MyHomeWorkerClass getHomeWorker() {
+        return homeWorker;
+    }
 
     //----------------------------------------------------------------------------------------------------------------//
     public HomePage() {
-        homeWorker = new MyHomeWorkerClass(this);
         $$$setupUI$$$();
 
         homeWorker.beginHere();

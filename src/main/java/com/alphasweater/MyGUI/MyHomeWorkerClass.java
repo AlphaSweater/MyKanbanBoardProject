@@ -15,34 +15,42 @@ import java.awt.*;
 *  Student Number: ST10269509
 ---------------------------------------------------------------------------------------------------------------------*/
 public class MyHomeWorkerClass {
+    protected MyUserClass currentUser;
+    public void setCurrentUser(MyUserClass user) {
+        this.currentUser = user;
+    }
+
+
     private boolean tblPopulated = false;
     protected final String[] columnNames = {"Task Status", "Developer Details", "Task Number", "Task Name",
             "Task Description", "Task ID", "Duration"};
     // HomePage object to allow the editing of GUI components
     private HomePage homePage;
+    public HomePage getHomePage() {
+        return homePage;
+    }
+
+    private MyLoginWorkerClass loginWorker;
 
     MyTasksClass taskWorker = new MyTasksClass();
 
     //----------------------------------------------------------------------------------------------------------------//
     // Default Constructor
-    protected MyHomeWorkerClass() {
-    }
-
-    protected MyHomeWorkerClass(HomePage homePage) {
-        this.homePage = homePage;
+    public MyHomeWorkerClass() {
     }
     //--------------------------------------------------------------------------------------------------------------------//
 
     /**
      * Summons the home page GUI.
      */
-    public static void createHomePage() {
+    public void createHomePage() {
         // Set the content pane of the home JFrame to the panel of the HomePage instance
-        HomePage.homeFrame.setContentPane(new HomePage().panel);
-        HomePage.homeFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        HomePage.homeFrame.pack();
-        HomePage.homeFrame.setLocationRelativeTo(null);
-        HomePage.homeFrame.setVisible(true);
+        this.homePage = new HomePage();
+        homePage.homeFrame.setContentPane(homePage.panel);
+        homePage.homeFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        homePage.homeFrame.pack();
+        homePage.homeFrame.setLocationRelativeTo(null);
+        homePage.homeFrame.setVisible(true);
     }
 
     //----------------------------------------------------------------------------------------------------------------//
@@ -54,8 +62,8 @@ public class MyHomeWorkerClass {
 
     //----------------------------------------------------------------------------------------------------------------//
     protected String getWelcomeMessage() {
-        return "Hi " + MyUserClass.getCurrentUser().getUserFirstName() + " "
-                + MyUserClass.getCurrentUser().getUserLastName() + ", it is great to see you.";
+        return "Hi " + currentUser.getUserFirstName() + " "
+                + currentUser.getUserLastName() + ", it is great to see you.";
     }
 
     //----------------------------------------------------------------------------------------------------------------//
@@ -138,11 +146,11 @@ public class MyHomeWorkerClass {
     //----------------------------------------------------------------------------------------------------------------//
     protected void logOut() {
         // Dispose the home JFrame
-        HomePage.homeFrame.dispose();
+        homePage.homeFrame.dispose();
         // Create and display the login page
-        MyLoginWorkerClass.createLoginPage();
+        loginWorker.createLoginPage();
 
-        MyUserClass.setCurrentUser(null);
+        this.setCurrentUser(null);
     }
 
     //----------------------------------------------------------------------------------------------------------------//

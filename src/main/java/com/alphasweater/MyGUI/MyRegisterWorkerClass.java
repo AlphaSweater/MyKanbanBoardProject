@@ -1,6 +1,6 @@
 package com.alphasweater.MyGUI;
 
-import com.alphasweater.MyUser.MyUserDAOClass;
+import com.alphasweater.MyDatabases.MyDatabaseClass;
 import com.alphasweater.MyUser.MyUserRegisterClass;
 
 import javax.swing.*;
@@ -36,39 +36,47 @@ public class MyRegisterWorkerClass {
 
     // RegisterPage object to allow the editing of GUI components
     private RegisterPage registerPage;
+    public void setRegisterPage(RegisterPage registerPage) {
+        this.registerPage = registerPage;
+    }
+
+    private MyLoginWorkerClass loginWorker;
 
     //----------------------------------------------------------------------------------------------------------------//
     // Default constructor
     public MyRegisterWorkerClass() {
     }
 
-    public MyRegisterWorkerClass(RegisterPage registerPage) {
+    public MyRegisterWorkerClass(RegisterPage registerPage,MyLoginWorkerClass myLoginWorkerClass) {
         this.registerPage = registerPage;
+        this.loginWorker = myLoginWorkerClass;
     }
     //----------------------------------------------------------------------------------------------------------------//
 
     /**
      * Summons the registration page GUI.
      */
-    public static void createRegisterPage() {
-        RegisterPage.registerFrame.setContentPane(new RegisterPage().panel);
-        RegisterPage.registerFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        RegisterPage.registerFrame.pack();
-        RegisterPage.registerFrame.setLocationRelativeTo(null);
-        RegisterPage.registerFrame.setVisible(true);
+    public void createRegisterPage() {
+        registerPage.registerFrame.setContentPane(new RegisterPage(this.loginWorker).panel);
+        registerPage.registerFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        registerPage.registerFrame.pack();
+        registerPage.registerFrame.setLocationRelativeTo(null);
+        registerPage.registerFrame.setVisible(true);
     }
 
     //----------------------------------------------------------------------------------------------------------------//
     protected void beginRegistrationHere() {
+        MyUserRegisterClass registrationWorker = new MyUserRegisterClass();
+        MyDatabaseClass databaseWorker = new MyDatabaseClass();
         // Call the registerUser method and display the returned message in a dialog
-        JOptionPane.showMessageDialog(null, MyUserRegisterClass.registerUser(false, this.getInUsername(), this.getInPassword(), this.getInFirstname(), this.getInLastname(), MyUserDAOClass.getUserDatabase()));
+        JOptionPane.showMessageDialog(null, registrationWorker.registerUser(false, this.getInUsername(), this.getInPassword(), this.getInFirstname(), this.getInLastname(), databaseWorker.getDatabase()));
 
         // Clear the input fields
         registerPage.edtUsername.setText("");
         registerPage.edtPassword.setText("");
 
         // If registration is successful, close the register page and display the login page
-        if (MyUserRegisterClass.getIsRegistered()) {
+        if (registrationWorker.getIsRegistered()) {
             swapPageLogin();
         }
     }
@@ -76,8 +84,8 @@ public class MyRegisterWorkerClass {
     //----------------------------------------------------------------------------------------------------------------//
     protected void swapPageLogin() {
         // Close the register page and display the login page
-        RegisterPage.registerFrame.dispose();
-        MyLoginWorkerClass.createLoginPage();
+        registerPage.registerFrame.dispose();
+        loginWorker.createLoginPage();
     }
 }
 //--------------------------------------------------------------------------------------------------------------------//
