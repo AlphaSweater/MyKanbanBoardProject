@@ -5,7 +5,6 @@ package com.alphasweater.MyUser;
 ---------------------------------------------------------------------------------------------------------------------*/
 
 import com.alphasweater.MyGUI.MyLoginWorkerClass;
-import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
@@ -19,10 +18,6 @@ public class MyUserLoginClassTest {
     /**
      * Tests the logInUser method.
      */
-//    @Before
-//    public void initialiseLoginWorker(){
-//
-//    }
     @Test
     public void testLogInUser() {
         MyUserLoginClass testLoginUserWorker = new MyUserLoginClass();

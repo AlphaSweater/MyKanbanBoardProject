@@ -13,13 +13,13 @@ import org.junit.Test;
  * Unit tests for the MyTasksClass class.
  */
 public class MyTasksClassTest {
-    MyTasksClass testTaskWorker = new MyTasksClass();
-    String[] testTaskName = {"Login Feature", "Add Task Feature", "Registration Feature", "Input Validation"};
-    String[] testTaskDesc = {"Create Login to authenticate users", "This is a long task description that exceeds the maximum allowed characters.",
+    final MyTasksClass testTaskWorker = new MyTasksClass();
+    final String[] testTaskName = {"Login Feature", "Add Task Feature", "Registration Feature", "Input Validation"};
+    final String[] testTaskDesc = {"Create Login to authenticate users", "This is a long task description that exceeds the maximum allowed characters.",
             "Create the registration feature to register a user", "Adding user input validation"};
-    String[] testTaskDevs = {"Robyn Harrison", "Mike Smith", "John Johnson", "Chad Fairlie"};
-    int[] testTaskDuration = {8, 10, 12, 15};
-    String[] testTaskStatus = {"To Do", "Doing", "Done", "Doing"};
+    final String[] testTaskDevs = {"Robyn Harrison", "Mike Smith", "John Johnson", "Chad Fairlie"};
+    final int[] testTaskDuration = {8, 10, 12, 15};
+    final String[] testTaskStatus = {"To Do", "Doing", "Done", "Doing"};
 
     //----------------------------------------------------------------------------------------------------------------//
     @Test

@@ -16,7 +16,7 @@ import java.io.IOException;
  */
 public class MyUserRegisterClass {
     private boolean isRegistered;
-    private MyDatabaseClass databaseWorker = new MyDatabaseClass();
+    private final MyDatabaseClass databaseWorker = new MyDatabaseClass();
 
     /**
      * Retrieves the registration status.
@@ -82,20 +82,17 @@ public class MyUserRegisterClass {
         // Check username validity
         if (!MyAuthenticationClass.checkUserName(userName)) {
             // These are error messages that will be returned if input is invalid
-            String INVALID_USERNAME_MESSAGE = "Invalid Username. The username must contain an underscore (_) and be no more than 5 characters long.";
-            return INVALID_USERNAME_MESSAGE;
+            return "Invalid Username. The username must contain an underscore (_) and be no more than 5 characters long.";
         }
 
         // Check password validity
         if (!MyAuthenticationClass.checkPasswordComplexity(passWord)) {
-            String INVALID_PASSWORD_MESSAGE = "Invalid Password. The password must contain a capital letter (A, B, C), a number (1, 2, 3), a special character (#, &, !), and be at least 8 characters long.";
-            return INVALID_PASSWORD_MESSAGE;
+            return "Invalid Password. The password must contain a capital letter (A, B, C), a number (1, 2, 3), a special character (#, &, !), and be at least 8 characters long.";
         }
 
         // Check is username already exists
         if (MyAuthenticationClass.checkUserNameExists(userName, userDatabase)) {
-            String USERNAME_EXISTS_MESSAGE = "This Username already exists. Please try again with a different Username.";
-            return USERNAME_EXISTS_MESSAGE;
+            return "This Username already exists. Please try again with a different Username.";
         }
 
         // Input is valid

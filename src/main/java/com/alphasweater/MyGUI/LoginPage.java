@@ -28,7 +28,7 @@ public class LoginPage {
     protected JButton btnGoToRegister;
     protected JPanel panel;
     protected JTextArea lblStatus;
-    protected JFrame loginFrame = new JFrame("Login");
+    protected final JFrame loginFrame = new JFrame("Login");
     private MyLoginWorkerClass loginWorker;
     public MyLoginWorkerClass getLoginWorker() {
         return loginWorker;

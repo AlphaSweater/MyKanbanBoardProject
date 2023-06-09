@@ -4,7 +4,6 @@ package com.alphasweater;
 *  Student Number: ST10269509
 ---------------------------------------------------------------------------------------------------------------------*/
 
-import com.alphasweater.MyGUI.LoginPage;
 import com.alphasweater.MyGUI.MyLoginWorkerClass;
 
 public class MainClass {

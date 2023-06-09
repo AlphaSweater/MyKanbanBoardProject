@@ -4,8 +4,6 @@ package com.alphasweater.MyUser;
 *  Student Number: ST10269509
 ---------------------------------------------------------------------------------------------------------------------*/
 
-import com.alphasweater.MyGUI.MyLoginWorkerClass;
-
 /**
  * Represents a user in the system.
  */

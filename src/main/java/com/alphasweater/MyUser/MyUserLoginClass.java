@@ -4,7 +4,6 @@ package com.alphasweater.MyUser;
 *  Student Number: ST10269509
 ---------------------------------------------------------------------------------------------------------------------*/
 
-import com.alphasweater.MyGUI.MyHomeWorkerClass;
 import com.alphasweater.MyGUI.MyLoginWorkerClass;
 
 /**
@@ -57,8 +56,7 @@ public class MyUserLoginClass {
         }
         // Set error message for login failure
         // Constants for error messages
-        String ERROR_LOGIN_FAILED = "Username or password incorrect, please try again or sign up if you do not have an account already.";
-        status = ERROR_LOGIN_FAILED;
+        status = "Username or password incorrect, please try again or sign up if you do not have an account already.";
         // Return false to indicate login failure
         return false;
     }
