@@ -54,43 +54,46 @@ public class MyTasksClass {
     }
 
     //----------------------------------------------------------------------------------------------------------------//
-    private static int totalHours = 0;
+    private int totalHours = 0;
 
-    public static int getTotalHours() {
-        return totalHours;
+    public int returnTotalHours(MyTasksClass[] listOfTasks) {
+        for (MyTasksClass task : listOfTasks) {
+            this.totalHours += task.getTaskDuration();
+        }
+       return this.totalHours;
     }
 
     //----------------------------------------------------------------------------------------------------------------//
-    private static int numOfTasks = 0;
+    private int numOfTasks = 0;
 
-    public static int getNumOfTasks() {
+    public int getNumOfTasks() {
         return numOfTasks;
     }
 
-    public static void setNumOfTasks(int numOfTasks) {
-        MyTasksClass.numOfTasks = numOfTasks;
+    public void setNumOfTasks(int numOfTasks) {
+        this.numOfTasks = numOfTasks;
     }
 
     //----------------------------------------------------------------------------------------------------------------//
-    private static MyTasksClass currentTask;
+    private MyTasksClass currentTask;
 
-    public static MyTasksClass getCurrentTask() {
+    public MyTasksClass getCurrentTask() {
         return currentTask;
     }
 
-    public static void setCurrentTask(MyTasksClass currentTask) {
-        MyTasksClass.currentTask = currentTask;
+    public void setCurrentTask(MyTasksClass currentTask) {
+        this.currentTask = currentTask;
     }
 
     //----------------------------------------------------------------------------------------------------------------//
-    private static MyTasksClass[] listOfTasks;
+    private MyTasksClass[] listOfTasks;
 
-    public static MyTasksClass[] getListOfTasks() {
+    public MyTasksClass[] getListOfTasks() {
         return listOfTasks;
     }
 
-    public static void setListOfTasks(MyTasksClass[] listOfTasks) {
-        MyTasksClass.listOfTasks = listOfTasks;
+    public void setListOfTasks(MyTasksClass[] listOfTasks) {
+        this.listOfTasks = listOfTasks;
     }
 
     //----------------------------------------------------------------------------------------------------------------//

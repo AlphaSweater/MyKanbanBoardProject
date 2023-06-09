@@ -21,6 +21,8 @@ public class MyHomeWorkerClass {
     // HomePage object to allow the editing of GUI components
     private HomePage homePage;
 
+    MyTasksClass taskWorker = new MyTasksClass();
+
     //----------------------------------------------------------------------------------------------------------------//
     // Default Constructor
     protected MyHomeWorkerClass() {
@@ -59,14 +61,13 @@ public class MyHomeWorkerClass {
     //----------------------------------------------------------------------------------------------------------------//
     protected void beginAddTasks() {
         int numOfTasks = Integer.parseInt(JOptionPane.showInputDialog("Please enter how many tasks you would like to add"));
-        MyTasksClass.setNumOfTasks(numOfTasks);
-        MyTasksClass checkTask = new MyTasksClass();
+        taskWorker.setNumOfTasks(numOfTasks);
         String[] taskStatusOptions = {"To Do", "Doing", "Done"};
 
         // Initialize the listOfTasks array with the desired length
         MyTasksClass[] listOfTasks = new MyTasksClass[numOfTasks];
 
-        for (int i = 0; i < MyTasksClass.getNumOfTasks(); i++) {
+        for (int i = 0; i < taskWorker.getNumOfTasks(); i++) {
             JOptionPane.showMessageDialog(null, "You are now busy with task " + (i + 1) + ".");
 
             String taskStatus;
@@ -86,7 +87,7 @@ public class MyHomeWorkerClass {
             }
             String taskName = JOptionPane.showInputDialog("Please name your task's name.");
             String taskDescription = JOptionPane.showInputDialog("Please enter a description for your task (50 characters max).");
-            while (!checkTask.checkTaskDescription(taskDescription)) {
+            while (!taskWorker.checkTaskDescription(taskDescription)) {
                 JOptionPane.showMessageDialog(null, "Task Description exceeded 50 characters, please try again");
                 taskDescription = JOptionPane.showInputDialog("Please enter a description for your task (50 Characters MAX).");
             }
@@ -99,7 +100,7 @@ public class MyHomeWorkerClass {
 
         }
         // Update the listOfTasks in MyTasksClass
-        MyTasksClass.setListOfTasks(listOfTasks);
+        taskWorker.setListOfTasks(listOfTasks);
         populateTableData();
     }
 
@@ -109,9 +110,9 @@ public class MyHomeWorkerClass {
 
     //----------------------------------------------------------------------------------------------------------------//
     protected void populateTableData() {
-        MyTasksClass[] listOfTasks = MyTasksClass.getListOfTasks();
+        MyTasksClass[] listOfTasks = taskWorker.getListOfTasks();
 
-        int rows = MyTasksClass.getNumOfTasks();    // number of rows in the 2D array
+        int rows = taskWorker.getNumOfTasks();    // number of rows in the 2D array
         int columns = 7; // number of columns in the 2D array
 
         Object[][] data = new Object[rows][columns];
@@ -148,7 +149,7 @@ public class MyHomeWorkerClass {
     // Modifying Custom UI components
     protected void editComponents() {
         if (tblPopulated) {
-            homePage.lblTotalHours.setText("Total Number Of Hours Across All Tasks := " + MyTasksClass.getTotalHours() + " hrs");
+            homePage.lblTotalHours.setText("Total Number Of Hours Across All Tasks := " + taskWorker.returnTotalHours(taskWorker.getListOfTasks()) + " hrs");
             homePage.tblTasksList.setModel(homePage.model);
             homePage.tblTasksList.setAutoResizeMode(JTable.AUTO_RESIZE_SUBSEQUENT_COLUMNS);
 
