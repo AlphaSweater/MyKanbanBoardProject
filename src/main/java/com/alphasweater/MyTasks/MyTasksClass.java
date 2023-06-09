@@ -86,7 +86,7 @@ public class MyTasksClass {
     }
 
     //----------------------------------------------------------------------------------------------------------------//
-    private MyTasksClass[] listOfTasks;
+    private MyTasksClass[] listOfTasks = null;
 
     public MyTasksClass[] getListOfTasks() {
         return listOfTasks;
