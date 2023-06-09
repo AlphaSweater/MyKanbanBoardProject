@@ -1,7 +1,7 @@
 package com.alphasweater.MyUtil;
 /* Author: Chad Fairlie
 *  Pseudonym: AlphaSweater
-*  Student Number: ST********
+*  Student Number: ST10269509
 ---------------------------------------------------------------------------------------------------------------------*/
 
 /**
@@ -23,6 +23,7 @@ public class MyAuthenticationClass {
 
     // Define the maximum length allowed for a username
     private static final int MAX_USERNAME_LENGTH = 5;
+    //----------------------------------------------------------------------------------------------------------------//
 
     /**
      * Checks if the username exists in the user database.
@@ -41,6 +42,7 @@ public class MyAuthenticationClass {
         }
         return false;
     }
+    //----------------------------------------------------------------------------------------------------------------//
 
     /**
      * Checks if the input username is valid.
@@ -71,6 +73,7 @@ public class MyAuthenticationClass {
         // If the username contains an underscore and the length is valid, return true
         return hasUnderscore && isLengthValid;
     }
+    //----------------------------------------------------------------------------------------------------------------//
 
     /**
      * Checks if the input password is strong enough.
@@ -109,25 +112,6 @@ public class MyAuthenticationClass {
         // If the password contains at least one special character, one numeric character, 
         // one uppercase character, and the length is valid, return true
         return hasSpecialChar && hasNumberChar && hasCapitalChar && isLengthValid;
-    }
-
-
-    /**
-     * Method to test CheckUserNameExists.
-     * This method is used for testing purposes.
-     *
-     * @param inUsername the username to check
-     * @return true if the username is valid, false otherwise
-     */
-    public static boolean toTestCheckUserNameExists(String inUsername,String[][] userDatabase) {
-        // Iterate through each user in the database
-        for (int i = 1; i < userDatabase.length; i++) {
-            String testUserName = userDatabase[i][0];
-            if (testUserName.equals(inUsername)) {
-                return true;
-            }
-        }
-        return false;
     }
 }
 //--------------------------------------------------------------------------------------------------------------------//

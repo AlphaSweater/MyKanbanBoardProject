@@ -1,27 +1,29 @@
 package com.alphasweater.MyUser;
 /* Author: Chad Fairlie
 *  Pseudonym: AlphaSweater
-*  Student Number: ST********
+*  Student Number: ST10269509
 ---------------------------------------------------------------------------------------------------------------------*/
 
 /**
  * Represents a user in the system.
  */
 public class MyUserClass {
-    private int userID = 0;
-    private String userFirstName = "";
-    private String userLastName = "";
-    private String userUserName = "";
-    private String userPassWord = "";
+    private final int userID;
+    private String userFirstName;
+    private String userLastName;
+    private String userUserName;
+    private String userPassWord;
 
     /**
      * Represents the currently logged-in user.
+     * I used static here because
      */
     private static MyUserClass currentUser = null;
 
     public static MyUserClass getCurrentUser() {
         return currentUser;
     }
+
     public static void setCurrentUser(MyUserClass currentUser) {
         MyUserClass.currentUser = currentUser;
     }

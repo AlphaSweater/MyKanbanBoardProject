@@ -1,17 +1,18 @@
 package com.alphasweater.MyUser;
 /* Author: Chad Fairlie
 *  Pseudonym: AlphaSweater
-*  Student Number: ST********
+*  Student Number: ST10269509
 ---------------------------------------------------------------------------------------------------------------------*/
 
 /**
- * The Login class provides methods for user login functionality.
+ * The MyUserLoginClass class provides methods for user login functionality.
  */
 public class MyUserLoginClass {
     private static String status;
 
     // Constants for error messages
     private static final String ERROR_LOGIN_FAILED = "Username or password incorrect, please try again or sign up if you do not have an account already.";
+    //----------------------------------------------------------------------------------------------------------------//
 
     /**
      * Retrieves the login status message.
@@ -21,6 +22,7 @@ public class MyUserLoginClass {
     public static String getStatus() {
         return status;
     }
+    //----------------------------------------------------------------------------------------------------------------//
 
     /**
      * Attempts to log in a user.
@@ -29,8 +31,7 @@ public class MyUserLoginClass {
      * @param tryPassWord The password to log in.
      * @return True if the login is successful, false otherwise.
      */
-    public static boolean logInUser(String tryUserName, String tryPassWord,String[][] userDatabase) {
-
+    public static boolean logInUser(String tryUserName, String tryPassWord, String[][] userDatabase) {
         // Iterate through each user in the database
         for (int i = 1; i < userDatabase.length; i++) {
             String testUserName = userDatabase[i][0];
@@ -45,10 +46,8 @@ public class MyUserLoginClass {
                 return true;
             }
         }
-
         // Set error message for login failure
         status = ERROR_LOGIN_FAILED;
-
         // Return false to indicate login failure
         return false;
     }

@@ -1,6 +1,7 @@
-package com.alphasweater.MyUser;/* Author: Chad Fairlie
+package com.alphasweater.MyUser;
+/* Author: Chad Fairlie
 *  Pseudonym: AlphaSweater
-*  Student Number: ST********
+*  Student Number: ST10269509
 ---------------------------------------------------------------------------------------------------------------------*/
 
 import org.junit.Test;
@@ -11,6 +12,7 @@ import static org.junit.Assert.*;
  * Unit tests for the Login class.
  */
 public class MyUserLoginClassTest {
+    //----------------------------------------------------------------------------------------------------------------//
 
     /**
      * Tests the logInUser method.

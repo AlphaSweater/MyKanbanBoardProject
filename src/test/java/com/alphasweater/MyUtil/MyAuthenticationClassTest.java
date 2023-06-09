@@ -12,6 +12,7 @@ import static org.junit.Assert.assertTrue;
  * Unit tests for the Authentication class.
  */
 public class MyAuthenticationClassTest {
+    //----------------------------------------------------------------------------------------------------------------//
 
     /**
      * Tests the checkUserName method.
@@ -27,10 +28,12 @@ public class MyAuthenticationClassTest {
         // Test an invalid username longer than the maximum allowed length
         assertFalse(MyAuthenticationClass.checkUserName("test_user_longer_than_max"));
     }
+    //----------------------------------------------------------------------------------------------------------------//
 
     /**
      * Tests the checkPasswordComplexity method.
      */
+    @SuppressWarnings("SpellCheckingInspection")
     @Test
     public void testCheckPasswordComplexity() {
         // Test a valid password containing a capital letter, a number, a special character, and at least 8 characters
@@ -48,6 +51,7 @@ public class MyAuthenticationClassTest {
         // Test an invalid password that is too short
         assertFalse(MyAuthenticationClass.checkPasswordComplexity("Abcdef#"));
     }
+    //----------------------------------------------------------------------------------------------------------------//
 
     /**
      * Tests the checkUserNameExists method.
@@ -62,11 +66,11 @@ public class MyAuthenticationClassTest {
         };
 
         // Test an existing username
-        boolean result1 = MyAuthenticationClass.toTestCheckUserNameExists("username2", userDatabase);
+        boolean result1 = MyAuthenticationClass.checkUserNameExists("username2", userDatabase);
         assertTrue("The username 'username2' should exist in the database.", result1);
 
         // Test a non-existing username
-        boolean result2 = MyAuthenticationClass.toTestCheckUserNameExists("username4", userDatabase);
+        boolean result2 = MyAuthenticationClass.checkUserNameExists("username4", userDatabase);
         assertFalse("The username 'username4' should not exist in the database.", result2);
     }
 }

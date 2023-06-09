@@ -3,20 +3,40 @@ package com.alphasweater.MyGUI;
 import com.alphasweater.MyUser.MyUserDAOClass;
 import com.alphasweater.MyUser.MyUserLoginClass;
 
+import javax.swing.*;
+
 /* Author: Chad Fairlie
 *  Pseudonym: AlphaSweater
-*  Student Number: ST********
+*  Student Number: ST10269509
 ---------------------------------------------------------------------------------------------------------------------*/
 public class MyLoginWorkerClass {
     // LoginPage object to allow the editing of GUI components
     private LoginPage loginPage;
 
+    //----------------------------------------------------------------------------------------------------------------//
+    // Default Constructor
     public MyLoginWorkerClass() {
     }
-    public MyLoginWorkerClass(LoginPage loginPage){
+
+    public MyLoginWorkerClass(LoginPage loginPage) {
         this.loginPage = loginPage;
     }
-    protected void beginLoginHere(){
+    //----------------------------------------------------------------------------------------------------------------//
+
+    /**
+     * Summons the login page GUI.
+     */
+    public static void createLoginPage() {
+        // Create and display the login page window
+        LoginPage.loginFrame.setContentPane(new LoginPage().panel);
+        LoginPage.loginFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        LoginPage.loginFrame.pack();
+        LoginPage.loginFrame.setLocationRelativeTo(null);
+        LoginPage.loginFrame.setVisible(true);
+    }
+
+    //----------------------------------------------------------------------------------------------------------------//
+    protected void beginLoginHere() {
 
         // Retrieve the entered username and password
         String inUsername = loginPage.edtUsername.getText();
@@ -39,14 +59,18 @@ public class MyLoginWorkerClass {
         loginPage.lblStatus.setText(MyUserLoginClass.getStatus());
         loginPage.lblStatus.setVisible(true);
     }
-    protected void swapPageHome(){
+
+    //----------------------------------------------------------------------------------------------------------------//
+    protected void swapPageHome() {
         LoginPage.loginFrame.dispose();
-        HomePage.createHomePage();
+        MyHomeWorkerClass.createHomePage();
     }
-    protected void swapPageRegister(){
+
+    //----------------------------------------------------------------------------------------------------------------//
+    protected void swapPageRegister() {
         // Close the login page and open the registration page
         LoginPage.loginFrame.dispose();
-        RegisterPage.createRegisterPage();
+        MyRegisterWorkerClass.createRegisterPage();
     }
 }
 //--------------------------------------------------------------------------------------------------------------------//
