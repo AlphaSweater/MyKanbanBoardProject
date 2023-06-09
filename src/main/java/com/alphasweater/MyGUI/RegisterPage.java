@@ -32,13 +32,14 @@ public class RegisterPage {
     protected JLabel lblUsername;
     protected JTextField edtLastname;
     protected JTextField edtFirstname;
-    protected static final JFrame registerFrame = new JFrame("Register");
-    private final MyRegisterWorkerClass registerWorker;
+    protected final JFrame registerFrame = new JFrame("Register");
+    private MyRegisterWorkerClass registerWorker;
+    public void setRegisterWorker(MyRegisterWorkerClass registerWorker) {
+        this.registerWorker = registerWorker;
+    }
 
     //----------------------------------------------------------------------------------------------------------------//
     public RegisterPage() {
-        // create registerWorker object to control code.
-        registerWorker = new MyRegisterWorkerClass(this);
 
         // Event listener for the register button
         btnRegister.addActionListener(click -> {

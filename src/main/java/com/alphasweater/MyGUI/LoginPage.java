@@ -28,13 +28,17 @@ public class LoginPage {
     protected JButton btnGoToRegister;
     protected JPanel panel;
     protected JTextArea lblStatus;
-    protected static final JFrame loginFrame = new JFrame("Login");
-    private final MyLoginWorkerClass loginWorker;
+    protected final JFrame loginFrame = new JFrame("Login");
+    private MyLoginWorkerClass loginWorker;
+    public MyLoginWorkerClass getLoginWorker() {
+        return loginWorker;
+    }
+    public void setLoginWorker(MyLoginWorkerClass loginWorker) {
+        this.loginWorker = loginWorker;
+    }
 
     //----------------------------------------------------------------------------------------------------------------//
     public LoginPage() {
-        // create loginWorker object to control code.
-        loginWorker = new MyLoginWorkerClass(this);
 
         // Event listener for the login button
         btnLogin.addActionListener(click -> {

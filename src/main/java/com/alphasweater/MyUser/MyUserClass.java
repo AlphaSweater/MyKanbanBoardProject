@@ -8,24 +8,16 @@ package com.alphasweater.MyUser;
  * Represents a user in the system.
  */
 public class MyUserClass {
-    private final int userID;
+    private int userID;
     private String userFirstName;
     private String userLastName;
     private String userUserName;
     private String userPassWord;
 
     /**
-     * Represents the currently logged-in user.
-     * I used static here because
+     Default Constructor for MyUserClass
      */
-    private static MyUserClass currentUser = null;
-
-    public static MyUserClass getCurrentUser() {
-        return currentUser;
-    }
-
-    public static void setCurrentUser(MyUserClass currentUser) {
-        MyUserClass.currentUser = currentUser;
+    public MyUserClass(){
     }
 
     /**

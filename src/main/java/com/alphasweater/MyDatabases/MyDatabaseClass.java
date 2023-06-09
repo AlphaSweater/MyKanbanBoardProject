@@ -1,4 +1,4 @@
-package com.alphasweater.MyUser;
+package com.alphasweater.MyDatabases;
 /* Author: Chad Fairlie
 *  Pseudonym: AlphaSweater
 *  Student Number: ST10269509
@@ -11,22 +11,23 @@ import java.io.IOException;
 /**
  * The MyUserDAOClass (DAO = Database) class provides methods for reading and accessing the user database file.
  */
-public class MyUserDAOClass {
+public class MyDatabaseClass {
     // The name of the file containing the user database
-    private static final String FILE_NAME = "src/main/resources/usersDatabase.txt";
+    private final String USERS_FILE_NAME = "src/main/resources/usersDatabase.txt";
+
+    public String getUSERS_FILE_NAME() {
+        return USERS_FILE_NAME;
+    }
+
     // A 2D array to store the contents of the user database
-    private static String[][] userDatabase;
+    private String[][] database;
     //----------------------------------------------------------------------------------------------------------------//
 
     /**
-     * Returns the filename of the user database.
-     *
-     * @return The filename of the user database.
+     Default Constructor for MyDatabaseClass class
      */
-    public static String getFileName() {
-        return FILE_NAME;
+    public MyDatabaseClass(){
     }
-    //----------------------------------------------------------------------------------------------------------------//
 
     /**
      * Reads the contents of a file and returns them as a 2D array of strings.
@@ -35,7 +36,7 @@ public class MyUserDAOClass {
      * @return A 2D array of strings containing the file contents.
      * @throws IOException If an error occurs while reading the file.
      */
-    public static String[][] readDataFromFile(String fileName) throws IOException {
+    public String[][] readDataFromFile(String fileName) throws IOException {
         // Create a BufferedReader to read the file
         try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
             // Use the lines() method to read the file into an array of strings
@@ -59,10 +60,10 @@ public class MyUserDAOClass {
      *
      * @return The contents of the user database as a 2D array of strings.
      */
-    public static String[][] getUserDatabase() {
+    public String[][] getDatabase() {
         // Reload the user database here to ensure it is up-to-date
-        reLoadUserDatabase();
-        return userDatabase;
+        this.reLoadDatabase();
+        return database;
     }
     //----------------------------------------------------------------------------------------------------------------//
 
@@ -70,10 +71,10 @@ public class MyUserDAOClass {
      * Reloads the user database from the file.
      * This method should be called whenever the database needs to be updated.
      */
-    public static void reLoadUserDatabase() {
+    public void reLoadDatabase() {
         try {
             // Read the contents of the user database from the file and store them in the userDatabase array
-            userDatabase = readDataFromFile(getFileName());
+            this.database = readDataFromFile(this.USERS_FILE_NAME);
         } catch (IOException e) {
             // If an exception occurs, wrap it in a RuntimeException and re-throw it
             throw new RuntimeException(e);

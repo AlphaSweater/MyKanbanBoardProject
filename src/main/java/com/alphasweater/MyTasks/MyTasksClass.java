@@ -60,7 +60,7 @@ public class MyTasksClass {
         for (MyTasksClass task : listOfTasks) {
             this.totalHours += task.getTaskDuration();
         }
-       return this.totalHours;
+        return this.totalHours;
     }
 
     //----------------------------------------------------------------------------------------------------------------//
@@ -128,8 +128,15 @@ public class MyTasksClass {
 
     //----------------------------------------------------------------------------------------------------------------//
     public String printTaskDetails() {
-        //TODO: Come Back here
-        return "Hi";
+        String resultString = "Your Task has been successfully captured." + "\n" + "\n"
+                + "-> Task Status : " + this.getTaskStatus() + "\n"
+                + "-> Developer Details : " + this.getTaskDevInfo() + "\n"
+                + "-> Task Number : " + this.getTaskNumber() + "\n"
+                + "-> Task Name : " + this.getTaskName() + "\n"
+                + "-> Task Description : " + this.getTaskDescription() + "\n"
+                + "-> Task ID : " + this.getTaskID() + "\n"
+                + "-> Task Duration : " + this.getTaskDuration();
+        return resultString;
     }
 }
 //--------------------------------------------------------------------------------------------------------------------//

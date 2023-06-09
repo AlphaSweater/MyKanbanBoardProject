@@ -8,7 +8,8 @@ import com.alphasweater.MyGUI.MyLoginWorkerClass;
 
 public class MainClass {
     public static void main(String[] args) {
-        MyLoginWorkerClass.createLoginPage();
+        MyLoginWorkerClass loginWorker = new MyLoginWorkerClass();
+        loginWorker.createLoginPage();
     }
 }
 //--------------------------------------------------------------------------------------------------------------------//

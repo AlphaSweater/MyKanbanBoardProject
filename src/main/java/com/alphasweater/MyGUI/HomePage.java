@@ -28,36 +28,39 @@ public class HomePage {
     protected JScrollPane tblScrollPane;
     protected JButton btnShowReport;
     protected JLabel lblTotalHours;
-    protected static final JFrame homeFrame = new JFrame("Home Page");
-    private final MyHomeWorkerClass homeWorker;
+    protected final JFrame homeFrame = new JFrame("Home Page");
+    private MyHomeWorkerClass homeWorker;
+    public void setHomeWorker(MyHomeWorkerClass homeWorker) {
+        this.homeWorker = homeWorker;
+    }
 
     //----------------------------------------------------------------------------------------------------------------//
-    public HomePage() {
-        homeWorker = new MyHomeWorkerClass(this);
+    public HomePage(MyHomeWorkerClass myHomeWorkerClass) {
         $$$setupUI$$$();
-
-        homeWorker.beginHere();
+        this.homeWorker = myHomeWorkerClass;
+        this.homeWorker.setHomePage(this);
+        this.homeWorker.beginHere();
 
         // Add an ActionListener to the log-out button
-        btnLogOut.addActionListener(click -> {
-            homeWorker.logOut();
-        });
-        btnAddTasks.addActionListener(click -> {
-            homeWorker.beginAddTasks();
-        });
+        btnLogOut.addActionListener(click -> this.homeWorker.logOut());
+        btnAddTasks.addActionListener(click -> this.homeWorker.beginAddTasks());
         btnShowReport.addActionListener(click -> {
             //TODO: Show Report
+            this.homeWorker.beginShowReportHere();
         });
     }
 
     //----------------------------------------------------------------------------------------------------------------//
     private void createUIComponents() {
-        tblTasksList = new JTable();
-        tblScrollPane = new JScrollPane();
-        lblTotalHours = new JLabel();
-        homeWorker.editComponents();
-        tblScrollPane.setViewportView(tblTasksList);
-        tblScrollPane.getViewport().setPreferredSize(tblTasksList.getPreferredSize());
+        this.tblTasksList = new JTable();
+        this.tblScrollPane = new JScrollPane();
+        this.lblTotalHours = new JLabel();
+        if (this.homeWorker == null) {
+            homeWorker = new MyHomeWorkerClass();
+        }
+        this.homeWorker.editComponents();
+        this.tblScrollPane.setViewportView(tblTasksList);
+        this.tblScrollPane.getViewport().setPreferredSize(tblTasksList.getPreferredSize());
     }
 
     //----------------------------------------------UI Designer Code--------------------------------------------------//
