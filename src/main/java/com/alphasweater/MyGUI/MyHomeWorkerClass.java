@@ -175,7 +175,8 @@ public class MyHomeWorkerClass {
             }
         }
 
-        JOptionPane.showMessageDialog(null, "The total number of hours across all tasks is: " + taskWorker.returnTotalHours(listOfTasks) + " hrs");
+        MyTasksClass newTastWorker = new MyTasksClass();
+        JOptionPane.showMessageDialog(null, "The total number of hours across all tasks is: " + newTastWorker.returnTotalHours(listOfTasks) + " hrs");
         // Update the listOfTasks in MyTasksClass
         taskWorker.setListOfTasks(listOfTasks);
 
