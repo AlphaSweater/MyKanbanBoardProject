@@ -21,7 +21,6 @@ public class MyHomeWorkerClass {
         this.currentUser = user;
     }
 
-
     private boolean tblPopulated = false;
     protected final String[] columnNames = {"Task Status", "Developer Details", "Task Number", "Task Name",
             "Task Description", "Task ID", "Duration"};
@@ -62,25 +61,26 @@ public class MyHomeWorkerClass {
         this.homePage.homeFrame.setLocationRelativeTo(null);
         this.homePage.homeFrame.setVisible(true);
     }
-
     //----------------------------------------------------------------------------------------------------------------//
     protected void beginHere() {
         this.homePage.lblTitle.setText("Welcome to EasyKanban.");
         // Set the welcome label text to display the user's first and last name
         this.homePage.lblWelcome.setText(getWelcomeMessage());
     }
-
     //----------------------------------------------------------------------------------------------------------------//
     protected String getWelcomeMessage() {
         return "Hi " + currentUser.getUserFirstName() + " "
                 + currentUser.getUserLastName() + ", it is great to see you.";
     }
-
     //----------------------------------------------------------------------------------------------------------------//
     protected void beginAddTasks() {
         int numOfTasks = 0;
         try {
             numOfTasks = Integer.parseInt(JOptionPane.showInputDialog("Please enter how many tasks you would like to add"));
+            if (numOfTasks <= 0) {
+                JOptionPane.showMessageDialog(null, "Invalid amount of tasks! Number of tasks must be greater than 0.");
+                return;
+            }
             taskWorker.setNumOfTasks(numOfTasks);
         } catch (NumberFormatException | HeadlessException e) {
             JOptionPane.showMessageDialog(null, "Invalid amount of tasks!");
@@ -93,7 +93,6 @@ public class MyHomeWorkerClass {
         MyTasksClass[] listOfTasks = new MyTasksClass[numOfTasks];
 
         for (int i = 0; i < taskWorker.getNumOfTasks(); i++) {
-            boolean taskInfoNull = false;
             JOptionPane.showMessageDialog(null, "You are now busy with task " + (i + 1) + ".");
 
             String taskStatus;
@@ -106,88 +105,81 @@ public class MyHomeWorkerClass {
             };
 
             String taskName = null;
-            try {
+            while (taskName == null || taskName.length() < 2) {
                 taskName = JOptionPane.showInputDialog("Please enter your task's name.");
-                while (taskName.length() < 2) {
-                    JOptionPane.showMessageDialog(null, "Your Task's name must be greater than 2 characters, please try again");
-                    taskName = JOptionPane.showInputDialog("Please enter your task's name.");
+                if (taskName == null) {
+                    int choice = JOptionPane.showConfirmDialog(null, "Cancel entering tasks?");
+                    if (choice == JOptionPane.YES_OPTION || choice == JOptionPane.CLOSED_OPTION) {
+                        return; // Exit the method if the user cancels entering tasks
+                    }
+                } else if (taskName.length() < 2) {
+                    JOptionPane.showMessageDialog(null, "Your task's name must be greater than 2 characters, please try again");
                 }
-            } catch (NullPointerException e) {
-                // User pressed cancel, return to the beginning of the loop iteration
-                taskInfoNull = true;
             }
 
             String taskDescription = "";
-            if (!taskInfoNull) {
-                try {
-                    taskDescription = JOptionPane.showInputDialog("Please enter a description for your task (50 characters max).");
-                    while (!taskWorker.checkTaskDescription(taskDescription)) {
-                        if (!taskWorker.checkTaskDescription(taskDescription)) {
-                            JOptionPane.showMessageDialog(null, "Task Description exceeded 50 characters, please try again");
-                            taskDescription = JOptionPane.showInputDialog("Please enter a description for your task (50 characters max).");
-                        }
+            while (true) {
+                taskDescription = JOptionPane.showInputDialog("Please enter a description for your task (50 characters max).");
+                if (taskDescription == null) {
+                    int choice = JOptionPane.showConfirmDialog(null, "Cancel entering tasks?");
+                    if (choice == JOptionPane.YES_OPTION || choice == JOptionPane.CLOSED_OPTION) {
+                        return; // Exit the method if the user cancels entering tasks
                     }
-                } catch (NullPointerException e) {
-                    taskInfoNull = true;
+                } else if (!taskDescription.isEmpty() && taskWorker.checkTaskDescription(taskDescription)) {
+                    break; // Exit the loop if the task description is valid
+                } else {
+                    JOptionPane.showMessageDialog(null, "Task description is either empty or exceeded 50 characters, please try again");
                 }
             }
 
             String taskDevInfo = "";
-            if (!taskInfoNull) {
+            while (true) {
                 taskDevInfo = JOptionPane.showInputDialog("Please enter the task developer's full name");
-                while (taskDevInfo.length() < 2) {
-                    JOptionPane.showMessageDialog(null, "The task developer's name must be greater than 3 characters, please try again");
-                    if (taskDevInfo == null) {
-                        JOptionPane.showMessageDialog(null, "Task developer's name cannot be empty!");
-                        taskInfoNull = true;
+                if (taskDevInfo == null) {
+                    int choice = JOptionPane.showConfirmDialog(null, "Cancel entering tasks?");
+                    if (choice == JOptionPane.YES_OPTION || choice == JOptionPane.CLOSED_OPTION) {
+                        return; // Exit the method if the user cancels entering tasks
                     }
+                } else if (taskDevInfo.length() < 2) {
+                    JOptionPane.showMessageDialog(null, "The task developer's name must be greater than 2 characters, please try again");
+                } else {
+                    break; // Exit the loop if the task developer info is valid
                 }
             }
 
             int taskDuration = 0;
-            if (!taskInfoNull) {
-                while (true) {
-                    try {
-                        taskDuration = Integer.parseInt(JOptionPane.showInputDialog("Please enter the estimated task duration"));
-                        break; // Exit the loop if parsing is successful
-                    } catch (NumberFormatException e) {
-                        JOptionPane.showMessageDialog(null, "Invalid input for task duration! Please try again.");
-                    } catch (NullPointerException e) {
-                        // User pressed cancel, return to the beginning of the loop iteration
-                        taskInfoNull = true;
-                        break;
+            while (true) {
+                try {
+                    taskDuration = Integer.parseInt(JOptionPane.showInputDialog("Please enter the estimated task duration"));
+                    if (taskDuration <= 0) {
+                        JOptionPane.showMessageDialog(null, "Invalid input for task duration! Duration must be a positive number.");
+                        continue;
                     }
+                    break; // Exit the loop if parsing is successful and duration is positive
+                } catch (NumberFormatException e) {
+                    JOptionPane.showMessageDialog(null, "Invalid input for task duration! Please try again.");
+                } catch (NullPointerException e) {
+                    // User pressed cancel, return to the beginning of the loop iteration
+                    break;
                 }
             }
 
-            if (taskInfoNull) {
-                JOptionPane.showMessageDialog(null, "Invalid input");
-                int choice = JOptionPane.showConfirmDialog(null, "Would you like to stop adding tasks?");
-                if (choice == 0 || choice == -1) {
-                    break;
-                } else if (choice == 1) {
-                    --i;
-                }
-            } else {
-                MyTasksClass newTask = new MyTasksClass(i, taskName, taskDescription, taskDuration, taskStatus, taskDevInfo);
-                listOfTasks[i] = newTask;
-                JOptionPane.showMessageDialog(null, listOfTasks[i].printTaskDetails());
-            }
+            MyTasksClass newTask = new MyTasksClass(i, taskName, taskDescription, taskDuration, taskStatus, taskDevInfo);
+            listOfTasks[i] = newTask;
+            JOptionPane.showMessageDialog(null, listOfTasks[i].printTaskDetails());
         }
 
-        MyTasksClass newTastWorker = new MyTasksClass();
-        JOptionPane.showMessageDialog(null, "The total number of hours across all tasks is: " + newTastWorker.returnTotalHours(listOfTasks) + " hrs");
+        MyTasksClass newTaskWorker = new MyTasksClass();
+        JOptionPane.showMessageDialog(null, "The total number of hours across all tasks is: " + newTaskWorker.returnTotalHours(listOfTasks) + " hrs");
         // Update the listOfTasks in MyTasksClass
         taskWorker.setListOfTasks(listOfTasks);
 
         populateTableData();
     }
-
-
+    //----------------------------------------------------------------------------------------------------------------//
     protected void beginShowReportHere() {
         JOptionPane.showMessageDialog(null, "Coming Soon...");
     }
-
     //----------------------------------------------------------------------------------------------------------------//
     protected void populateTableData() {
         MyTasksClass[] listOfTasks = taskWorker.getListOfTasks();
@@ -214,7 +206,6 @@ public class MyHomeWorkerClass {
         this.homePage.tblTasksList.setVisible(true);
         editComponents();
     }
-
     //----------------------------------------------------------------------------------------------------------------//
     protected void logOut() {
         // Dispose the home JFrame
