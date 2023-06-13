@@ -18,7 +18,7 @@ import java.awt.HeadlessException;
 /* Author: Chad Fairlie
 *  Pseudonym: AlphaSweater
 *  Student Number: ST10269509
----------------------------------------------------------------------------------------------------------------------*/
+----------------------------------------------------------------------------------------------------------------------*/
 public class MyHomeWorkerClass {
     protected MyUserClass currentUser;
 
@@ -29,33 +29,26 @@ public class MyHomeWorkerClass {
     private boolean tblPopulated = false;
     protected final String[] columnNames = {"Task Status", "Developer Details", "Task Number", "Task Name",
             "Task Description", "Task ID", "Duration"};
+    //----------------------------------------------------------------------------------------------------------------//
     // HomePage object to allow the editing of GUI components
     private HomePage homePage;
-
     public HomePage getHomePage() {
         return homePage;
     }
-
     public void setHomePage(HomePage homePage) {
         this.homePage = homePage;
     }
-
     private MyLoginWorkerClass loginWorker;
-
     public void setLoginWorker(MyLoginWorkerClass loginWorker) {
         this.loginWorker = loginWorker;
     }
-
     private final MyTasksClass taskWorker = new MyTasksClass();
     private final MyTaskListController taskListController = new MyTaskListController();
-
-
     //----------------------------------------------------------------------------------------------------------------//
     // Default Constructor
     public MyHomeWorkerClass() {
     }
-    //--------------------------------------------------------------------------------------------------------------------//
-
+    //----------------------------------------------------------------------------------------------------------------//
     /**
      * Summons the home page GUI.
      */
@@ -84,9 +77,11 @@ public class MyHomeWorkerClass {
     protected void beginAddTasks() {
         int numOfTasks;
         try {
-            numOfTasks = Integer.parseInt(JOptionPane.showInputDialog("Please enter how many tasks you would like to add"));
+            numOfTasks = Integer.parseInt(JOptionPane.showInputDialog("Please enter how many tasks you would like to" +
+                    " add"));
             if (numOfTasks <= 0) {
-                JOptionPane.showMessageDialog(null, "Invalid amount of tasks! Number of tasks must be greater than 0.");
+                JOptionPane.showMessageDialog(null, "Invalid amount of tasks! Number of tasks" +
+                        " must be greater than 0.");
                 return;
             }
             this.taskListController.setNumOfTasks(numOfTasks);
@@ -98,7 +93,8 @@ public class MyHomeWorkerClass {
         String[] taskStatusOptions = {"To Do", "Doing", "Done"};
 
         for (int i = 0; i < this.taskListController.getNumOfTasks(); i++) {
-            JOptionPane.showMessageDialog(null, "You are now busy with task " + (this.taskListController.getListOfTasks().size() + 1) + ".");
+            JOptionPane.showMessageDialog(null, "You are now busy with task "
+                    + (this.taskListController.getListOfTasks().size() + 1) + ".");
 
             String taskStatus;
             int option = JOptionPane.showOptionDialog(null, "Select Task Status:", "Task Status",
@@ -223,7 +219,6 @@ public class MyHomeWorkerClass {
 
         this.setCurrentUser(null);
     }
-
     //----------------------------------------------------------------------------------------------------------------//
     // Modifying Custom UI components
     protected void editComponents() {

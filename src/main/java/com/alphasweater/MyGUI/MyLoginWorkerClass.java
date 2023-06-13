@@ -4,7 +4,7 @@ import com.alphasweater.MyDatabases.MyDatabaseClass;
 import com.alphasweater.MyUser.MyUserClass;
 import com.alphasweater.MyUser.MyUserLoginClass;
 
-import javax.swing.*;
+import javax.swing.JFrame;
 
 /* Author: Chad Fairlie
 *  Pseudonym: AlphaSweater
