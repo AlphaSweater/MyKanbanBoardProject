@@ -54,49 +54,6 @@ public class MyTasksClass {
     }
 
     //----------------------------------------------------------------------------------------------------------------//
-    private int totalHours = 0;
-
-    public int returnTotalHours(MyTasksClass[] listOfTasks) {
-        for (MyTasksClass task : listOfTasks) {
-            this.totalHours += task.getTaskDuration();
-        }
-        return this.totalHours;
-    }
-
-    //----------------------------------------------------------------------------------------------------------------//
-    private int numOfTasks = 0;
-
-    public int getNumOfTasks() {
-        return numOfTasks;
-    }
-
-    public void setNumOfTasks(int numOfTasks) {
-        this.numOfTasks = numOfTasks;
-    }
-
-    //----------------------------------------------------------------------------------------------------------------//
-    private MyTasksClass currentTask;
-
-    public MyTasksClass getCurrentTask() {
-        return currentTask;
-    }
-
-    public void setCurrentTask(MyTasksClass currentTask) {
-        this.currentTask = currentTask;
-    }
-
-    //----------------------------------------------------------------------------------------------------------------//
-    private MyTasksClass[] listOfTasks = null;
-
-    public MyTasksClass[] getListOfTasks() {
-        return listOfTasks;
-    }
-
-    public void setListOfTasks(MyTasksClass[] listOfTasks) {
-        this.listOfTasks = listOfTasks;
-    }
-
-    //----------------------------------------------------------------------------------------------------------------//
     // Default constructor
     public MyTasksClass() {
     }
@@ -110,7 +67,6 @@ public class MyTasksClass {
         this.taskDuration = taskDuration;
         this.taskStatus = taskStatus;
         this.taskID = this.createTaskID();
-        totalHours += taskDuration;
     }
 
     //----------------------------------------------------------------------------------------------------------------//
@@ -128,7 +84,7 @@ public class MyTasksClass {
 
     //----------------------------------------------------------------------------------------------------------------//
     public String printTaskDetails() {
-        String resultString = "Your Task has been successfully captured." + "\n" + "\n"
+        return "Your Task has been successfully captured." + "\n" + "\n"
                 + "-> Task Status : " + this.getTaskStatus() + "\n"
                 + "-> Developer Details : " + this.getTaskDevInfo() + "\n"
                 + "-> Task Number : " + this.getTaskNumber() + "\n"
@@ -136,7 +92,6 @@ public class MyTasksClass {
                 + "-> Task Description : " + this.getTaskDescription() + "\n"
                 + "-> Task ID : " + this.getTaskID() + "\n"
                 + "-> Task Duration : " + this.getTaskDuration();
-        return resultString;
     }
 }
 //--------------------------------------------------------------------------------------------------------------------//

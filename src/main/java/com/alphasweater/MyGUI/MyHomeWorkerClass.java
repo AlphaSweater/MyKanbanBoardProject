@@ -1,14 +1,19 @@
 package com.alphasweater.MyGUI;
 
 import com.alphasweater.MyTasks.MyTasksClass;
+import com.alphasweater.MyTasks.MyTaskListController;
 import com.alphasweater.MyUser.MyUserClass;
 import com.alphasweater.MyUtil.WordWrapRenderer;
 
-import javax.swing.*;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
-import java.awt.*;
+import java.awt.Dimension;
+import java.awt.HeadlessException;
 
 /* Author: Chad Fairlie
 *  Pseudonym: AlphaSweater
@@ -41,7 +46,9 @@ public class MyHomeWorkerClass {
         this.loginWorker = loginWorker;
     }
 
-    final MyTasksClass taskWorker = new MyTasksClass();
+    private final MyTasksClass taskWorker = new MyTasksClass();
+    private final MyTaskListController taskListController = new MyTaskListController();
+
 
     //----------------------------------------------------------------------------------------------------------------//
     // Default Constructor
@@ -66,22 +73,23 @@ public class MyHomeWorkerClass {
         this.homePage.lblTitle.setText("Welcome to EasyKanban.");
         // Set the welcome label text to display the user's first and last name
         this.homePage.lblWelcome.setText(getWelcomeMessage());
+        resetTaskList();
     }
     //----------------------------------------------------------------------------------------------------------------//
     protected String getWelcomeMessage() {
-        return "Hi " + currentUser.getUserFirstName() + " "
-                + currentUser.getUserLastName() + ", it is great to see you.";
+        return "Hi " + this.currentUser.getUserFirstName() + " "
+                + this.currentUser.getUserLastName() + ", it is great to see you.";
     }
     //----------------------------------------------------------------------------------------------------------------//
     protected void beginAddTasks() {
-        int numOfTasks = 0;
+        int numOfTasks;
         try {
             numOfTasks = Integer.parseInt(JOptionPane.showInputDialog("Please enter how many tasks you would like to add"));
             if (numOfTasks <= 0) {
                 JOptionPane.showMessageDialog(null, "Invalid amount of tasks! Number of tasks must be greater than 0.");
                 return;
             }
-            taskWorker.setNumOfTasks(numOfTasks);
+            this.taskListController.setNumOfTasks(numOfTasks);
         } catch (NumberFormatException | HeadlessException e) {
             JOptionPane.showMessageDialog(null, "Invalid amount of tasks!");
             throw new RuntimeException(e);
@@ -89,11 +97,8 @@ public class MyHomeWorkerClass {
 
         String[] taskStatusOptions = {"To Do", "Doing", "Done"};
 
-        // Initialize the listOfTasks array with the desired length
-        MyTasksClass[] listOfTasks = new MyTasksClass[numOfTasks];
-
-        for (int i = 0; i < taskWorker.getNumOfTasks(); i++) {
-            JOptionPane.showMessageDialog(null, "You are now busy with task " + (i + 1) + ".");
+        for (int i = 0; i < this.taskListController.getNumOfTasks(); i++) {
+            JOptionPane.showMessageDialog(null, "You are now busy with task " + (this.taskListController.getListOfTasks().size() + 1) + ".");
 
             String taskStatus;
             int option = JOptionPane.showOptionDialog(null, "Select Task Status:", "Task Status",
@@ -117,7 +122,7 @@ public class MyHomeWorkerClass {
                 }
             }
 
-            String taskDescription = "";
+            String taskDescription;
             while (true) {
                 taskDescription = JOptionPane.showInputDialog("Please enter a description for your task (50 characters max).");
                 if (taskDescription == null) {
@@ -125,14 +130,14 @@ public class MyHomeWorkerClass {
                     if (choice == JOptionPane.YES_OPTION || choice == JOptionPane.CLOSED_OPTION) {
                         return; // Exit the method if the user cancels entering tasks
                     }
-                } else if (!taskDescription.isEmpty() && taskWorker.checkTaskDescription(taskDescription)) {
+                } else if (!taskDescription.isEmpty() && this.taskWorker.checkTaskDescription(taskDescription)) {
                     break; // Exit the loop if the task description is valid
                 } else {
                     JOptionPane.showMessageDialog(null, "Task description is either empty or exceeded 50 characters, please try again");
                 }
             }
 
-            String taskDevInfo = "";
+            String taskDevInfo;
             while (true) {
                 taskDevInfo = JOptionPane.showInputDialog("Please enter the task developer's full name");
                 if (taskDevInfo == null) {
@@ -164,15 +169,15 @@ public class MyHomeWorkerClass {
                 }
             }
 
-            MyTasksClass newTask = new MyTasksClass(i, taskName, taskDescription, taskDuration, taskStatus, taskDevInfo);
-            listOfTasks[i] = newTask;
-            JOptionPane.showMessageDialog(null, listOfTasks[i].printTaskDetails());
+            int taskNum = this.taskListController.getListOfTasks().size();
+            MyTasksClass newTask = new MyTasksClass(taskNum, taskName, taskDescription, taskDuration, taskStatus, taskDevInfo);
+            this.taskListController.getListOfTasks().add(newTask);
+            JOptionPane.showMessageDialog(null, this.taskListController.getListOfTasks().get(i).printTaskDetails());
         }
 
-        MyTasksClass newTaskWorker = new MyTasksClass();
-        JOptionPane.showMessageDialog(null, "The total number of hours across all tasks is: " + newTaskWorker.returnTotalHours(listOfTasks) + " hrs");
+        JOptionPane.showMessageDialog(null, "The total number of hours across all tasks is: " +
+                this.taskListController.returnTotalHours(this.taskListController.getListOfTasks()) + " hrs");
         // Update the listOfTasks in MyTasksClass
-        taskWorker.setListOfTasks(listOfTasks);
 
         populateTableData();
     }
@@ -181,16 +186,19 @@ public class MyHomeWorkerClass {
         JOptionPane.showMessageDialog(null, "Coming Soon...");
     }
     //----------------------------------------------------------------------------------------------------------------//
+    protected void resetTaskList() {
+        this.taskListController.getListOfTasks().clear();
+        populateTableData();
+    }
+    //----------------------------------------------------------------------------------------------------------------//
     protected void populateTableData() {
-        MyTasksClass[] listOfTasks = taskWorker.getListOfTasks();
-
-        int rows = taskWorker.getNumOfTasks();    // number of rows in the 2D array
+        int rows = this.taskListController.getListOfTasks().size(); // number of rows in the 2D array
         int columns = 7; // number of columns in the 2D array
 
         Object[][] data = new Object[rows][columns];
 
         for (int i = 0; i < rows; i++) {
-            MyTasksClass task = listOfTasks[i];
+            MyTasksClass task = this.taskListController.getListOfTasks().get(i);
             data[i][0] = task.getTaskStatus();
             data[i][1] = task.getTaskDevInfo();
             data[i][2] = task.getTaskNumber();
@@ -201,8 +209,8 @@ public class MyHomeWorkerClass {
         }
 
         // Call the method to update the table UI components
-        this.homePage.model = new DefaultTableModel(data, columnNames);
-        tblPopulated = true;
+        this.homePage.model = new DefaultTableModel(data, this.columnNames);
+        this.tblPopulated = true;
         this.homePage.tblTasksList.setVisible(true);
         editComponents();
     }
@@ -219,8 +227,8 @@ public class MyHomeWorkerClass {
     //----------------------------------------------------------------------------------------------------------------//
     // Modifying Custom UI components
     protected void editComponents() {
-        if (tblPopulated) {
-            this.homePage.lblTotalHours.setText("Total Number Of Hours Across All Tasks = " + taskWorker.returnTotalHours(taskWorker.getListOfTasks()) + " hrs");
+        if (this.tblPopulated) {
+            this.homePage.lblTotalHours.setText("Total Number Of Hours Across All Tasks = " + this.taskListController.returnTotalHours(this.taskListController.getListOfTasks()) + " hrs");
             this.homePage.tblTasksList.setModel(this.homePage.model);
             this.homePage.tblTasksList.setAutoResizeMode(JTable.AUTO_RESIZE_SUBSEQUENT_COLUMNS);
 
@@ -240,9 +248,9 @@ public class MyHomeWorkerClass {
             }
 
             // Set the preferred column width for wrapping text
-            WordWrapRenderer.setColumnWidth(this.homePage.tblTasksList, 1, 10); // Adjust margin value as needed
-            WordWrapRenderer.setColumnWidth(this.homePage.tblTasksList, 3, 10); // Adjust margin value as needed
-            WordWrapRenderer.setColumnWidth(this.homePage.tblTasksList, 4, 10); // Adjust margin value as needed
+            WordWrapRenderer.setColumnWidth(this.homePage.tblTasksList, 1, 30); // Adjust margin value as needed
+            WordWrapRenderer.setColumnWidth(this.homePage.tblTasksList, 3, 20); // Adjust margin value as needed
+            WordWrapRenderer.setColumnWidth(this.homePage.tblTasksList, 4, 30); // Adjust margin value as needed
 
             // Set the table width to match the sum of the preferred column widths
             int tableWidth = 0;
