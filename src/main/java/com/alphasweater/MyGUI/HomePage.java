@@ -8,12 +8,22 @@ import com.intellij.uiDesigner.core.GridConstraints;
 import com.intellij.uiDesigner.core.GridLayoutManager;
 import com.intellij.uiDesigner.core.Spacer;
 
-import javax.swing.*;
+import javax.swing.BorderFactory;
+import javax.swing.JButton;
+import javax.swing.JComponent;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.border.TitledBorder;
 import javax.swing.plaf.FontUIResource;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.text.StyleContext;
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.Insets;
 import java.util.Locale;
 
 public class HomePage {
@@ -28,8 +38,10 @@ public class HomePage {
     protected JScrollPane tblScrollPane;
     protected JButton btnShowReport;
     protected JLabel lblTotalHours;
+    private JButton btnResetTasks;
     protected final JFrame homeFrame = new JFrame("Home Page");
     private MyHomeWorkerClass homeWorker;
+
     public void setHomeWorker(MyHomeWorkerClass homeWorker) {
         this.homeWorker = homeWorker;
     }
@@ -47,6 +59,9 @@ public class HomePage {
         btnShowReport.addActionListener(click -> {
             //TODO: Show Report
             this.homeWorker.beginShowReportHere();
+        });
+        btnResetTasks.addActionListener(click -> {
+            this.homeWorker.resetTaskList();
         });
     }
 
@@ -95,7 +110,7 @@ public class HomePage {
         lblTitle.setText("Title");
         panel1.add(lblTitle, new GridConstraints(0, 1, 1, 2, GridConstraints.ANCHOR_SOUTH, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         JPanelCentre = new JPanel();
-        JPanelCentre.setLayout(new GridLayoutManager(4, 3, new Insets(0, 0, 0, 0), -1, -1));
+        JPanelCentre.setLayout(new GridLayoutManager(4, 5, new Insets(0, 0, 0, 0), -1, -1));
         JPanelCentre.setBackground(new Color(-13223617));
         panel1.add(JPanelCentre, new GridConstraints(3, 1, 1, 2, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, null, null, null, 0, false));
         btnAddTasks = new JButton();
@@ -106,7 +121,7 @@ public class HomePage {
         if (btnAddTasksFont != null) btnAddTasks.setFont(btnAddTasksFont);
         btnAddTasks.setForeground(new Color(-1250067));
         btnAddTasks.setText("Add Tasks");
-        JPanelCentre.add(btnAddTasks, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_VERTICAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(300, 45), null, 0, false));
+        JPanelCentre.add(btnAddTasks, new GridConstraints(0, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_VERTICAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(300, 45), null, 0, false));
         btnShowReport = new JButton();
         btnShowReport.setBackground(new Color(-9270822));
         btnShowReport.setFocusable(false);
@@ -114,7 +129,7 @@ public class HomePage {
         if (btnShowReportFont != null) btnShowReport.setFont(btnShowReportFont);
         btnShowReport.setForeground(new Color(-1250067));
         btnShowReport.setText("Show Report");
-        JPanelCentre.add(btnShowReport, new GridConstraints(0, 2, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_VERTICAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(300, 45), null, 0, false));
+        JPanelCentre.add(btnShowReport, new GridConstraints(0, 3, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_VERTICAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(300, 45), null, 0, false));
         tblScrollPane.setBackground(new Color(-13223617));
         Font tblScrollPaneFont = this.$$$getFont$$$("Arial Rounded MT Bold", Font.PLAIN, -1, tblScrollPane.getFont());
         if (tblScrollPaneFont != null) tblScrollPane.setFont(tblScrollPaneFont);
@@ -122,11 +137,12 @@ public class HomePage {
         tblScrollPane.setHorizontalScrollBarPolicy(31);
         tblScrollPane.setOpaque(true);
         tblScrollPane.setVerticalScrollBarPolicy(20);
-        JPanelCentre.add(tblScrollPane, new GridConstraints(3, 0, 1, 3, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW, null, null, null, 0, false));
+        JPanelCentre.add(tblScrollPane, new GridConstraints(3, 1, 1, 3, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW, null, null, null, 0, false));
         tblScrollPane.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEmptyBorder(), null, TitledBorder.DEFAULT_JUSTIFICATION, TitledBorder.DEFAULT_POSITION, null, null));
         tblTasksList.setAutoResizeMode(0);
         tblTasksList.setBackground(new Color(-13223617));
         tblTasksList.setFillsViewportHeight(true);
+        tblTasksList.setFocusable(false);
         Font tblTasksListFont = this.$$$getFont$$$("Arial Rounded MT Bold", Font.PLAIN, -1, tblTasksList.getFont());
         if (tblTasksListFont != null) tblTasksList.setFont(tblTasksListFont);
         tblTasksList.setForeground(new Color(-1250067));
@@ -137,26 +153,40 @@ public class HomePage {
         tblTasksList.setVisible(false);
         tblScrollPane.setViewportView(tblTasksList);
         final Spacer spacer1 = new Spacer();
-        JPanelCentre.add(spacer1, new GridConstraints(1, 2, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_NONE, 1, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(-1, 15), null, 0, false));
+        JPanelCentre.add(spacer1, new GridConstraints(1, 3, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_NONE, 1, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(-1, 15), null, 0, false));
         final Spacer spacer2 = new Spacer();
-        JPanelCentre.add(spacer2, new GridConstraints(1, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_NONE, 1, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(-1, 15), null, 0, false));
+        JPanelCentre.add(spacer2, new GridConstraints(1, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_NONE, 1, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(-1, 15), null, 0, false));
         final Spacer spacer3 = new Spacer();
-        JPanelCentre.add(spacer3, new GridConstraints(0, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, 1, null, new Dimension(30, -1), null, 0, false));
+        JPanelCentre.add(spacer3, new GridConstraints(0, 2, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, 1, null, new Dimension(30, -1), null, 0, false));
         Font lblTotalHoursFont = this.$$$getFont$$$("Arial Rounded MT Bold", Font.PLAIN, 14, lblTotalHours.getFont());
         if (lblTotalHoursFont != null) lblTotalHours.setFont(lblTotalHoursFont);
         lblTotalHours.setForeground(new Color(-1250067));
         lblTotalHours.setText("");
-        JPanelCentre.add(lblTotalHours, new GridConstraints(2, 0, 1, 3, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        JPanelCentre.add(lblTotalHours, new GridConstraints(2, 2, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         final Spacer spacer4 = new Spacer();
-        panel1.add(spacer4, new GridConstraints(6, 1, 1, 2, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_VERTICAL, 1, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(-1, 15), null, 0, false));
+        JPanelCentre.add(spacer4, new GridConstraints(2, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, 1, null, new Dimension(50, -1), null, 0, false));
+        btnResetTasks = new JButton();
+        btnResetTasks.setBackground(new Color(-9270822));
+        btnResetTasks.setFocusable(false);
+        Font btnResetTasksFont = this.$$$getFont$$$("Arial Rounded MT Bold", Font.PLAIN, 12, btnResetTasks.getFont());
+        if (btnResetTasksFont != null) btnResetTasks.setFont(btnResetTasksFont);
+        btnResetTasks.setForeground(new Color(-1250067));
+        btnResetTasks.setText("Reset");
+        JPanelCentre.add(btnResetTasks, new GridConstraints(2, 3, 1, 1, GridConstraints.ANCHOR_EAST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         final Spacer spacer5 = new Spacer();
-        panel1.add(spacer5, new GridConstraints(2, 1, 1, 2, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_NONE, 1, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(-1, 15), null, 0, false));
+        JPanelCentre.add(spacer5, new GridConstraints(0, 4, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, 1, null, new Dimension(10, -1), null, 0, false));
         final Spacer spacer6 = new Spacer();
-        panel1.add(spacer6, new GridConstraints(5, 3, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, 1, null, null, null, 0, false));
+        JPanelCentre.add(spacer6, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, 1, null, new Dimension(10, -1), null, 0, false));
         final Spacer spacer7 = new Spacer();
-        panel1.add(spacer7, new GridConstraints(5, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, 1, null, null, null, 0, false));
+        panel1.add(spacer7, new GridConstraints(6, 1, 1, 2, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_VERTICAL, 1, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(-1, 15), null, 0, false));
         final Spacer spacer8 = new Spacer();
-        panel1.add(spacer8, new GridConstraints(4, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_VERTICAL, 1, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(-1, 15), null, 0, false));
+        panel1.add(spacer8, new GridConstraints(2, 1, 1, 2, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_NONE, 1, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(-1, 15), null, 0, false));
+        final Spacer spacer9 = new Spacer();
+        panel1.add(spacer9, new GridConstraints(5, 3, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, 1, null, null, null, 0, false));
+        final Spacer spacer10 = new Spacer();
+        panel1.add(spacer10, new GridConstraints(5, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, 1, null, null, null, 0, false));
+        final Spacer spacer11 = new Spacer();
+        panel1.add(spacer11, new GridConstraints(4, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_VERTICAL, 1, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(-1, 15), null, 0, false));
         btnLogOut = new JButton();
         btnLogOut.setActionCommand("");
         btnLogOut.setBackground(new Color(-9270822));
@@ -168,6 +198,10 @@ public class HomePage {
         btnLogOut.setForeground(new Color(-1250067));
         btnLogOut.setText("Logout");
         panel1.add(btnLogOut, new GridConstraints(5, 1, 1, 2, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_VERTICAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(450, 45), null, 0, false));
+        final Spacer spacer12 = new Spacer();
+        panel1.add(spacer12, new GridConstraints(3, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, 1, null, new Dimension(50, -1), null, 0, false));
+        final Spacer spacer13 = new Spacer();
+        panel1.add(spacer13, new GridConstraints(3, 3, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, 1, null, new Dimension(50, -1), null, 0, false));
     }
 
     /**
