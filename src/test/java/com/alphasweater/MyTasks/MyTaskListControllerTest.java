@@ -205,7 +205,7 @@ public class MyTaskListControllerTest {
     public void testFindAllDevsTasksWithExistingDevName() {
         String devName = testTaskDevs[0]; // Using the first developer name from @Before data
 
-        ArrayList<String> expectedTasks = new ArrayList<String>();
+        ArrayList<String> expectedTasks = new ArrayList<>();
         for (MyTasksClass task : testTaskListController.getListOfTasks()) {
             if (task.getTaskDevInfo().equals(devName)){
                 expectedTasks.add("-> Task Name : " + task.getTaskName() + "\n"

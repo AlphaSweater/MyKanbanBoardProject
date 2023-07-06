@@ -17,12 +17,9 @@ public class MyTaskListController {
         this.numOfTasks = numOfTasks;
     } 
     //----------------------------------------------------------------------------------------------------------------//
-    private ArrayList<MyTasksClass> listOfTasks = new ArrayList<MyTasksClass>();
+    private ArrayList<MyTasksClass> listOfTasks = new ArrayList<>();
     public ArrayList<MyTasksClass> getListOfTasks() {
         return listOfTasks;
-    }
-    private void setListOfTasks(ArrayList<MyTasksClass> listOfTasks) {
-        this.listOfTasks = listOfTasks;
     }
     //----------------------------------------------------------------------------------------------------------------//
     public int returnTotalHours(ArrayList<MyTasksClass> listOfTasks) {
@@ -34,7 +31,7 @@ public class MyTaskListController {
     }
     //----------------------------------------------------------------------------------------------------------------//
     public ArrayList<String> findAllToDoTasks (){
-        ArrayList<String> listOfTaskStatusDone = new ArrayList<String>();
+        ArrayList<String> listOfTaskStatusDone = new ArrayList<>();
         for (MyTasksClass task : this.listOfTasks) {
             if (task.getTaskStatus().equalsIgnoreCase("To Do")) {
                 listOfTaskStatusDone.add("-> Developer Details : " + task.getTaskDevInfo() + "\n"
@@ -46,7 +43,7 @@ public class MyTaskListController {
     }
     //----------------------------------------------------------------------------------------------------------------//
     public ArrayList<String> findAllDoingTasks (){
-        ArrayList<String> listOfTaskStatusDone = new ArrayList<String>();
+        ArrayList<String> listOfTaskStatusDone = new ArrayList<>();
         for (MyTasksClass task : this.listOfTasks) {
             if (task.getTaskStatus().equalsIgnoreCase("Doing")) {
                 listOfTaskStatusDone.add("-> Developer Details : " + task.getTaskDevInfo() + "\n"
@@ -58,7 +55,7 @@ public class MyTaskListController {
     }
     //----------------------------------------------------------------------------------------------------------------//
     public ArrayList<String> findAllDoneTasks (){
-        ArrayList<String> listOfTaskStatusDone = new ArrayList<String>();
+        ArrayList<String> listOfTaskStatusDone = new ArrayList<>();
         for (MyTasksClass task : this.listOfTasks) {
             if (task.getTaskStatus().equalsIgnoreCase("Done")) {
                 listOfTaskStatusDone.add("-> Developer Details : " + task.getTaskDevInfo() + "\n"
@@ -117,7 +114,7 @@ public class MyTaskListController {
     }
     //----------------------------------------------------------------------------------------------------------------//
     public ArrayList<String> findAllDevsTasks (String devName){
-        ArrayList<String> listOfDevsTasks = new ArrayList<String>();
+        ArrayList<String> listOfDevsTasks = new ArrayList<>();
         for (MyTasksClass task : this.listOfTasks) {
             if (task.getTaskDevInfo().equalsIgnoreCase(devName)){
                 listOfDevsTasks.add("-> Task Name : " + task.getTaskName() + "\n"
@@ -147,7 +144,7 @@ public class MyTaskListController {
     }
     //----------------------------------------------------------------------------------------------------------------//
     public ArrayList<String> findAllCapturedTasks (){
-        ArrayList<String> listOfTasksInfo = new ArrayList<String>();
+        ArrayList<String> listOfTasksInfo = new ArrayList<>();
         for (MyTasksClass task : this.listOfTasks) {
           listOfTasksInfo.add(task.printTaskDetails());
         }

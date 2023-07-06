@@ -60,9 +60,7 @@ public class HomePage {
             //TODO: Show Report
             this.homeWorker.beginShowReportHere();
         });
-        btnResetTasks.addActionListener(click -> {
-            this.homeWorker.resetTaskList();
-        });
+        btnResetTasks.addActionListener(click -> this.homeWorker.resetTaskList());
     }
 
     //----------------------------------------------------------------------------------------------------------------//
