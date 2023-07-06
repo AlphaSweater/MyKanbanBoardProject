@@ -211,12 +211,14 @@ public class MyHomeWorkerClass {
         boolean closeSearch = false;
         while (!closeSearch) {
             String[] searchOptions = {"By Task Name", "By Task Developer", "By Task Status", "BACK"};
-            int searchChoice = JOptionPane.showOptionDialog(null, "How would you like to Search:", "Searching",
+            int searchChoice = JOptionPane.showOptionDialog(null, "How would you like to Search:"
+                    , "Searching",
                     JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, searchOptions, null);
 
             switch (searchChoice) {
                 case 0 -> {
-                    String inTaskName = JOptionPane.showInputDialog(null, "Please Enter the name of the task:");
+                    String inTaskName = JOptionPane.showInputDialog(null
+                            , "Please Enter the name of the task:");
                     String result = taskListController.searchForTask(inTaskName);
                     if (result != null) {
                         JOptionPane.showMessageDialog(null, "Task \"" + inTaskName
@@ -228,11 +230,13 @@ public class MyHomeWorkerClass {
                     }
                 }
                 case 1 -> {
-                    String inDevName = JOptionPane.showInputDialog(null, "Please Enter the name of the Developer:");
+                    String inDevName = JOptionPane.showInputDialog(null
+                            , "Please Enter the name of the Developer:");
                     ArrayList<String> results = taskListController.findAllDevsTasks(inDevName);
                     if (!results.isEmpty()) {
                         int numTasks = results.size();
-                        String message = (numTasks == 1) ? "1 Task has been found!" : numTasks + " Tasks have been found!";
+                        String message = (numTasks == 1) ? "1 Task has been found!" : numTasks
+                                + " Tasks have been found!";
                         JOptionPane.showMessageDialog(null, message);
                         for (int i = 0; i < results.size(); i++) {
                             String taskInfo = results.get(i);
@@ -255,8 +259,10 @@ public class MyHomeWorkerClass {
         boolean closeStatusSearch = false;
         while (!closeStatusSearch) {
             String[] statusOptions = {"By \"To Do\"", "By \"Doing\"", "By \"Done\"", "BACK"};
-            int statusChoice = JOptionPane.showOptionDialog(null, "Which Task Status would you like to search for?:",
-                    "Searching", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, statusOptions, null);
+            int statusChoice = JOptionPane.showOptionDialog(null
+                    , "Which Task Status would you like to search for?:",
+                    "Searching", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null
+                    , statusOptions, null);
 
             switch (statusChoice) {
                 case 0 -> {
@@ -295,13 +301,16 @@ public class MyHomeWorkerClass {
     private void findTasksByDuration() {
         boolean closeDurationSearch = false;
         while (!closeDurationSearch) {
-            String[] searchOptions = {"Find Longest Task", "Find Shortest Task", "Cancel"};
-            int searchChoice = JOptionPane.showOptionDialog(null, "What Would you Like to Find?", "Searching",
+            String[] searchOptions = {"Find Longest Task", "Find Shortest Task", "BACK"};
+            int searchChoice = JOptionPane.showOptionDialog(null, "What Would you Like to Find?"
+                    , "Searching",
                     JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, searchOptions, null);
 
             switch (searchChoice) {
-                case 0 -> displayTask("Found Task with the Longest Duration:", taskListController.findLongestTask());
-                case 1 -> displayTask("Found Task with the Shortest Duration:", taskListController.findShortestTask());
+                case 0 -> displayTask("Found Task with the Longest Duration:"
+                        , taskListController.findLongestTask());
+                case 1 -> displayTask("Found Task with the Shortest Duration:"
+                        , taskListController.findShortestTask());
                 default -> closeDurationSearch = true;
             }
         }
