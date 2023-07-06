@@ -115,7 +115,38 @@ public class MyTaskListControllerTest {
     }
     //----------------------------------------------------------------------------------------------------------------//
     @Test
-    public void testFindLongestTask() {
+    public void testFindShortestTask() {
+        MyTasksClass expectedTask = testTaskListController.getListOfTasks().get(2); // Get the task with the longest duration from the @Before data
+        String expectedResult = "-> Task Name : " + expectedTask.getTaskName() + "\n"
+                + "-> Developer Details : " + expectedTask.getTaskDevInfo() + "\n"
+                + "-> Task Duration : " + expectedTask.getTaskDuration();
+        String result = testTaskListController.findShortestTask();
+        Assert.assertEquals("Task Incorrect",expectedResult, result);
+    }
+    @Test
+    public void testFindShortestTaskWithEmptyList() {
+        testTaskListController.getListOfTasks().clear(); // Clear the list to simulate an empty list
+        String result = testTaskListController.findShortestTask();
+        Assert.assertNull(result);
+    }
+    @Test
+    public void testFindShortestTaskWithEqualDurations() {
+        MyTasksClass task5 = new MyTasksClass(5, "Task 5", "Description 1",
+                1, "To Do", "Developer 5");
+        MyTasksClass task6 = new MyTasksClass(6, "Task 6", "Description 2",
+                1, "To Do", "Developer 6");
+        testTaskListController.getListOfTasks().add(task5);
+        testTaskListController.getListOfTasks().add(task6);
+        String expectedResult = "-> Task Name : " + task5.getTaskName() + "\n"
+                + "-> Developer Details : " + task5.getTaskDevInfo() + "\n"
+                + "-> Task Duration : " + task5.getTaskDuration();
+
+        String result = testTaskListController.findShortestTask();
+        Assert.assertEquals(expectedResult, result);
+    }
+    //----------------------------------------------------------------------------------------------------------------//
+    @Test
+    public void testFindLowestTask() {
         MyTasksClass expectedTask = testTaskListController.getListOfTasks().get(3); // Get the task with the longest duration from the @Before data
         String expectedResult = "-> Task Name : " + expectedTask.getTaskName() + "\n"
                 + "-> Developer Details : " + expectedTask.getTaskDevInfo() + "\n"
@@ -124,13 +155,13 @@ public class MyTaskListControllerTest {
         Assert.assertEquals("Task Incorrect",expectedResult, result);
     }
     @Test
-    public void testFindLongestTaskWithEmptyList() {
+    public void testFindLowestTaskWithEmptyList() {
         testTaskListController.getListOfTasks().clear(); // Clear the list to simulate an empty list
         String result = testTaskListController.findLongestTask();
         Assert.assertNull(result);
     }
     @Test
-    public void testFindLongestTaskWithEqualDurations() {
+    public void testFindLowestTaskWithEqualDurations() {
         MyTasksClass task5 = new MyTasksClass(5, "Task 5", "Description 1",
                 20, "To Do", "Developer 5");
         MyTasksClass task6 = new MyTasksClass(6, "Task 6", "Description 2",
@@ -150,9 +181,8 @@ public class MyTaskListControllerTest {
         // Testing for an existing task
         MyTasksClass expectedTask = testTaskListController.getListOfTasks().get(0); // Get the first task from the list
         String expectedResult = "-> Task Name : " + expectedTask.getTaskName() + "\n"
-                + "-> Task Description : " + "-> Developer Details : "
-                + expectedTask.getTaskDevInfo() + "\n" + "-> Task Status : "
-                + expectedTask.getTaskStatus() + "\n";
+                + "-> Developer Details : " + expectedTask.getTaskDevInfo() + "\n"
+                + "-> Task Status : " + expectedTask.getTaskStatus();
 
         String result = testTaskListController.searchForTask(expectedTask.getTaskName());
         Assert.assertEquals("The task was not found", expectedResult, result);
@@ -179,13 +209,12 @@ public class MyTaskListControllerTest {
         for (MyTasksClass task : testTaskListController.getListOfTasks()) {
             if (task.getTaskDevInfo().equals(devName)){
                 expectedTasks.add("-> Task Name : " + task.getTaskName() + "\n"
-                        + "-> Task Status : " + task.getTaskStatus() + "\n");
+                        + "-> Task Status : " + task.getTaskStatus());
             }
         }
 
         ArrayList<String> result = testTaskListController.findAllDevsTasks(devName);
-        Assert.assertEquals("",expectedTasks, result);
-
+        Assert.assertEquals("Tasks were incorrect",expectedTasks, result);
     }
     @Test
     public void testFindAllDevsTasksWithNoAssignedTasks() {

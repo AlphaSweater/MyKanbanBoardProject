@@ -36,7 +36,7 @@ public class MyTaskListController {
     public ArrayList<String> findAllDoneTasks (){
         ArrayList<String> listOfTaskStatusDone = new ArrayList<String>();
         for (MyTasksClass task : this.listOfTasks) {
-            if (task.getTaskStatus().equals("Done")) {
+            if (task.getTaskStatus().equalsIgnoreCase("Done")) {
                 listOfTaskStatusDone.add("-> Developer Details : " + task.getTaskDevInfo() + "\n"
                         + "-> Task Name : " + task.getTaskName() + "\n"
                         + "-> Task Duration : " + task.getTaskDuration());
@@ -60,17 +60,33 @@ public class MyTaskListController {
                     + "-> Developer Details : " + longestTask.getTaskDevInfo() + "\n"
                     + "-> Task Duration : " + longestTask.getTaskDuration();
         }
+        return null;
+    }
+    //----------------------------------------------------------------------------------------------------------------//
+    public String findShortestTask (){
+        if (this.listOfTasks.size() != 0) {
+            int shortest = this.listOfTasks.get(0).getTaskDuration();
+            MyTasksClass shortestTask = this.listOfTasks.get(0);
 
+            for (MyTasksClass task : this.listOfTasks) {
+                if (task.getTaskDuration() < shortest) {
+                    shortest = task.getTaskDuration();
+                    shortestTask = task;
+                }
+            }
+            return "-> Task Name : " + shortestTask.getTaskName() + "\n"
+                    + "-> Developer Details : " + shortestTask.getTaskDevInfo() + "\n"
+                    + "-> Task Duration : " + shortestTask.getTaskDuration();
+        }
         return null;
     }
     //----------------------------------------------------------------------------------------------------------------//
     public String searchForTask (String taskName){
         for (MyTasksClass task : this.listOfTasks) {
-            if (task.getTaskName().equals(taskName)){
+            if (task.getTaskName().equalsIgnoreCase(taskName)){
                 return "-> Task Name : " + task.getTaskName() + "\n"
-                        + "-> Task Description : " + "-> Developer Details : "
-                        + task.getTaskDevInfo() + "\n" + "-> Task Status : "
-                        + task.getTaskStatus() + "\n";
+                        + "-> Developer Details : " + task.getTaskDevInfo() + "\n"
+                        + "-> Task Status : " + task.getTaskStatus();
             }
         }
         return null;
@@ -79,9 +95,9 @@ public class MyTaskListController {
     public ArrayList<String> findAllDevsTasks (String devName){
         ArrayList<String> listOfDevsTasks = new ArrayList<String>();
         for (MyTasksClass task : this.listOfTasks) {
-            if (task.getTaskDevInfo().equals(devName)){
+            if (task.getTaskDevInfo().equalsIgnoreCase(devName)){
                 listOfDevsTasks.add("-> Task Name : " + task.getTaskName() + "\n"
-                        + "-> Task Status : " + task.getTaskStatus() + "\n");
+                        + "-> Task Status : " + task.getTaskStatus());
             }
         }
         return listOfDevsTasks;
@@ -90,7 +106,7 @@ public class MyTaskListController {
     public String deleteTask (String taskToDeleteName){
         MyTasksClass taskToDelete = null;
         for (MyTasksClass task : this.listOfTasks) {
-            if (task.getTaskName().equals(taskToDeleteName)){
+            if (task.getTaskName().equalsIgnoreCase(taskToDeleteName)){
                 taskToDelete = task;
                 this.listOfTasks.remove(taskToDelete);
                 break;

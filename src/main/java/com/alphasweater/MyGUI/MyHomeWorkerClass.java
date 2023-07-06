@@ -14,6 +14,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
 import java.awt.Dimension;
 import java.awt.HeadlessException;
+import java.util.ArrayList;
 
 /* Author: Chad Fairlie
 *  Pseudonym: AlphaSweater
@@ -97,8 +98,10 @@ public class MyHomeWorkerClass {
                     + (this.taskListController.getListOfTasks().size() + 1) + ".");
 
             String taskStatus;
-            int option = JOptionPane.showOptionDialog(null, "Select Task Status:", "Task Status",
-                    JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, taskStatusOptions, taskStatusOptions[0]);
+            int option = JOptionPane.showOptionDialog(null
+                    , "Select Task Status:", "Task Status",
+                    JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE
+                    , null, taskStatusOptions, taskStatusOptions[0]);
             taskStatus = switch (option) {
                 case 1 -> taskStatusOptions[1];
                 case 2 -> taskStatusOptions[2];
@@ -114,7 +117,8 @@ public class MyHomeWorkerClass {
                         return; // Exit the method if the user cancels entering tasks
                     }
                 } else if (taskName.length() < 2) {
-                    JOptionPane.showMessageDialog(null, "Your task's name must be greater than 2 characters, please try again");
+                    JOptionPane.showMessageDialog(null
+                            , "Your task's name must be greater than 2 characters, please try again");
                 }
             }
 
@@ -129,7 +133,8 @@ public class MyHomeWorkerClass {
                 } else if (!taskDescription.isEmpty() && this.taskWorker.checkTaskDescription(taskDescription)) {
                     break; // Exit the loop if the task description is valid
                 } else {
-                    JOptionPane.showMessageDialog(null, "Task description is either empty or exceeded 50 characters, please try again");
+                    JOptionPane.showMessageDialog(null
+                            , "Task description is either empty or exceeded 50 characters, please try again");
                 }
             }
 
@@ -142,7 +147,8 @@ public class MyHomeWorkerClass {
                         return; // Exit the method if the user cancels entering tasks
                     }
                 } else if (taskDevInfo.length() < 2) {
-                    JOptionPane.showMessageDialog(null, "The task developer's name must be greater than 2 characters, please try again");
+                    JOptionPane.showMessageDialog(null
+                            , "The task developer's name must be greater than 2 characters, please try again");
                 } else {
                     break; // Exit the loop if the task developer info is valid
                 }
@@ -153,12 +159,14 @@ public class MyHomeWorkerClass {
                 try {
                     taskDuration = Integer.parseInt(JOptionPane.showInputDialog("Please enter the estimated task duration"));
                     if (taskDuration <= 0) {
-                        JOptionPane.showMessageDialog(null, "Invalid input for task duration! Duration must be a positive number.");
+                        JOptionPane.showMessageDialog(null
+                                , "Invalid input for task duration! Duration must be a positive number.");
                         continue;
                     }
                     break; // Exit the loop if parsing is successful and duration is positive
                 } catch (NumberFormatException e) {
-                    JOptionPane.showMessageDialog(null, "Invalid input for task duration! Please try again.");
+                    JOptionPane.showMessageDialog(null
+                            , "Invalid input for task duration! Please try again.");
                 } catch (NullPointerException e) {
                     // User pressed cancel, return to the beginning of the loop iteration
                     break;
@@ -166,9 +174,11 @@ public class MyHomeWorkerClass {
             }
 
             int taskNum = this.taskListController.getListOfTasks().size();
-            MyTasksClass newTask = new MyTasksClass(taskNum, taskName, taskDescription, taskDuration, taskStatus, taskDevInfo);
+            MyTasksClass newTask = new MyTasksClass(taskNum, taskName, taskDescription, taskDuration
+                    , taskStatus, taskDevInfo);
             this.taskListController.getListOfTasks().add(newTask);
-            JOptionPane.showMessageDialog(null, this.taskListController.getListOfTasks().get(i).printTaskDetails());
+            JOptionPane.showMessageDialog(null
+                    , this.taskListController.getListOfTasks().get(i).printTaskDetails());
         }
 
         JOptionPane.showMessageDialog(null, "The total number of hours across all tasks is: " +
@@ -179,7 +189,126 @@ public class MyHomeWorkerClass {
     }
     //----------------------------------------------------------------------------------------------------------------//
     protected void beginShowReportHere() {
-        JOptionPane.showMessageDialog(null, "Coming Soon...");
+        boolean closeReport = false;
+        while (!closeReport) {
+            String[] options = {"Search For", "Find Task By Duration", "Delete Tasks", "Show all Tasks", "QUIT"};
+            int choice = JOptionPane.showOptionDialog(null, "Choose an option:", "Options",
+                    JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, options, null);
+            switch (choice) {
+                // Searching Tasks
+                case 0 -> {
+                    String[] searchOptions = {"By Task Name", "By Task Developer", "Cancel"};
+                    int searchChoice = JOptionPane.showOptionDialog(null
+                            , "How would you like to Search:", "Searching",
+                            JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, searchOptions
+                            , null);
+                    switch (searchChoice) {
+                        case 0 -> {
+                            String inTaskName = JOptionPane.showInputDialog(null
+                                    , "Please Enter the name of the task:");
+                            String result = taskListController.searchForTask(inTaskName);
+                            if (result != null) {
+                                JOptionPane.showMessageDialog(null, "Task \"" + inTaskName
+                                        + "\" successfully found" + "\n"
+                                        + "-------------------------------------------------------------------------"
+                                        + "\n" + result);
+                            } else {
+                                JOptionPane.showMessageDialog(null, "No Tasks found");
+                            }
+                        }
+                        case 1 -> {
+                            String inDevName = JOptionPane.showInputDialog(null
+                                    , "Please Enter the name of the Developer:");
+                            ArrayList<String> results = taskListController.findAllDevsTasks(inDevName);
+                            if (!results.isEmpty()) {
+                                int numTasks = results.size();
+                                String message;
+                                if (numTasks == 1) message = "1 Task has been found!";
+                                else message = numTasks + " Tasks have been found!";
+                                JOptionPane.showMessageDialog(null, message);
+                                for (int i = 0, resultsSize = results.size(); i < resultsSize; i++) {
+                                    String taskInfo = results.get(i);
+                                    JOptionPane.showMessageDialog(null, "Here is Task "
+                                            + (1 + i)
+                                            + " for Developer: " + inDevName + "\n"
+                                            + "-------------------------------------------------------------------------"
+                                            + "\n" + taskInfo);
+                                }
+                            } else {
+                                JOptionPane.showMessageDialog(null, "No Tasks found");
+                            }
+                        }
+                    }
+                }
+                // Longest and Shortest Duration
+                case 1 -> {
+                    String[] searchOptions = {"Find Longest Task", "Find Shortest Task", "Cancel"};
+                    int searchChoice = JOptionPane.showOptionDialog(null
+                            , "What Would you Like to Find?:", "Searching",
+                            JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, searchOptions
+                            , null);
+                    switch (searchChoice) {
+                        case 0 -> {
+                            JOptionPane.showMessageDialog(null, "Found Task with the Longest Duration: "
+                                    + "\n" + "-------------------------------------------------------------------------" + "\n"
+                                    + taskListController.findLongestTask());
+                        }
+                        case 1 -> {
+                            JOptionPane.showMessageDialog(null, "Found Task with the Shortest Duration: "
+                                    + "\n" + "-------------------------------------------------------------------------" + "\n"
+                                    + taskListController.findShortestTask());
+                        }
+                    }
+                }
+                // Delete Tasks
+                case 2 -> {
+                    String inTaskName = JOptionPane.showInputDialog(null
+                            , "Please Enter the name of the task you would like to delete:");
+                    String result = taskListController.searchForTask(inTaskName);
+                    if (result != null) {
+                        String[] searchOptions = {"Yes Please", "No Thank You"};
+                        int userChoice = JOptionPane.showOptionDialog(null
+                                , "Task \"" + inTaskName
+                                        + "\" successfully found" + "\n"
+                                        + "-------------------------------------------------------------------------"
+                                        + "\n" + result + "\n" + "-------------------------------------------------------------------------"
+                                        + "\n" + "Are you Sure you want to Delete this Task?" , "Deleting Task",
+                                JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, searchOptions
+                                , null);
+                        if (userChoice == 0){
+                            taskListController.deleteTask(inTaskName);
+                        }else
+                    } else {
+                        JOptionPane.showMessageDialog(null, "No Tasks found");
+                    }
+
+                    resetTaskList();
+                }
+                // Show All Tasks
+                case 3 -> {
+                    ArrayList<String> results = taskListController.findAllCapturedTasks();
+                    if (!results.isEmpty()) {
+                        int numTasks = results.size();
+                        String message;
+                        if (numTasks == 1) message = "1 Task has been found!";
+                        else message = numTasks + " Tasks have been found!";
+                        JOptionPane.showMessageDialog(null, message);
+                        for (int i = 0, resultsSize = results.size(); i < resultsSize; i++) {
+                            String taskInfo = results.get(i);
+                            JOptionPane.showMessageDialog(null, "Here is Task "
+                                    + (1 + i)
+                                    + "\n"
+                                    + "-------------------------------------------------------------------------"
+                                    + "\n" + taskInfo);
+                        }
+                    } else {
+                        JOptionPane.showMessageDialog(null, "No Tasks found");
+                    }
+                }
+                default -> closeReport = true;
+            }
+        }
+
     }
     //----------------------------------------------------------------------------------------------------------------//
     protected void resetTaskList() {
@@ -223,7 +352,8 @@ public class MyHomeWorkerClass {
     // Modifying Custom UI components
     protected void editComponents() {
         if (this.tblPopulated) {
-            this.homePage.lblTotalHours.setText("Total Number Of Hours Across All Tasks = " + this.taskListController.returnTotalHours(this.taskListController.getListOfTasks()) + " hrs");
+            this.homePage.lblTotalHours.setText("Total Number Of Hours Across All Tasks = "
+                    + this.taskListController.returnTotalHours(this.taskListController.getListOfTasks()) + " hrs");
             this.homePage.tblTasksList.setModel(this.homePage.model);
             this.homePage.tblTasksList.setAutoResizeMode(JTable.AUTO_RESIZE_SUBSEQUENT_COLUMNS);
 
@@ -252,7 +382,8 @@ public class MyHomeWorkerClass {
             for (int i = 0; i < columnModel.getColumnCount(); i++) {
                 tableWidth += columnModel.getColumn(i).getPreferredWidth();
             }
-            this.homePage.tblTasksList.setPreferredScrollableViewportSize(new Dimension(tableWidth, this.homePage.tblTasksList.getPreferredSize().height));
+            this.homePage.tblTasksList.setPreferredScrollableViewportSize(new Dimension(tableWidth
+                    , this.homePage.tblTasksList.getPreferredSize().height));
 
             this.homePage.tblScrollPane.setViewportView(this.homePage.tblTasksList);
         }
