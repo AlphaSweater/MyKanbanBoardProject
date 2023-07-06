@@ -197,66 +197,155 @@ public class MyHomeWorkerClass {
             switch (choice) {
                 // Searching Tasks
                 case 0 -> {
-                    String[] searchOptions = {"By Task Name", "By Task Developer", "Cancel"};
-                    int searchChoice = JOptionPane.showOptionDialog(null
-                            , "How would you like to Search:", "Searching",
-                            JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, searchOptions
-                            , null);
-                    switch (searchChoice) {
-                        case 0 -> {
-                            String inTaskName = JOptionPane.showInputDialog(null
-                                    , "Please Enter the name of the task:");
-                            String result = taskListController.searchForTask(inTaskName);
-                            if (result != null) {
-                                JOptionPane.showMessageDialog(null, "Task \"" + inTaskName
-                                        + "\" successfully found" + "\n"
-                                        + "-------------------------------------------------------------------------"
-                                        + "\n" + result);
-                            } else {
-                                JOptionPane.showMessageDialog(null, "No Tasks found");
-                            }
-                        }
-                        case 1 -> {
-                            String inDevName = JOptionPane.showInputDialog(null
-                                    , "Please Enter the name of the Developer:");
-                            ArrayList<String> results = taskListController.findAllDevsTasks(inDevName);
-                            if (!results.isEmpty()) {
-                                int numTasks = results.size();
-                                String message;
-                                if (numTasks == 1) message = "1 Task has been found!";
-                                else message = numTasks + " Tasks have been found!";
-                                JOptionPane.showMessageDialog(null, message);
-                                for (int i = 0, resultsSize = results.size(); i < resultsSize; i++) {
-                                    String taskInfo = results.get(i);
-                                    JOptionPane.showMessageDialog(null, "Here is Task "
-                                            + (1 + i)
-                                            + " for Developer: " + inDevName + "\n"
+                    boolean closeSearch = false;
+                    while (!closeSearch) {
+                        String[] searchOptions = {"By Task Name", "By Task Developer","By Task Status", "BACK"};
+                        int searchChoice = JOptionPane.showOptionDialog(null
+                                , "How would you like to Search:", "Searching",
+                                JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, searchOptions
+                                , null);
+                        switch (searchChoice) {
+                            case 0 -> {
+                                String inTaskName = JOptionPane.showInputDialog(null
+                                        , "Please Enter the name of the task:");
+                                String result = taskListController.searchForTask(inTaskName);
+                                if (result != null) {
+                                    JOptionPane.showMessageDialog(null, "Task \"" + inTaskName
+                                            + "\" successfully found" + "\n"
                                             + "-------------------------------------------------------------------------"
-                                            + "\n" + taskInfo);
+                                            + "\n" + result);
+                                } else {
+                                    JOptionPane.showMessageDialog(null, "No Tasks found");
                                 }
-                            } else {
-                                JOptionPane.showMessageDialog(null, "No Tasks found");
                             }
+                            case 1 -> {
+                                String inDevName = JOptionPane.showInputDialog(null
+                                        , "Please Enter the name of the Developer:");
+                                ArrayList<String> results = taskListController.findAllDevsTasks(inDevName);
+                                if (!results.isEmpty()) {
+                                    int numTasks = results.size();
+                                    String message;
+                                    if (numTasks == 1) message = "1 Task has been found!";
+                                    else message = numTasks + " Tasks have been found!";
+                                    JOptionPane.showMessageDialog(null, message);
+                                    for (int i = 0, resultsSize = results.size(); i < resultsSize; i++) {
+                                        String taskInfo = results.get(i);
+                                        JOptionPane.showMessageDialog(null, "Here is Task "
+                                                + (1 + i)
+                                                + " for Developer: " + inDevName + "\n"
+                                                + "-------------------------------------------------------------------------"
+                                                + "\n" + taskInfo);
+                                    }
+                                } else {
+                                    JOptionPane.showMessageDialog(null, "No Tasks found");
+                                }
+                            }
+                            case 2 -> {
+
+                                boolean closeStatusSearch = false;
+                                while (!closeStatusSearch) {
+                                    String[] statusOptions = {"By \"To Do\"", "By \"Doing\"", "By \"Done\"", "Cancel"};
+                                    int statusChoice = JOptionPane.showOptionDialog(null
+                                            , "Which Task Status would you like to search for?:", "Searching",
+                                            JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, statusOptions
+                                            , null);
+                                    switch (statusChoice) {
+                                        // To Do
+                                        case 0 -> {
+                                            ArrayList<String> results = taskListController.findAllToDoTasks();
+                                            if (!results.isEmpty()) {
+                                                int numTasks = results.size();
+                                                String message;
+                                                if (numTasks == 1) message = "1 Task has been found!";
+                                                else message = numTasks + " Tasks have been found!";
+                                                JOptionPane.showMessageDialog(null, message);
+                                                for (int i = 0, resultsSize = results.size(); i < resultsSize; i++) {
+                                                    String taskInfo = results.get(i);
+                                                    JOptionPane.showMessageDialog(null, "Here is Task "
+                                                            + (1 + i)
+                                                            + "\n"
+                                                            + "-------------------------------------------------------------------------"
+                                                            + "\n" + taskInfo);
+                                                }
+                                            } else {
+                                                JOptionPane.showMessageDialog(null, "No Tasks found");
+                                            }
+                                            closeStatusSearch = true;
+                                        }
+                                        // Doing
+                                        case 1 -> {
+                                            ArrayList<String> results = taskListController.findAllDoingTasks();
+                                            if (!results.isEmpty()) {
+                                                int numTasks = results.size();
+                                                String message;
+                                                if (numTasks == 1) message = "1 Task has been found!";
+                                                else message = numTasks + " Tasks have been found!";
+                                                JOptionPane.showMessageDialog(null, message);
+                                                for (int i = 0, resultsSize = results.size(); i < resultsSize; i++) {
+                                                    String taskInfo = results.get(i);
+                                                    JOptionPane.showMessageDialog(null, "Here is Task "
+                                                            + (1 + i)
+                                                            + "\n"
+                                                            + "-------------------------------------------------------------------------"
+                                                            + "\n" + taskInfo);
+                                                }
+                                            } else {
+                                                JOptionPane.showMessageDialog(null, "No Tasks found");
+                                            }
+                                            closeStatusSearch = true;
+                                        }
+                                        // Done
+                                        case 2 -> {
+                                            ArrayList<String> results = taskListController.findAllDoneTasks();
+                                            if (!results.isEmpty()) {
+                                                int numTasks = results.size();
+                                                String message;
+                                                if (numTasks == 1) message = "1 Task has been found!";
+                                                else message = numTasks + " Tasks have been found!";
+                                                JOptionPane.showMessageDialog(null, message);
+                                                for (int i = 0, resultsSize = results.size(); i < resultsSize; i++) {
+                                                    String taskInfo = results.get(i);
+                                                    JOptionPane.showMessageDialog(null, "Here is Task "
+                                                            + (1 + i)
+                                                            + "\n"
+                                                            + "-------------------------------------------------------------------------"
+                                                            + "\n" + taskInfo);
+                                                }
+                                            } else {
+                                                JOptionPane.showMessageDialog(null, "No Tasks found");
+                                            }
+                                            closeStatusSearch = true;
+                                        }
+                                        default -> closeStatusSearch = true;
+                                    }
+                                }
+                            }
+                            default -> closeSearch = true;
                         }
                     }
                 }
                 // Longest and Shortest Duration
                 case 1 -> {
-                    String[] searchOptions = {"Find Longest Task", "Find Shortest Task", "Cancel"};
-                    int searchChoice = JOptionPane.showOptionDialog(null
-                            , "What Would you Like to Find?:", "Searching",
-                            JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, searchOptions
-                            , null);
-                    switch (searchChoice) {
-                        case 0 -> {
-                            JOptionPane.showMessageDialog(null, "Found Task with the Longest Duration: "
-                                    + "\n" + "-------------------------------------------------------------------------" + "\n"
-                                    + taskListController.findLongestTask());
-                        }
-                        case 1 -> {
-                            JOptionPane.showMessageDialog(null, "Found Task with the Shortest Duration: "
-                                    + "\n" + "-------------------------------------------------------------------------" + "\n"
-                                    + taskListController.findShortestTask());
+
+                    boolean closeDurationSearch = false;
+                    while (!closeDurationSearch) {
+                        String[] searchOptions = {"Find Longest Task", "Find Shortest Task", "Cancel"};
+                        int searchChoice = JOptionPane.showOptionDialog(null
+                                , "What Would you Like to Find?:", "Searching",
+                                JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, searchOptions
+                                , null);
+                        switch (searchChoice) {
+                            case 0 -> {
+                                JOptionPane.showMessageDialog(null, "Found Task with the Longest Duration: "
+                                        + "\n" + "-------------------------------------------------------------------------" + "\n"
+                                        + taskListController.findLongestTask());
+                            }
+                            case 1 -> {
+                                JOptionPane.showMessageDialog(null, "Found Task with the Shortest Duration: "
+                                        + "\n" + "-------------------------------------------------------------------------" + "\n"
+                                        + taskListController.findShortestTask());
+                            }
+                            default -> closeDurationSearch = true;
                         }
                     }
                 }
@@ -266,23 +355,19 @@ public class MyHomeWorkerClass {
                             , "Please Enter the name of the task you would like to delete:");
                     String result = taskListController.searchForTask(inTaskName);
                     if (result != null) {
-                        String[] searchOptions = {"Yes Please", "No Thank You"};
-                        int userChoice = JOptionPane.showOptionDialog(null
-                                , "Task \"" + inTaskName
-                                        + "\" successfully found" + "\n"
-                                        + "-------------------------------------------------------------------------"
-                                        + "\n" + result + "\n" + "-------------------------------------------------------------------------"
-                                        + "\n" + "Are you Sure you want to Delete this Task?" , "Deleting Task",
-                                JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, searchOptions
-                                , null);
-                        if (userChoice == 0){
+                        int userChoice = JOptionPane.showConfirmDialog(null,  "Task \"" + inTaskName
+                                + "\" successfully found" + "\n"
+                                + "-------------------------------------------------------------------------"
+                                + "\n" + result + "\n" + "-------------------------------------------------------------------------"
+                                + "\n" + "Are you Sure you want to Delete this Task?");
+                        if (userChoice == JOptionPane.YES_OPTION) {
                             taskListController.deleteTask(inTaskName);
-                        }else
+                            JOptionPane.showMessageDialog(null, "Task Successfully Deleted");
+                        }else JOptionPane.showMessageDialog(null, "Task Will Not be Deleted");
                     } else {
                         JOptionPane.showMessageDialog(null, "No Tasks found");
                     }
-
-                    resetTaskList();
+                    populateTableData();
                 }
                 // Show All Tasks
                 case 3 -> {
