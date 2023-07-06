@@ -25,8 +25,6 @@ public class MyTaskListController {
         this.listOfTasks = listOfTasks;
     }
     //----------------------------------------------------------------------------------------------------------------//
-//    public final ArrayList<MyTasksClass> listOfCurrentWorkingTasks = new ArrayList<MyTasksClass>();
-    //----------------------------------------------------------------------------------------------------------------//
     public int returnTotalHours(ArrayList<MyTasksClass> listOfTasks) {
         int totalHours = 0;
         for (MyTasksClass task : listOfTasks) {
@@ -35,9 +33,9 @@ public class MyTaskListController {
         return totalHours;
     }
     //----------------------------------------------------------------------------------------------------------------//
-    public ArrayList<MyTasksClass> findAllDoneTasks (ArrayList<MyTasksClass> listOfTasks){
+    public ArrayList<MyTasksClass> findAllDoneTasks (){
         ArrayList<MyTasksClass> listOfTaskStatusDone = new ArrayList<MyTasksClass>();
-        for (MyTasksClass task : listOfTasks) {
+        for (MyTasksClass task : this.listOfTasks) {
             if (task.getTaskStatus().equals("Done")) {
                 listOfTaskStatusDone.add(task);
             }
@@ -45,21 +43,23 @@ public class MyTaskListController {
         return listOfTaskStatusDone;
     }
     //----------------------------------------------------------------------------------------------------------------//
-    public MyTasksClass findLongestTask (ArrayList<MyTasksClass> listOfTasks){
-        int longest = listOfTasks.get(0).getTaskDuration();
-        MyTasksClass longestTask = listOfTasks.get(0);
+    public MyTasksClass findLongestTask (){
+        if (this.listOfTasks.size() != 0) {
+            int longest = this.listOfTasks.get(0).getTaskDuration();
+            MyTasksClass longestTask = this.listOfTasks.get(0);
 
-        for (MyTasksClass task : listOfTasks) {
-            if (task.getTaskDuration() > longest){
-                longest = task.getTaskDuration();
-                longestTask = task;
+            for (MyTasksClass task : this.listOfTasks) {
+                if (task.getTaskDuration() > longest) {
+                    longest = task.getTaskDuration();
+                    longestTask = task;
+                }
             }
-        }
-        return longestTask;
+            return longestTask;
+        }else return null;
     }
     //----------------------------------------------------------------------------------------------------------------//
-    public MyTasksClass searchForTask (ArrayList<MyTasksClass> listOfTasks, String taskName){
-        for (MyTasksClass task : listOfTasks) {
+    public MyTasksClass searchForTask (String taskName){
+        for (MyTasksClass task : this.listOfTasks) {
             if (task.getTaskName().equals(taskName)){
                 return task;
             }
@@ -67,9 +67,9 @@ public class MyTaskListController {
         return null;
     }
     //----------------------------------------------------------------------------------------------------------------//
-    public ArrayList<MyTasksClass> findAllDevsTasks (ArrayList<MyTasksClass> listOfTasks, String DevName){
+    public ArrayList<MyTasksClass> findAllDevsTasks (String DevName){
         ArrayList<MyTasksClass> listOfDevsTasks = new ArrayList<MyTasksClass>();
-        for (MyTasksClass task : listOfTasks) {
+        for (MyTasksClass task : this.listOfTasks) {
             if (task.getTaskDevInfo().equals(DevName)){
                 listOfDevsTasks.add(task);
             }
@@ -77,23 +77,31 @@ public class MyTaskListController {
         return listOfDevsTasks;
     }
     //----------------------------------------------------------------------------------------------------------------//
-    public void deleteTask(ArrayList<MyTasksClass> listOfTasks, String taskToDeleteName){
+    public String deleteTask (String taskToDeleteName){
         MyTasksClass taskToDelete = null;
-        for (MyTasksClass task : listOfTasks) {
+        for (MyTasksClass task : this.listOfTasks) {
             if (task.getTaskName().equals(taskToDeleteName)){
                 taskToDelete = task;
-                listOfTasks.remove(taskToDelete);
+                this.listOfTasks.remove(taskToDelete);
                 break;
             }
         }
-        this.setListOfTasks(listOfTasks);
-        if (taskToDelete == null){
-            System.out.println("No Task was found");
-        } else if (!this.getListOfTasks().contains(taskToDelete)){
-            System.out.println("Task Successfully removed");
-        } else if (this.getListOfTasks().contains(taskToDelete)) {
-            System.out.println("Task Delete not good!!!!!!!!!!!!!!!!");
+
+        if (taskToDelete == null) {
+            return "No entry with that name was found";
+        } else if (!this.listOfTasks.contains(taskToDelete)) {
+            return "Entry " + taskToDeleteName + " successfully deleted";
+        } else {
+            return "Task deletion failed";
         }
+    }
+    //----------------------------------------------------------------------------------------------------------------//
+    public ArrayList<String> findAllCapturedTasks (){
+        ArrayList<String> listOfTasksInfo = new ArrayList<String>();
+        for (MyTasksClass task : this.listOfTasks) {
+          listOfTasksInfo.add(task.printTaskDetails());
+        }
+        return listOfTasksInfo;
     }
 }
 //--------------------------------------------------------------------------------------------------------------------//
