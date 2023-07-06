@@ -44,7 +44,7 @@ public class MyRegisterWorkerClass {
 
     // RegisterPage object to allow the editing of GUI components
     private RegisterPage registerPage;
-    public void setRegisterPage(RegisterPage registerPage) {
+    protected void setRegisterPage(RegisterPage registerPage) {
         this.registerPage = registerPage;
     }
 

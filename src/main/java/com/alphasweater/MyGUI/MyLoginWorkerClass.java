@@ -13,10 +13,9 @@ import javax.swing.JFrame;
 public class MyLoginWorkerClass {
     // LoginPage object to allow the editing of GUI components
     private LoginPage loginPage;
-    public LoginPage getLoginPage() {
-        return loginPage;
+    protected void setLoginPage(LoginPage loginPage) {
+        this.loginPage = loginPage;
     }
-
     private MyHomeWorkerClass homeWorker;
     private MyRegisterWorkerClass registerWorker;
     private MyUserClass currentUser;

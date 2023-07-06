@@ -33,10 +33,7 @@ public class MyHomeWorkerClass {
     //----------------------------------------------------------------------------------------------------------------//
     // HomePage object to allow the editing of GUI components
     private HomePage homePage;
-    public HomePage getHomePage() {
-        return homePage;
-    }
-    public void setHomePage(HomePage homePage) {
+    protected void setHomePage(HomePage homePage) {
         this.homePage = homePage;
     }
     private MyLoginWorkerClass loginWorker;
@@ -281,6 +278,10 @@ public class MyHomeWorkerClass {
             }
         }
     }
+    private void showAllTasks() {
+        ArrayList<String> results = taskListController.findAllCapturedTasks();
+        displayTasks(results);
+    }
     private void displayTasks(ArrayList<String> tasks) {
         if (!tasks.isEmpty()) {
             int numTasks = tasks.size();
@@ -335,24 +336,6 @@ public class MyHomeWorkerClass {
                 JOptionPane.showMessageDialog(null, "Task Successfully Deleted");
             } else {
                 JOptionPane.showMessageDialog(null, "Task Will Not be Deleted");
-            }
-        } else {
-            JOptionPane.showMessageDialog(null, "No Tasks found");
-        }
-    }
-    private void showAllTasks() {
-        ArrayList<String> results = taskListController.findAllCapturedTasks();
-        if (!results.isEmpty()) {
-            int numTasks = results.size();
-            String message = (numTasks == 1) ? "1 Task has been found!" : numTasks + " Tasks have been found!";
-            JOptionPane.showMessageDialog(null, message);
-            for (int i = 0; i < results.size(); i++) {
-                String taskInfo = results.get(i);
-                JOptionPane.showMessageDialog(null, "Here is Task "
-                        + (i + 1)
-                        + "\n"
-                        + "-------------------------------------------------------------------------"
-                        + "\n" + taskInfo);
             }
         } else {
             JOptionPane.showMessageDialog(null, "No Tasks found");
