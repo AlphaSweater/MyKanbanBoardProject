@@ -15,11 +15,14 @@ public class MyTaskListController {
     }
     public void setNumOfTasks(int numOfTasks) {
         this.numOfTasks = numOfTasks;
-    }
+    } 
     //----------------------------------------------------------------------------------------------------------------//
-    private final ArrayList<MyTasksClass> listOfTasks = new ArrayList<MyTasksClass>();
+    private ArrayList<MyTasksClass> listOfTasks = new ArrayList<MyTasksClass>();
     public ArrayList<MyTasksClass> getListOfTasks() {
         return listOfTasks;
+    }
+    private void setListOfTasks(ArrayList<MyTasksClass> listOfTasks) {
+        this.listOfTasks = listOfTasks;
     }
     //----------------------------------------------------------------------------------------------------------------//
 //    public final ArrayList<MyTasksClass> listOfCurrentWorkingTasks = new ArrayList<MyTasksClass>();
@@ -55,7 +58,7 @@ public class MyTaskListController {
         return longestTask;
     }
     //----------------------------------------------------------------------------------------------------------------//
-    public MyTasksClass SearchForTask (ArrayList<MyTasksClass> listOfTasks, String taskName){
+    public MyTasksClass searchForTask (ArrayList<MyTasksClass> listOfTasks, String taskName){
         for (MyTasksClass task : listOfTasks) {
             if (task.getTaskName().equals(taskName)){
                 return task;
@@ -64,7 +67,7 @@ public class MyTaskListController {
         return null;
     }
     //----------------------------------------------------------------------------------------------------------------//
-    public ArrayList<MyTasksClass> FindAllDevsTasks (ArrayList<MyTasksClass> listOfTasks, String DevName){
+    public ArrayList<MyTasksClass> findAllDevsTasks (ArrayList<MyTasksClass> listOfTasks, String DevName){
         ArrayList<MyTasksClass> listOfDevsTasks = new ArrayList<MyTasksClass>();
         for (MyTasksClass task : listOfTasks) {
             if (task.getTaskDevInfo().equals(DevName)){
@@ -74,7 +77,24 @@ public class MyTaskListController {
         return listOfDevsTasks;
     }
     //----------------------------------------------------------------------------------------------------------------//
-    public void
+    public void deleteTask(ArrayList<MyTasksClass> listOfTasks, String taskToDeleteName){
+        MyTasksClass taskToDelete = null;
+        for (MyTasksClass task : listOfTasks) {
+            if (task.getTaskName().equals(taskToDeleteName)){
+                taskToDelete = task;
+                listOfTasks.remove(taskToDelete);
+                break;
+            }
+        }
+        this.setListOfTasks(listOfTasks);
+        if (taskToDelete == null){
+            System.out.println("No Task was found");
+        } else if (!this.getListOfTasks().contains(taskToDelete)){
+            System.out.println("Task Successfully removed");
+        } else if (this.getListOfTasks().contains(taskToDelete)) {
+            System.out.println("Task Delete not good!!!!!!!!!!!!!!!!");
+        }
+    }
 }
 //--------------------------------------------------------------------------------------------------------------------//
 //--------------------------------------------------------EOF---------------------------------------------------------//
