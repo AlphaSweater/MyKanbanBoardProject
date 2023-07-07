@@ -308,10 +308,16 @@ public class MyHomeWorkerClass {
                     JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, searchOptions, null);
 
             switch (searchChoice) {
-                case 0 -> displayTask("Found Task with the Longest Duration:"
-                        , taskListController.findLongestTask());
-                case 1 -> displayTask("Found Task with the Shortest Duration:"
-                        , taskListController.findShortestTask());
+                case 0 -> {
+                    if (taskListController.findLongestTask() != null) {
+                        displayTask("Found Task with the Longest Duration:", taskListController.findLongestTask());
+                    }else JOptionPane.showMessageDialog(null, "No Tasks found");
+                }
+                case 1 -> {
+                    if (taskListController.findShortestTask() != null) {
+                        displayTask("Found Task with the Shortest Duration:", taskListController.findShortestTask());
+                    }else JOptionPane.showMessageDialog(null, "No Tasks found");
+                }
                 default -> closeDurationSearch = true;
             }
         }

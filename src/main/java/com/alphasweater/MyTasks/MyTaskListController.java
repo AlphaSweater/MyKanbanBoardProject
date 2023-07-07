@@ -17,7 +17,7 @@ public class MyTaskListController {
         this.numOfTasks = numOfTasks;
     } 
     //----------------------------------------------------------------------------------------------------------------//
-    private ArrayList<MyTasksClass> listOfTasks = new ArrayList<>();
+    private final ArrayList<MyTasksClass> listOfTasks = new ArrayList<>();
     public ArrayList<MyTasksClass> getListOfTasks() {
         return listOfTasks;
     }

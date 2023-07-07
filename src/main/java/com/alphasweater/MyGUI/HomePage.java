@@ -56,10 +56,7 @@ public class HomePage {
         // Add an ActionListener to the log-out button
         btnLogOut.addActionListener(click -> this.homeWorker.logOut());
         btnAddTasks.addActionListener(click -> this.homeWorker.beginAddTasks());
-        btnShowReport.addActionListener(click -> {
-            //TODO: Show Report
-            this.homeWorker.beginShowReportHere();
-        });
+        btnShowReport.addActionListener(click -> this.homeWorker.beginShowReportHere());
         btnResetTasks.addActionListener(click -> this.homeWorker.resetTaskList());
     }
 
