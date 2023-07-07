@@ -18,7 +18,7 @@ import static org.junit.Assert.*;
 public class MyUserRegisterClassTest {
     private MyUserRegisterClass testRegistrationWorker;
     private String[][] userDatabase;
-
+    //----------------------------------------------------------------------------------------------------------------//
     @Before
     public void setUp() {
         // Create the necessary objects and set up the user database before each test
@@ -29,13 +29,13 @@ public class MyUserRegisterClassTest {
                 {"us_r3", "P@ssword3", "Alice", "Johnson"}
         };
     }
-
+    //----------------------------------------------------------------------------------------------------------------//
     @After
     public void tearDown() {
         // Clean up after each test
         testRegistrationWorker.setIsRegistered(false);
     }
-
+    //----------------------------------------------------------------------------------------------------------------//
     @Test
     public void testRegisterUser_validRegistration() {
         String result = testRegistrationWorker.registerUser(true, "us_r4", "Password123!", "Tom", "Hanks", userDatabase);
@@ -43,7 +43,7 @@ public class MyUserRegisterClassTest {
         assertTrue("Registration should succeed for valid input.", testRegistrationWorker.getIsRegistered());
         assertEquals("Welcome Tom Hanks, it is great to have you join us.", result);
     }
-
+    //----------------------------------------------------------------------------------------------------------------//
     @Test
     public void testRegisterUser_invalidUsername() {
         String result = testRegistrationWorker.registerUser(true, "us", "Password123!", "Invalid", "Username", userDatabase);
@@ -51,7 +51,7 @@ public class MyUserRegisterClassTest {
         assertFalse("Registration should fail for an invalid username.", testRegistrationWorker.getIsRegistered());
         assertEquals("Invalid Username. The username must contain an underscore (_) and be no more than 5 characters long.", result);
     }
-
+    //----------------------------------------------------------------------------------------------------------------//
     @Test
     public void testRegisterUser_invalidPassword() {
         String result = testRegistrationWorker.registerUser(true, "us_r5", "password", "Invalid", "Password", userDatabase);
@@ -59,7 +59,7 @@ public class MyUserRegisterClassTest {
         assertFalse("Registration should fail for an invalid password.", testRegistrationWorker.getIsRegistered());
         assertEquals("Invalid Password. The password must contain a capital letter (A, B, C), a number (1, 2, 3), a special character (#, &, !), and be at least 8 characters long.", result);
     }
-
+    //----------------------------------------------------------------------------------------------------------------//
     @Test
     public void testRegisterUser_existingUsername() {
         String result = testRegistrationWorker.registerUser(true, "us_r2", "Password123!", "Username", "Exists", userDatabase);

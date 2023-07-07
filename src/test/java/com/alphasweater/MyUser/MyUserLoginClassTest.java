@@ -34,7 +34,7 @@ public class MyUserLoginClassTest {
                 {"username3", "password3", "Alice", "Johnson"}
         };
     }
-
+    //----------------------------------------------------------------------------------------------------------------//
     @Test
     public void testLogInUser_validUsernameAndPassword_ReturnsTrue() {
         boolean result = testLoginUserWorker.logInUser("username2", "password2", userDatabase);
@@ -42,7 +42,7 @@ public class MyUserLoginClassTest {
         assertTrue("Login should succeed for a valid username and password.", result);
         assertEquals("Welcome Jane Smith, it is great to see you.", testLoginUserWorker.getStatus());
     }
-
+    //----------------------------------------------------------------------------------------------------------------//
     @Test
     public void testLogInUser_incorrectUsername_ReturnsFalse() {
         boolean result = testLoginUserWorker.logInUser("username4", "password1", userDatabase);
@@ -50,7 +50,7 @@ public class MyUserLoginClassTest {
         assertFalse("Login should fail for an incorrect username.", result);
         assertEquals("Username or password incorrect, please try again or sign up if you do not have an account already.", testLoginUserWorker.getStatus());
     }
-
+    //----------------------------------------------------------------------------------------------------------------//
     @Test
     public void testLogInUser_incorrectPassword_ReturnsFalse() {
         boolean result = testLoginUserWorker.logInUser("username3", "password4", userDatabase);
