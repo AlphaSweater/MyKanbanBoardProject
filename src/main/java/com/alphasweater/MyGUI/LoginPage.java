@@ -30,9 +30,6 @@ public class LoginPage {
     protected JTextArea lblStatus;
     protected final JFrame loginFrame = new JFrame("Login");
     private MyLoginWorkerClass loginWorker;
-    public MyLoginWorkerClass getLoginWorker() {
-        return loginWorker;
-    }
     public void setLoginWorker(MyLoginWorkerClass loginWorker) {
         this.loginWorker = loginWorker;
     }
@@ -41,14 +38,10 @@ public class LoginPage {
     public LoginPage() {
 
         // Event listener for the login button
-        btnLogin.addActionListener(click -> {
-            loginWorker.beginLoginHere();
-        });
+        btnLogin.addActionListener(click -> loginWorker.beginLoginHere());
 
         // Event listener for the "Go to Register" button
-        btnGoToRegister.addActionListener(click -> {
-            loginWorker.swapPageRegister();
-        });
+        btnGoToRegister.addActionListener(click -> loginWorker.swapPageRegister());
     }
 
     //----------------------------------------------UI Designer Code--------------------------------------------------//
