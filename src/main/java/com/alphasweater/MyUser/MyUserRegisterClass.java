@@ -26,6 +26,9 @@ public class MyUserRegisterClass {
     public boolean getIsRegistered() {
         return isRegistered;
     }
+    public void setIsRegistered(boolean registered) {
+        isRegistered = registered;
+    }
     //----------------------------------------------------------------------------------------------------------------//
 
     /**
