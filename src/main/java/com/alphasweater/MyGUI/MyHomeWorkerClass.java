@@ -73,116 +73,171 @@ public class MyHomeWorkerClass {
     }
     //----------------------------------------------------------------------------------------------------------------//
     protected void beginAddTasks() {
-        int numOfTasks;
-        try {
-            numOfTasks = Integer.parseInt(JOptionPane.showInputDialog("Please enter how many tasks you would like to" +
-                    " add"));
-            if (numOfTasks <= 0) {
-                JOptionPane.showMessageDialog(null, "Invalid amount of tasks! Number of tasks" +
-                        " must be greater than 0.");
-                return;
-            }
-            this.taskListController.setNumOfTasks(numOfTasks);
-        } catch (NumberFormatException | HeadlessException e) {
-            JOptionPane.showMessageDialog(null, "Invalid amount of tasks!");
-            throw new RuntimeException(e);
+        // Get the number of tasks from the user
+        int numOfTasks = getNumberOfTasks();
+        if (numOfTasks <= 0) {
+            JOptionPane.showMessageDialog(null, "Invalid amount of tasks! Number of tasks must be greater than 0.");
+            return;
         }
+        this.taskListController.setNumOfTasks(numOfTasks);
 
         String[] taskStatusOptions = {"To Do", "Doing", "Done"};
 
+        // Iterate over the number of tasks
         for (int i = 0; i < this.taskListController.getNumOfTasks(); i++) {
-            JOptionPane.showMessageDialog(null, "You are now busy with task "
-                    + (this.taskListController.getListOfTasks().size() + 1) + ".");
+            // Display task number to the user
+            JOptionPane.showMessageDialog(null, "You are now busy with task " + (this.taskListController.getListOfTasks().size() + 1) + ".");
 
-            String taskStatus;
-            int option = JOptionPane.showOptionDialog(null
-                    , "Select Task Status:", "Task Status",
-                    JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE
-                    , null, taskStatusOptions, taskStatusOptions[0]);
-            taskStatus = switch (option) {
-                case 1 -> taskStatusOptions[1];
-                case 2 -> taskStatusOptions[2];
-                default -> taskStatusOptions[0];
-            };
+            // Select the task status
+            String taskStatus = selectTaskStatus(taskStatusOptions);
 
-            String taskName = null;
-            while (taskName == null || taskName.length() < 2) {
-                taskName = JOptionPane.showInputDialog("Please enter your task's name.");
-                if (taskName == null) {
-                    int choice = JOptionPane.showConfirmDialog(null, "Cancel entering tasks?");
-                    if (choice == JOptionPane.YES_OPTION || choice == JOptionPane.CLOSED_OPTION) {
-                        return; // Exit the method if the user cancels entering tasks
-                    }
-                } else if (taskName.length() < 2) {
-                    JOptionPane.showMessageDialog(null
-                            , "Your task's name must be greater than 2 characters, please try again");
+            // Enter the task name
+            String taskName = enterTaskName();
+            if (taskName == null) {
+                int choice = JOptionPane.showConfirmDialog(null, "Cancel entering tasks?");
+                if (choice == JOptionPane.YES_OPTION || choice == JOptionPane.CLOSED_OPTION) {
+                    return;
                 }
             }
 
-            String taskDescription;
-            while (true) {
-                taskDescription = JOptionPane.showInputDialog("Please enter a description for your task (50 characters max).");
-                if (taskDescription == null) {
-                    int choice = JOptionPane.showConfirmDialog(null, "Cancel entering tasks?");
-                    if (choice == JOptionPane.YES_OPTION || choice == JOptionPane.CLOSED_OPTION) {
-                        return; // Exit the method if the user cancels entering tasks
-                    }
-                } else if (!taskDescription.isEmpty() && this.taskWorker.checkTaskDescription(taskDescription)) {
-                    break; // Exit the loop if the task description is valid
-                } else {
-                    JOptionPane.showMessageDialog(null
-                            , "Task description is either empty or exceeded 50 characters, please try again");
+            // Enter the task description
+            String taskDescription = enterTaskDescription();
+            if (taskDescription == null) {
+                int choice = JOptionPane.showConfirmDialog(null, "Cancel entering tasks?");
+                if (choice == JOptionPane.YES_OPTION || choice == JOptionPane.CLOSED_OPTION) {
+                    return;
                 }
             }
 
-            String taskDevInfo;
-            while (true) {
-                taskDevInfo = JOptionPane.showInputDialog("Please enter the task developer's full name");
-                if (taskDevInfo == null) {
-                    int choice = JOptionPane.showConfirmDialog(null, "Cancel entering tasks?");
-                    if (choice == JOptionPane.YES_OPTION || choice == JOptionPane.CLOSED_OPTION) {
-                        return; // Exit the method if the user cancels entering tasks
-                    }
-                } else if (taskDevInfo.length() < 2) {
-                    JOptionPane.showMessageDialog(null
-                            , "The task developer's name must be greater than 2 characters, please try again");
-                } else {
-                    break; // Exit the loop if the task developer info is valid
+            // Enter the task developer's information
+            String taskDevInfo = enterTaskDeveloperInfo();
+            if (taskDevInfo == null) {
+                int choice = JOptionPane.showConfirmDialog(null, "Cancel entering tasks?");
+                if (choice == JOptionPane.YES_OPTION || choice == JOptionPane.CLOSED_OPTION) {
+                    return;
                 }
             }
 
-            int taskDuration = 0;
-            while (true) {
-                try {
-                    taskDuration = Integer.parseInt(JOptionPane.showInputDialog("Please enter the estimated task duration"));
-                    if (taskDuration <= 0) {
-                        JOptionPane.showMessageDialog(null
-                                , "Invalid input for task duration! Duration must be a positive number.");
-                        continue;
-                    }
-                    break; // Exit the loop if parsing is successful and duration is positive
-                } catch (NumberFormatException e) {
-                    JOptionPane.showMessageDialog(null
-                            , "Invalid input for task duration! Please try again.");
-                } catch (NullPointerException e) {
-                    // User pressed cancel, return to the beginning of the loop iteration
-                    break;
-                }
+            // Enter the task duration
+            int taskDuration = enterTaskDuration();
+            if (taskDuration <= 0) {
+                continue;
             }
 
             int taskNum = this.taskListController.getListOfTasks().size();
-            MyTasksClass newTask = new MyTasksClass(taskNum, taskName, taskDescription, taskDuration
-                    , taskStatus, taskDevInfo);
+            MyTasksClass newTask = new MyTasksClass(taskNum, taskName, taskDescription, taskDuration, taskStatus, taskDevInfo);
             this.taskListController.getListOfTasks().add(newTask);
-            JOptionPane.showMessageDialog(null
-                    , this.taskListController.getListOfTasks().get(i).printTaskDetails());
+
+            // Display the task details to the user
+            JOptionPane.showMessageDialog(null, this.taskListController.getListOfTasks().get(i).printTaskDetails());
         }
 
+        // Display the total number of hours across all tasks
         JOptionPane.showMessageDialog(null, "The total number of hours across all tasks is: " +
                 this.taskListController.returnTotalHours(this.taskListController.getListOfTasks()) + " hrs");
-        // Update the listOfTasks in MyTasksClass
 
+        // Update the table data
         populateTableData();
+    }
+
+    // Method to get the number of tasks from the user
+    private int getNumberOfTasks() {
+        int numOfTasks;
+        try {
+            numOfTasks = Integer.parseInt(JOptionPane.showInputDialog("Please enter how many tasks you would like to add"));
+        } catch (NumberFormatException | HeadlessException e) {
+            JOptionPane.showMessageDialog(null, "Invalid amount of tasks!");
+            return 0;
+        }
+        return numOfTasks;
+    }
+
+    // Method to select the task status
+    private String selectTaskStatus(String[] taskStatusOptions) {
+        int option = JOptionPane.showOptionDialog(null, "Select Task Status:", "Task Status",
+                JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, taskStatusOptions, taskStatusOptions[0]);
+        // Map the option selected by the user to the corresponding task status
+        return switch (option) {
+            case 1 -> taskStatusOptions[1];
+            case 2 -> taskStatusOptions[2];
+            default -> taskStatusOptions[0];
+        };
+    }
+
+    // Method to enter the task name
+    private String enterTaskName() {
+        String taskName = null;
+        while (taskName == null || taskName.length() < 2) {
+            taskName = JOptionPane.showInputDialog("Please enter your task's name.");
+            if (taskName == null) {
+                // User canceled task entry
+                int choice = JOptionPane.showConfirmDialog(null, "Cancel entering tasks?");
+                if (choice == JOptionPane.YES_OPTION || choice == JOptionPane.CLOSED_OPTION) {
+                    return null;
+                }
+            } else if (taskName.length() < 2) {
+                JOptionPane.showMessageDialog(null, "Your task's name must be greater than 2 characters, please try again");
+            }
+        }
+        return taskName;
+    }
+
+    // Method to enter the task description
+    private String enterTaskDescription() {
+        while (true) {
+            String taskDescription = JOptionPane.showInputDialog("Please enter a description for your task (50 characters max).");
+            if (taskDescription == null) {
+                // User canceled task entry
+                int choice = JOptionPane.showConfirmDialog(null, "Cancel entering tasks?");
+                if (choice == JOptionPane.YES_OPTION || choice == JOptionPane.CLOSED_OPTION) {
+                    return null;
+                }
+            } else if (!taskDescription.isEmpty() && this.taskWorker.checkTaskDescription(taskDescription)) {
+                // Check if the task description is valid
+                return taskDescription;
+            } else {
+                JOptionPane.showMessageDialog(null, "Task description is either empty or exceeded 50 characters, please try again");
+            }
+        }
+    }
+
+    // Method to enter the task developer's information
+    private String enterTaskDeveloperInfo() {
+        while (true) {
+            String taskDevInfo = JOptionPane.showInputDialog("Please enter the task developer's full name");
+            if (taskDevInfo == null) {
+                // User canceled task entry
+                int choice = JOptionPane.showConfirmDialog(null, "Cancel entering tasks?");
+                if (choice == JOptionPane.YES_OPTION || choice == JOptionPane.CLOSED_OPTION) {
+                    return null;
+                }
+            } else if (taskDevInfo.length() < 2) {
+                JOptionPane.showMessageDialog(null, "The task developer's name must be greater than 2 characters, please try again");
+            } else {
+                return taskDevInfo;
+            }
+        }
+    }
+
+    // Method to enter the task duration
+    private int enterTaskDuration() {
+        int taskDuration = 0;
+        while (true) {
+            try {
+                taskDuration = Integer.parseInt(JOptionPane.showInputDialog("Please enter the estimated task duration"));
+                if (taskDuration <= 0) {
+                    JOptionPane.showMessageDialog(null, "Invalid input for task duration! Duration must be a positive number.");
+                    continue;
+                }
+                break;
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(null, "Invalid input for task duration! Please try again.");
+            } catch (NullPointerException e) {
+                // User canceled task entry
+                break;
+            }
+        }
+        return taskDuration;
     }
     //----------------------------------------------------------------------------------------------------------------//
     protected void beginShowReportHere() {
