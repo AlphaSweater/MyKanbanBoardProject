@@ -90,7 +90,7 @@ public class MyTaskListControllerTest {
     }
     //----------------------------------------------------------------------------------------------------------------//
     @Test
-    public void testFindAllToDoTasksWithMultipleTasks() {
+    public void testFindAllToDoTasks_WithMultipleTasks() {
         ArrayList<String> expectedTasks = new ArrayList<>();
         for (MyTasksClass task : testTaskListController.getListOfTasks()) {
             if (task.getTaskStatus().equals("To Do")) {
@@ -104,7 +104,7 @@ public class MyTaskListControllerTest {
         Assert.assertEquals("The correct Tasks were not found!!!",expectedTasks, result);
     }
     @Test
-    public void testFindAllToDoTasksWithNoTasks() {
+    public void testFindAllToDoTasks_WithNoTasks() {
         for (MyTasksClass task : testTaskListController.getListOfTasks()) {
             task.setTaskStatus("Doing");
         }
@@ -115,7 +115,7 @@ public class MyTaskListControllerTest {
     }
     //----------------------------------------------------------------------------------------------------------------//
     @Test
-    public void testFindAllDoingTasksWithMultipleTasks() {
+    public void testFindAllDoingTasks_WithMultipleTasks() {
         ArrayList<String> expectedTasks = new ArrayList<>();
         for (MyTasksClass task : testTaskListController.getListOfTasks()) {
             if (task.getTaskStatus().equals("Doing")) {
@@ -129,7 +129,7 @@ public class MyTaskListControllerTest {
         Assert.assertEquals("The correct Tasks were not found!!!",expectedTasks, result);
     }
     @Test
-    public void testFindAllDoingTasksWithNoTasks() {
+    public void testFindAllDoingTasks_WithNoTasks() {
         for (MyTasksClass task : testTaskListController.getListOfTasks()) {
             task.setTaskStatus("Done");
         }
@@ -140,7 +140,7 @@ public class MyTaskListControllerTest {
     }
     //----------------------------------------------------------------------------------------------------------------//
     @Test
-    public void testFindAllDoneTasksWithMultipleTasks() {
+    public void testFindAllDoneTasks_WithMultipleTasks() {
         ArrayList<String> expectedTasks = new ArrayList<>();
         for (MyTasksClass task : testTaskListController.getListOfTasks()) {
             if (task.getTaskStatus().equals("Done")) {
@@ -154,7 +154,7 @@ public class MyTaskListControllerTest {
         Assert.assertEquals("The correct Tasks were not found!!!",expectedTasks, result);
     }
     @Test
-    public void testFindAllDoneTasksWithNoTasks() {
+    public void testFindAllDoneTasks_WithNoTasks() {
         for (MyTasksClass task : testTaskListController.getListOfTasks()) {
             task.setTaskStatus("To Do");
         }
@@ -174,13 +174,13 @@ public class MyTaskListControllerTest {
         Assert.assertEquals("Task Incorrect",expectedResult, result);
     }
     @Test
-    public void testFindShortestTaskWithEmptyList() {
+    public void testFindShortestTask_WithEmptyList() {
         testTaskListController.getListOfTasks().clear(); // Clear the list to simulate an empty list
         String result = testTaskListController.findShortestTask();
         Assert.assertNull(result);
     }
     @Test
-    public void testFindShortestTaskWithEqualDurations() {
+    public void testFindShortestTask_WithEqualDurations() {
         MyTasksClass task5 = new MyTasksClass(5, "Task 5", "Description 1",
                 1, "To Do", "Developer 5");
         MyTasksClass task6 = new MyTasksClass(6, "Task 6", "Description 2",
@@ -205,13 +205,13 @@ public class MyTaskListControllerTest {
         Assert.assertEquals("Task Incorrect",expectedResult, result);
     }
     @Test
-    public void testFindLowestTaskWithEmptyList() {
+    public void testFindLowestTask_WithEmptyList() {
         testTaskListController.getListOfTasks().clear(); // Clear the list to simulate an empty list
         String result = testTaskListController.findLongestTask();
         Assert.assertNull(result);
     }
     @Test
-    public void testFindLowestTaskWithEqualDurations() {
+    public void testFindLowestTask_WithEqualDurations() {
         MyTasksClass task5 = new MyTasksClass(5, "Task 5", "Description 1",
                 20, "To Do", "Developer 5");
         MyTasksClass task6 = new MyTasksClass(6, "Task 6", "Description 2",
@@ -227,7 +227,7 @@ public class MyTaskListControllerTest {
     }
     //----------------------------------------------------------------------------------------------------------------//
     @Test
-    public void testSearchForExistingTask() {
+    public void testSearchFor_ExistingTask() {
         // Testing for an existing task
         MyTasksClass expectedTask = testTaskListController.getListOfTasks().get(0); // Get the first task from the list
         String expectedResult = "-> Task Name : " + expectedTask.getTaskName() + "\n"
@@ -238,21 +238,21 @@ public class MyTaskListControllerTest {
         Assert.assertEquals("The task was not found", expectedResult, result);
     }
     @Test
-    public void testSearchForNonExistingTask() {
+    public void testSearchFor_NonExistingTask() {
         // Testing for a non existing task
         String nonExistingTaskName = "Non-existing Task";
         String result = testTaskListController.searchForTask(nonExistingTaskName);
         Assert.assertNull("The task was not meant to be found!!!", result);
     }
     @Test
-    public void testSearchForTaskWithNullName() {
+    public void testSearchFor_TaskWithNullName() {
         // Testing a search with a Null name
         String result = testTaskListController.searchForTask(null);
         Assert.assertNull("That should return Null!!!", result);
     }
     //----------------------------------------------------------------------------------------------------------------//
     @Test
-    public void testFindAllDevsTasksWithExistingDevName() {
+    public void testFindAllDevsTasks_WithExistingDevName() {
         String devName = testTaskDevs[0]; // Using the first developer name from @Before data
 
         ArrayList<String> expectedTasks = new ArrayList<>();
@@ -267,7 +267,7 @@ public class MyTaskListControllerTest {
         Assert.assertEquals("Tasks were incorrect",expectedTasks, result);
     }
     @Test
-    public void testFindAllDevsTasksWithNoAssignedTasks() {
+    public void testFindAllDevsTasks_WithNoAssignedTasks() {
         String devName = "Non-existing Developer";
 
         ArrayList<String > result = testTaskListController.findAllDevsTasks(devName);
@@ -275,14 +275,14 @@ public class MyTaskListControllerTest {
         Assert.assertTrue(result.isEmpty());
     }
     @Test
-    public void testFindAllDevsTasksWithNullDevName() {
+    public void testFindAllDevsTasks_WithNullDevName() {
         ArrayList<String> result = testTaskListController.findAllDevsTasks(null);
         Assert.assertNotNull(result);
         Assert.assertTrue(result.isEmpty());
     }
     //----------------------------------------------------------------------------------------------------------------//
     @Test
-    public void testDeleteExistingTask() {
+    public void testDelete_ExistingTask() {
         String taskToDeleteName = testTaskName[0]; // Get the name of the first task
         MyTasksClass taskToDelete = testTaskListController.getListOfTasks().get(0);
         String expectedResult = "Entry " + taskToDeleteName + " successfully deleted";
@@ -292,7 +292,7 @@ public class MyTaskListControllerTest {
         Assert.assertFalse(testTaskListController.getListOfTasks().contains(taskToDelete));
     }
     @Test
-    public void testDeleteNonExistingTask() {
+    public void testDelete_NonExistingTask() {
         String nonExistingTaskName = "Non-existing Task";
         String expectedResult = "No entry with that name was found";
 
