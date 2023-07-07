@@ -188,34 +188,41 @@ public class MyHomeWorkerClass {
     protected void beginShowReportHere() {
         boolean closeReport = false;
         while (!closeReport) {
+            // Display options in a dialog
             String[] options = {"Search For", "Find Task By Duration", "Delete Tasks", "Show all Tasks", "QUIT"};
             int choice = JOptionPane.showOptionDialog(null, "Choose an option:", "Options",
                     JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, options, null);
 
+            // Execute different actions based on the user's choice
             switch (choice) {
-                case 0 -> searchTasks();
-                case 1 -> findTasksByDuration();
+                case 0 -> searchTasks(); // Option: Search for tasks
+                case 1 -> findTasksByDuration(); // Option: Find tasks by duration
                 case 2 -> {
-                    deleteTasks();
-                    populateTableData();
+                    deleteTasks(); // Option: Delete tasks
+                    populateTableData(); // Update table data after deletion
                 }
-                case 3 -> showAllTasks();
-                default -> closeReport = true;
+                case 3 -> showAllTasks(); // Option: Show all tasks
+                default -> closeReport = true; // Option: Quit the program
             }
         }
     }
+
     private void searchTasks() {
         boolean closeSearch = false;
         while (!closeSearch) {
+            // Display search options in a dialog
             String[] searchOptions = {"By Task Name", "By Task Developer", "By Task Status", "BACK"};
-            int searchChoice = JOptionPane.showOptionDialog(null, "How would you like to Search:"
-                    , "Searching",
-                    JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, searchOptions, null);
+            int searchChoice = JOptionPane.showOptionDialog(null, "How would you like to Search:",
+                    "Searching", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, searchOptions,
+                    null);
 
+            // Execute different search actions based on the user's choice
             switch (searchChoice) {
                 case 0 -> {
-                    String inTaskName = JOptionPane.showInputDialog(null
-                            , "Please Enter the name of the task:");
+                    // Search by task name
+                    String inTaskName = JOptionPane.showInputDialog(null,
+                            "Please Enter the name of the task:");
+                    // Perform the search and display the result
                     String result = taskListController.searchForTask(inTaskName);
                     if (result != null) {
                         JOptionPane.showMessageDialog(null, "Task \"" + inTaskName
@@ -227,8 +234,10 @@ public class MyHomeWorkerClass {
                     }
                 }
                 case 1 -> {
-                    String inDevName = JOptionPane.showInputDialog(null
-                            , "Please Enter the name of the Developer:");
+                    // Search by task developer
+                    String inDevName = JOptionPane.showInputDialog(null,
+                            "Please Enter the name of the Developer:");
+                    // Perform the search and display the results
                     ArrayList<String> results = taskListController.findAllDevsTasks(inDevName);
                     if (!results.isEmpty()) {
                         int numTasks = results.size();
@@ -247,46 +256,92 @@ public class MyHomeWorkerClass {
                         JOptionPane.showMessageDialog(null, "No Tasks found");
                     }
                 }
-                case 2 -> searchTasksByStatus();
-                default -> closeSearch = true;
+                case 2 -> searchTasksByStatus(); // Option: Search by task status
+                default -> closeSearch = true; // Option: Go back
             }
         }
     }
+
     private void searchTasksByStatus() {
         boolean closeStatusSearch = false;
         while (!closeStatusSearch) {
+            // Display status search options in a dialog
             String[] statusOptions = {"By \"To Do\"", "By \"Doing\"", "By \"Done\"", "BACK"};
-            int statusChoice = JOptionPane.showOptionDialog(null
-                    , "Which Task Status would you like to search for?:",
-                    "Searching", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null
-                    , statusOptions, null);
+            int statusChoice = JOptionPane.showOptionDialog(null,
+                    "Which Task Status would you like to search for?:",
+                    "Searching", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE,
+                    null, statusOptions, null);
 
+            // Perform search actions based on the user's choice
             switch (statusChoice) {
                 case 0 -> {
+                    // Search tasks with status "To Do"
                     displayTasks(taskListController.findAllToDoTasks());
                     closeStatusSearch = true;
                 }
                 case 1 -> {
+                    // Search tasks with status "Doing"
                     displayTasks(taskListController.findAllDoingTasks());
                     closeStatusSearch = true;
                 }
                 case 2 -> {
+                    // Search tasks with status "Done"
                     displayTasks(taskListController.findAllDoneTasks());
                     closeStatusSearch = true;
                 }
-                default -> closeStatusSearch = true;
+                default -> closeStatusSearch = true; // Option: Go back
             }
         }
     }
+
+    private void findTasksByDuration() {
+        boolean closeDurationSearch = false;
+        while (!closeDurationSearch) {
+            // Display search options in a dialog
+            String[] searchOptions = {"Find Longest Task", "Find Shortest Task", "BACK"};
+            int searchChoice = JOptionPane.showOptionDialog(null,
+                    "What Would you Like to Find?",
+                    "Searching", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE,
+                    null, searchOptions, null);
+
+            // Execute different find actions based on the user's choice
+            switch (searchChoice) {
+                case 0 -> {
+                    // Find task with the longest duration
+                    if (taskListController.findLongestTask() != null) {
+                        displayTask("Found Task with the Longest Duration:",
+                                taskListController.findLongestTask());
+                    } else {
+                        JOptionPane.showMessageDialog(null, "No Tasks found");
+                    }
+                }
+                case 1 -> {
+                    // Find task with the shortest duration
+                    if (taskListController.findShortestTask() != null) {
+                        displayTask("Found Task with the Shortest Duration:",
+                                taskListController.findShortestTask());
+                    } else {
+                        JOptionPane.showMessageDialog(null, "No Tasks found");
+                    }
+                }
+                default -> closeDurationSearch = true; // Option: Go back
+            }
+        }
+    }
+
     private void showAllTasks() {
+        // Retrieve all tasks and display them
         ArrayList<String> results = taskListController.findAllCapturedTasks();
         displayTasks(results);
     }
+
     private void displayTasks(ArrayList<String> tasks) {
         if (!tasks.isEmpty()) {
             int numTasks = tasks.size();
             String message = (numTasks == 1) ? "1 Task has been found!" : numTasks + " Tasks have been found!";
             JOptionPane.showMessageDialog(null, message);
+
+            // Display each task in a separate dialog
             for (int i = 0; i < tasks.size(); i++) {
                 String taskInfo = tasks.get(i);
                 JOptionPane.showMessageDialog(null, "Here is Task "
@@ -299,45 +354,28 @@ public class MyHomeWorkerClass {
             JOptionPane.showMessageDialog(null, "No Tasks found");
         }
     }
-    private void findTasksByDuration() {
-        boolean closeDurationSearch = false;
-        while (!closeDurationSearch) {
-            String[] searchOptions = {"Find Longest Task", "Find Shortest Task", "BACK"};
-            int searchChoice = JOptionPane.showOptionDialog(null, "What Would you Like to Find?"
-                    , "Searching",
-                    JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, searchOptions, null);
 
-            switch (searchChoice) {
-                case 0 -> {
-                    if (taskListController.findLongestTask() != null) {
-                        displayTask("Found Task with the Longest Duration:", taskListController.findLongestTask());
-                    }else JOptionPane.showMessageDialog(null, "No Tasks found");
-                }
-                case 1 -> {
-                    if (taskListController.findShortestTask() != null) {
-                        displayTask("Found Task with the Shortest Duration:", taskListController.findShortestTask());
-                    }else JOptionPane.showMessageDialog(null, "No Tasks found");
-                }
-                default -> closeDurationSearch = true;
-            }
-        }
-    }
     private void displayTask(String message, String taskInfo) {
         JOptionPane.showMessageDialog(null, message + "\n"
                 + "-------------------------------------------------------------------------" + "\n"
                 + taskInfo);
     }
+
     private void deleteTasks() {
+        // Prompt for task name to delete
         String inTaskName = JOptionPane.showInputDialog(null,
                 "Please Enter the name of the task you would like to delete:");
+        // Search for the task and display the result
         String result = taskListController.searchForTask(inTaskName);
         if (result != null) {
+            // Ask for confirmation before deleting the task
             int userChoice = JOptionPane.showConfirmDialog(null, "Task \"" + inTaskName
                     + "\" successfully found" + "\n"
                     + "-------------------------------------------------------------------------"
                     + "\n" + result + "\n" + "-------------------------------------------------------------------------"
                     + "\n" + "Are you Sure you want to Delete this Task?");
             if (userChoice == JOptionPane.YES_OPTION) {
+                // Delete the task
                 taskListController.deleteTask(inTaskName);
                 JOptionPane.showMessageDialog(null, "Task Successfully Deleted");
             } else {

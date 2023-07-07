@@ -3,25 +3,36 @@ package com.alphasweater.MyTasks;
 import java.util.ArrayList;
 
 /* Author: Chad Fairlie
-*  Pseudonym: AlphaSweater
-*  Student Number: ST10269509
----------------------------------------------------------------------------------------------------------------------*/
+ *  Pseudonym: AlphaSweater
+ *  Student Number: ST10269509
+ */
 public class MyTaskListController {
-    
+
     //----------------------------------------------------------------------------------------------------------------//
+    // Variable to store the number of tasks
     private int numOfTasks;
+
+    // Getter method for the number of tasks
     public int getNumOfTasks() {
         return numOfTasks;
     }
+
+    // Setter method for the number of tasks
     public void setNumOfTasks(int numOfTasks) {
         this.numOfTasks = numOfTasks;
-    } 
+    }
     //----------------------------------------------------------------------------------------------------------------//
+
+    // ArrayList to store the tasks
     private final ArrayList<MyTasksClass> listOfTasks = new ArrayList<>();
+
+    // Getter method for the list of tasks
     public ArrayList<MyTasksClass> getListOfTasks() {
         return listOfTasks;
     }
     //----------------------------------------------------------------------------------------------------------------//
+
+    // Method to calculate the total duration of all tasks
     public int returnTotalHours(ArrayList<MyTasksClass> listOfTasks) {
         int totalHours = 0;
         for (MyTasksClass task : listOfTasks) {
@@ -30,7 +41,9 @@ public class MyTaskListController {
         return totalHours;
     }
     //----------------------------------------------------------------------------------------------------------------//
-    public ArrayList<String> findAllToDoTasks (){
+
+    // Method to find all tasks with status "To Do"
+    public ArrayList<String> findAllToDoTasks() {
         ArrayList<String> listOfTaskStatusDone = new ArrayList<>();
         for (MyTasksClass task : this.listOfTasks) {
             if (task.getTaskStatus().equalsIgnoreCase("To Do")) {
@@ -42,7 +55,9 @@ public class MyTaskListController {
         return listOfTaskStatusDone;
     }
     //----------------------------------------------------------------------------------------------------------------//
-    public ArrayList<String> findAllDoingTasks (){
+
+    // Method to find all tasks with status "Doing"
+    public ArrayList<String> findAllDoingTasks() {
         ArrayList<String> listOfTaskStatusDone = new ArrayList<>();
         for (MyTasksClass task : this.listOfTasks) {
             if (task.getTaskStatus().equalsIgnoreCase("Doing")) {
@@ -54,7 +69,9 @@ public class MyTaskListController {
         return listOfTaskStatusDone;
     }
     //----------------------------------------------------------------------------------------------------------------//
-    public ArrayList<String> findAllDoneTasks (){
+
+    // Method to find all tasks with status "Done"
+    public ArrayList<String> findAllDoneTasks() {
         ArrayList<String> listOfTaskStatusDone = new ArrayList<>();
         for (MyTasksClass task : this.listOfTasks) {
             if (task.getTaskStatus().equalsIgnoreCase("Done")) {
@@ -66,7 +83,9 @@ public class MyTaskListController {
         return listOfTaskStatusDone;
     }
     //----------------------------------------------------------------------------------------------------------------//
-    public String findLongestTask (){
+
+    // Method to find the task with the longest duration
+    public String findLongestTask() {
         if (this.listOfTasks.size() != 0) {
             int longest = this.listOfTasks.get(0).getTaskDuration();
             MyTasksClass longestTask = this.listOfTasks.get(0);
@@ -84,7 +103,9 @@ public class MyTaskListController {
         return null;
     }
     //----------------------------------------------------------------------------------------------------------------//
-    public String findShortestTask (){
+
+    // Method to find the task with the shortest duration
+    public String findShortestTask() {
         if (this.listOfTasks.size() != 0) {
             int shortest = this.listOfTasks.get(0).getTaskDuration();
             MyTasksClass shortestTask = this.listOfTasks.get(0);
@@ -102,7 +123,9 @@ public class MyTaskListController {
         return null;
     }
     //----------------------------------------------------------------------------------------------------------------//
-    public String searchForTask (String taskName){
+
+    // Method to search for a task by its name
+    public String searchForTask(String taskName) {
         for (MyTasksClass task : this.listOfTasks) {
             if (task.getTaskName().equalsIgnoreCase(taskName)){
                 return "-> Task Name : " + task.getTaskName() + "\n"
@@ -113,7 +136,9 @@ public class MyTaskListController {
         return null;
     }
     //----------------------------------------------------------------------------------------------------------------//
-    public ArrayList<String> findAllDevsTasks (String devName){
+
+    // Method to find all tasks assigned to a specific developer
+    public ArrayList<String> findAllDevsTasks(String devName) {
         ArrayList<String> listOfDevsTasks = new ArrayList<>();
         for (MyTasksClass task : this.listOfTasks) {
             if (task.getTaskDevInfo().equalsIgnoreCase(devName)){
@@ -124,7 +149,9 @@ public class MyTaskListController {
         return listOfDevsTasks;
     }
     //----------------------------------------------------------------------------------------------------------------//
-    public String deleteTask (String taskToDeleteName){
+
+    // Method to delete a task by its name
+    public String deleteTask(String taskToDeleteName) {
         MyTasksClass taskToDelete = null;
         for (MyTasksClass task : this.listOfTasks) {
             if (task.getTaskName().equalsIgnoreCase(taskToDeleteName)){
@@ -143,13 +170,16 @@ public class MyTaskListController {
         return "Task deletion failed";
     }
     //----------------------------------------------------------------------------------------------------------------//
-    public ArrayList<String> findAllCapturedTasks (){
+
+    // Method to find details of all captured tasks
+    public ArrayList<String> findAllCapturedTasks() {
         ArrayList<String> listOfTasksInfo = new ArrayList<>();
         for (MyTasksClass task : this.listOfTasks) {
-          listOfTasksInfo.add(task.printTaskDetails());
+            listOfTasksInfo.add(task.printTaskDetails());
         }
         return listOfTasksInfo;
     }
 }
+
 //--------------------------------------------------------------------------------------------------------------------//
 //--------------------------------------------------------EOF---------------------------------------------------------//
